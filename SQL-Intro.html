@@ -45,31 +45,47 @@
 
 
 <div class="docs-section" id="intro">
-  <h5 class="title">Setting up T-SQL</h5>
+  <h5 class="title">Intro to T-SQL</h5>
              
-             <p><b>Download MS SQL Express 2014 with Tools</b></p>
-			 <ol>
-			 <li>Follow link <a href="https://www.microsoft.com/en-US/download/details.aspx?id=42299">here</a>.</li>
-			 <li>Select language.</li>
-			 <li>Click download.</li>
-			 <li>Check ExpressAndTools 64BIT\SQLEXPRWT_x64_ENU.exe and download.</li>
-			 </ol>
-			 <br><br>
+             <p><b>What is T-SQL?</b></p>
+			 <p>As noted elsewhere, T-SQL is a set of procedural extensions for SQL. They are proprietary to Sybase and Microsoft. Whether this is the
+			extension you end up using at work or elsewhere is less of preference, however, and more about the existing systems. If your company uses Oracle
+			for data, you'll likely require knowledge of PL/SQL. If your company uses a SQL Server, you'll likely use T-SQL. Other extensions exist as well, but these are
+			two are the most common.</p>
+			<p>The differences between PL/SQL and T-SQL are usually two-fold: (1) different software and (2) different syntax. While the two are more similar than not, there
+			are also enough idiosyncratic differences to be frustrating. For now, this guide will only address T-SQL. There are softwares that can handle both extensions, but
+			SQL Developer is the Oracle-proprietary software and SQL Server Management Studio is the Microsoft analog.</p>
+			
+			<br><br>
                                                     
-             <p><b>Install</b></p>
-			 <ol>
-			 <li>Unless you have reason otherwise, select "New SQL Server stand-alone installation..." when prompted.</li>
-			 <li>Accept license terms when prompted.</li>
-			 <li>On Feature Selection window, ensure that you select LocalDB in addition to the
-			 default selections.</li>
-			 <pre><div align="center"><img src="images/Feature-Selection-Choices.JPG" alt="Feature Selection Window"></div></pre>
-			 <li>On Instance Configuration window, ensure that you remember the named instance
-			 and Instance ID if you choose to change them. I recommend the default.</li>
-			 <pre><div align="center"><img src="images/Instance-Config.JPG" alt="Instance Configuration Window"></div></pre>
-			 <li>Unless you have reason otherwise, press Next on Server Configuration screen.</li>
-             </ol>
+             <p><b>SQL Server Management Studio (SMSS) and the Server</b></p>
+			 <p>Check out <a href="../SQL/SQL-Setup.html">the setup instructions</a> if you haven't already installed SQL Server Management Studio.</p>
+			 <p>SQL Server Management Studio comes with multiple services, some of which are related to analysis, reporting, and/or storage. Primary work with data and databases
+			 occurs in the <b>Database Engine</b>. This is the only service that this guide will explain and use. Be sure to select it when connecting to a server.</p>
+			 
+			 <!-- Add pic -->
+			 
+			 
+			 <p>SQL Server Management Studio (SMSS) allows you access to a server, its structure and its contents (called <b>objects</b>). SMSS can connect and query across numerous servers (if permitted), 
+			 but it is fairly common to work within a single server instance. A server is essentially a computer. Your own computer can function as a server, as we saw when we
+			 established a local server instance. Physical remote servers are the norm because they have significant computing power and data storage. Today, cloud-based servers
+			 (such as Azure) are growing in popularity due to the relative inexpensive cost of data storage and also due to generally better encryption and security.</p>
 			 <br><br>
-             
+			 
+			 <p><b>Servers and Server Objects</b></p>
+             <p>The server contains objects. In the <b>Object Explorer</b> window, you can expand a server instance to examine its contents.</p> 
+			 
+			 <!-- Add pic -->
+
+			 <p>Within the Server, database objects are the principal use case for an analyst. Other server objects become relevant if you also handle database management (frequently referred
+			 to Database Administrators, or DBAs, in the workforce). We will not cover these items, and I unfortunately do not know much about this area.</p> 
+			 <p>Databases are the workhorse of data. Just as SMSS allows queries across servers, it also allows queries across databases. If you work for a company with a lot of data, you will likely need to query at least
+			across databases. Databases tend to have deliberate groupings of like data and processes. Within these databases, the most relevant objects are: tables, views, stored procedures, 
+			and functions.</p> 
+			<p>Tables contain the data (formally, they are <b>records</b>). Views are stored queries. Stored procedures are typically a group of queries that creates or retrieves data in an automated, scripted fashion.
+			The stored procedures can contain parameters that are supplied when running the procedure. Use of the functions object is typically confined to user-created functions.</p> 
+			
+			<!-- Add pic -->
 
 </div>
 	
