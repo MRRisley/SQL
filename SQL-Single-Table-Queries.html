@@ -89,7 +89,8 @@ where status = 'inactive'
 	</code></pre>
 	
 	<p>The query can be read as follows: <code>select</code> the <code>account#</code> field from the <code>checkingaccountdata</code> table 
-	for all records where another field, <code>status</code>, is equal to "inactive".</p>
+	for all records where another field, <code>status</code>, is equal to "inactive". Note that SQL is <b>NOT</b> case sensitive. It does not
+	care whether you capitalize or not. This is not true for all programming languages, however.</p>
 	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
@@ -100,7 +101,33 @@ where status = 'inactive'
 
 <div class="docs-section" id="intro">
   <h5 class="select">2. The <code>SELECT</code> Statement</h5>
+	<p>The <code>SELECT</code> statement is the mother of all statements. The base requirement for a query is the <code>SELECT</code> statement. As shown above,
+	this statement essentially tells the server precisely what you want to see. Without it, there is no query.</p>
+	<p>Because the <code>SELECT</code> statement is the only required piece of a query, all other components are usually referred to as <b>clauses</b>,
+	which are simply qualifiactions to the statement. Telling the statement what table to look at and how to look at it are common clauses--so common, in fact, that
+    the distinction between the <code>SELECT</code> statement and the <code>FROM</code> clause is mostly a semantic issue.</p>	
+	<p>I have only used the <code>SELECT</code> statement by itself in practice to perform basic operations. Unlike some programming languages, such as R or Excel VBA,
+	SQL does not have a "console," which is essentially a command line. In other languages, this is where you could easily and quickly return a result, such as the 
+	square root of 898. Without a console, the code must be written within the script:</p>	
+	
+		<pre><code>
+select sqrt(898)
+		</code></pre>
+	
+	<p>Note that these kind of operations in SQL are usually much more difficult to program than simply arriving at the answer using a calculator.
+	This is due to a number of reasons, such as T-SQL not supporting complex numbers as well as floating-point precision. For example,</p> 
 
+		<pre><code>
+select 50/100
+		</code></pre>
+	
+	<p>returns 1. This is because SQL reads 50 and 100 as integers and returns the nearest integer (i.e., 0.5 gets rounded to 1). For issues related to
+	floating-point precision and numeric values, see <a href="../Programming/index.html#numeric">a description</a> of numeric variables in programming.</p>
+
+	<p>Most applications of the <code>SELECT</code> statement will include use of a table. From a table, the statement will usually refer to fields, aggregations of fields,
+	or manipulations of existing fields.</p>
+	
+			 <!-- Add example select statement -->  
 	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
