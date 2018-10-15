@@ -45,8 +45,8 @@
 
 
 <div class="container" id="nav">
-	<h5>Single-Table Queries: Topics</h5>
-	<p><a href = "#intro">1. Intro</a>
+	<h5>Topics</h5>
+	<p><a href = "#intro">1. Intro to Single-Table Queries</a>
 	<!--<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#intro_a">a. Types of Programming</a>-->
 	
 	<br><a href = "#select">2. The <code>SELECT</code> Statement</a>
@@ -73,17 +73,58 @@
 	
 <div class="docs-section" id="intro">
   <h5 class="title">1. Intro to Single-Table Queries</h5>
-             
-
+	<p>Data within relational databases are stored in tables as observations, or <b>records<b>. Each record has one or more <b>fields</b>, or columns.
+	If you're familiar with Excel Pivot tables, relational data are essentially the original, un-pivoted data.
+	The table excerpt below demonstrates the structure of tables within relational databases.</p>
+			 <!-- Add pic -->             
+	
+	Single-table queries are the foundation of SQL. A single-table query is simply what it says: a query on a single table. A query is (usually) a small program
+	that specifies what to return from a table. Queries can "filter" results, they can aggregate results, and they can sort them. Imagine you work at a bank and have
+	a table with checking accounts. You want to return checking accounts that are inactive. A pseudo-query may look like:</p>
+	
+	<pre><code>
+select account#
+from checkingaccountdata
+where status = 'inactive'
+	</code></pre>
+	
+	<p>The query can be read as follows: <code>select</code> the <code>account#</code> field from the <code>checkingaccountdata</code> table 
+	for all records where another field, <code>status</code>, is equal to "inactive".</p>
+	
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
-	
-             
+
+
+
+
+
+<div class="docs-section" id="intro">
+  <h5 class="select">2. The <code>SELECT</code> Statement</h5>
 
 	
-
-	
-	
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+			 
+
+
+	
+	
+
 	
   	
 
@@ -91,7 +132,7 @@
 
 	<div class="docs-section" align="center">
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-	<a href="../SQL/index.html"><h5>Back to SQL Home</h5></a>
+	<a href="../MRRisley/index.html"><h5>Back to SQL Home</h5></a>
 	</div>
 
 </div>
