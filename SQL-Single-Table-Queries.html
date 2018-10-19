@@ -132,6 +132,43 @@ select 50/100
 	or manipulations of existing fields.</p>
 	
 			 <!-- Add example select statement -->  
+			 
+			 <div align="center"><a href = "#top"><h6>Top</h6></a></div>
+	
+	<p><b><code>SELECT *</code></b></p>
+	<p>To return the complete contents of a table, you can simply use the <code>SELECT *</code> statement on a table.</p>
+	
+	<!-- Add example select statement -->  
+	
+	<p>Returns:</p>
+	
+	<!-- Add example select statement -->
+	
+	<p>This is a mostly useful statement in practice; however, it should not be used indiscriminantly. It is generally useful
+	because when you enter a server used in the real world, it is likely that there will be many, many databases and many tables.
+	The process of learning what is in them (fields and types of data) requires a query in most cases. However, if you don't understand 
+	the size or the structure of a table, using <code>SELECT *</code> could very well initiate a query that takes hours if the table is large enough.
+	In practice, I have found the act of stopping a query (sometimes referred to casually as "killing" the query) easy enough to do in
+	SQL Server Management Studio. I have found it to lock up other programs (such as SQL Developer). If you ever have a query that 
+	continues to run for a while (referred to casually as a query that's "spinning"), you can cancel it is SSMS by pressing the red "Stop"
+	button:</p>
+	
+	<p>There are two options I tend to prefer if I don't know the size of the table, or if there is risk that a <code>SELECT *</code> will
+	take time to complete:</p>
+	
+	<ul>
+	<li>Use <code>SELECT TOP 10 *</code>, which will return the top 10 records. You can change the number 10 to any number
+	you prefer. Also, if your query is written with logic that filters results, only the top 10 records that meet the filtering 
+	criteria will be displayed. <b>Note:</b> the TOP keyword does not exist in PL/SQL.</li>
+	<li>Right-click on a table in the Object Explorer, and select "Select Top 1000 Rows." A query is then self-generated. 
+	The benefit of this option is that for a table with many columns, reading the fields is much easier. You can also copy/paste
+	field names or the table name.</li>
+	</ul>
+	
+	<!-- Add example select statement -->
+	
+	
+	
 	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
