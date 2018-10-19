@@ -78,6 +78,8 @@
 	If you're familiar with Excel Pivot tables, relational data are essentially the original, un-pivoted data.
 	The table excerpt below demonstrates the structure of tables within relational databases.</p>
 	
+	
+	
 	<pre>
 DepartmentID	Name				GroupName				ModifiedDate
 1		Engineering			Research and Development		2008-04-30 00:00:00.000
@@ -88,6 +90,8 @@ DepartmentID	Name				GroupName				ModifiedDate
 
 ...
 	</pre>
+	
+	
 	
 	Single-table queries are the foundation of SQL. A single-table query is simply what it says: a query on a single table. A query is (usually) a small program
 	that specifies what to return from a table. Queries can "filter" results, they can aggregate results, and they can sort them. Imagine you work at a bank and have
@@ -135,18 +139,38 @@ select 50/100
 	<p>Most applications of the <code>SELECT</code> statement will include use of a table. From a table, the statement will usually refer to fields, aggregations of fields,
 	or manipulations of existing fields.</p>
 	
-			 <!-- Add example select statement -->  
+	<pre><code>
+select name, 
+groupname,  
+modifieddate
+from adventureworks.humanresources.department
+	</code></pre>	
+	
+<p>This query returns the table shown above. One important point about this and all queries: just as SQL does not care about case (i.e. capitalization),
+it also does not care about line breaks. I have never heard of "rules" for when to break lines with SQL. Generally, however, as you become more 
+comfortable with programming in T-SQL you should code in a way that promotes readability as well as consistency. The code below will work
+just as well as the code above, but it's not nearly as readable:</p> 	
+
+	<pre><code>
+select 
+name, groupname  
+,modifieddate
+from 
+adventureworks.humanresources.department
+	</code></pre>	
 			 
 			 <div align="center"><a href = "#top"><h6>Top</h6></a></div>
 	
+	
+	<br>
 	<p><b><code>SELECT *</code></b></p>
-	<p>To return the complete contents of a table, you can simply use the <code>SELECT *</code> statement on a table.</p>
+	<p>To return the complete contents of a table, you can simply use the <code>SELECT *</code> statement on a table.
+	The query below also returns the table shown above because all fields were selected in the original query.</p>
 	
-	<!-- Add example select statement -->  
-	
-	<p>Returns:</p>
-	
-	<!-- Add example select statement -->
+	<pre><code>
+select *
+from adventureworks.humanresources.department
+	</code></pre>
 	
 	<p>This is a mostly useful statement in practice; however, it should not be used indiscriminantly. It is generally useful
 	because when you enter a server used in the real world, it is likely that there will be many, many databases and many tables.
@@ -184,11 +208,11 @@ select 50/100
   <h5 class="select">2. The <code>FROM</code> clause</h5>
 
 	<p>The <code>FROM</code> clause is such a common feature in SQL that it may as well be considered as its own statement rather
-	than a "clause." But because the <code>SELECT</code> statement can stand on its own without the <code>FROM</code> clause, it 
+	than a "clause." But because the <code>SELECT</code> statement can stand on its own,
 	anything that provides specificity to the <code>SELECT</code> statement is considered a clause.</p>
 	
 	<p>The <code>FROM</code> clause simply points to a table or a view. We've already seen it used before. There is a specific syntax
-	to table/view names. If anyone you're familiar with the . in VBA, you'll recognize the way a table is referred to. In VBA, the period
+	to table/view names. If you're familiar with the . in VBA, you'll recognize the way a table is referred to. In VBA, the period
 	allows you to navigate down a hierarchy. So, you start with the highest level first, then the next highest, and so on. For a table or 
 	a view (and also a function), the full qualification is:</p>
 	
@@ -201,7 +225,7 @@ select 50/100
 	It is a special character, and all programs have rules to handle special characters. 
 	Typically programmers (myself included) are used to this and avoid spaces altogether. 
 	But, you don't have to in T-SQL. Brackets are designed to tell the program to interpret the character only as a character.
-	This is called "escaping" a special character. Technically, in the example below, the forward slash, "/", is also a special
+	This is called "escaping" a special character. In the example above, the forward slash, "/", is also a special
 	character.
 	</p>
 	
@@ -213,6 +237,7 @@ select 50/100
 	use them when necessary.
 	</p>
 	
+	<br>
 	<pre><code>
 [server name].[database name].[schema name].[table/view name]
 	</code></pre>	
@@ -230,6 +255,7 @@ server_name.[database_name].schema_name.[table/view name]
 	</code></pre>	
 	
 	<p>are all acceptable.</p>
+	<br>
 	
 	<p>
 	The server stores databases, and databases store tables/views assigned to a schema. Schema can be used for a number of
@@ -241,7 +267,7 @@ server_name.[database_name].schema_name.[table/view name]
 	<!-- Add example pic and finish statement below-->	
 	
 	<p>
-	Servers can have more schemas. In the example above, ... are also schemas within the ... database. 
+	Servers can have more schemas. In the example below, ... are also schemas within the ... database. 
 	</p>
 	
 	<p>
