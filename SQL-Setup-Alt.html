@@ -71,10 +71,9 @@
 			 <li>Move or extract <b>all</b> files from Downloads folder to I:/Documents/AdventureWorks/ . You'll have to create
 			 the AdventureWorks folder.</li>
 			 <pre><div align="center"><img src="images/AdventureWorks-Extract-Destination.JPG" alt="Extract AdventureWorks"></div></pre>
-			 
-			 
-			 <li>Open the file instawdb.sql. Make sure you connect to SQL Server prior to opening.</li>
-			 <li>Click the Query menu at top and select SQLCMD mode. This is the command mode for SQL.</li>
+			 <li>Once connected to SSMS, open the file instawdb.sql within I:/Documents/AdventureWorks/</li>
+			 <li>Click the Query menu at top of the toolbar and select SQLCMD mode. This is the command mode for SQL.</li>
+			 <pre><div align="center"><img src="images/SQLCMD-Mode-Select.JPG" alt="Select SQLCMD Mode"></div></pre>
 			 <li>Navigate to the first line that is not colored green in the script. The code should read:</li>
 			 <pre><code>
  :setvar SqlSamplesSourceDataPath "C:\Samples\AdventureWorks\"			 
@@ -85,12 +84,18 @@
 			 </code></pre>		 
 			 
 			 
-			 <li>Run the query by pressing F5 or pressing the Execute button.</li>
+			 <li>Run the query by pressing F5 or pressing the execute button.</li>
+			 <pre><div align="center"><img src="images/Execute-Button.JPG" alt="Execute Button"></div></pre>
 			 <li>The code will execute with errors. This is because we do not have full-text search
 			 enabled.</li>
-			 <li>Ensure that you can see an AdventureWorks database and tables, shown below.</li>
 			<pre><div align="center"><img src="images/Adv.JPG" alt="AdventureWorks Database in Object Explorer"></div></pre>
 			</ol>
+			<p>Debugging:</p>
+			<ul>
+			<li>If the code generate errors immediately upon executing, make sure the SQLCMD mode is selected and that you are connected to your server instance.</li>
+			<li>If the tables are empty, make sure all files are extracted in I:/Documents/AdventureWorks/. If they are still showing empty, ensure that you refesh your server instance by 
+			pressing refresh the refresh button in the Object Explorer (hotkey F5).</li>
+			<pre><div align="center"><img src="images/Refresh-Server.JPG" alt="Refresh Server Instance"></div></pre>
 			<br><br>
 			
 			<p><b>Download Accompanying Files for Ben-Gan</b>
