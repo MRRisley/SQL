@@ -89,15 +89,26 @@
              <ol>
 			 <li>Follow link <a href="https://github.com/Microsoft/sql-server-samples/blob/master/samples/databases/adventure-works/README.md" target="_blank">here</a>.</li>
 			 <li>Under "To install AdventureWorks", click the link under number (2), "download AdventureWorks-oltp-install-script.zip".</li>
-			 <li>Move or extract <b>all</b> files to C:\Samples\AdventureWorks. You may need to create the folders.</li>
-			 <li>Open the file instawdb.sql. Ensure that you connect to your local server.</li>
-			 <li>Click the Query menu at top and select SQLCMD mode. This is the command mode for SQL.</li>
-			 <li>Run the query by pressing F5 or pressing the run button.</li>
+			 <li>Create a folder Samples on your C:\ drive. Within the Samples folder, create a folder called AdventureWorks. Move or extract <b>all</b> files to from the download to this file (file path: C:\Samples\AdventureWorks\).</li>
+			 <li>Once connected to SSMS, open the file instawdb.sql within C:\Samples\AdventureWorks\</li>
+			 <li>Click the Query menu at top of the toolbar and select SQLCMD mode. This is the command mode for SQL.</li>
+			 <pre><div align="center"><img src="images/SQLCMD-Mode-Select.JPG" alt="Select SQLCMD Mode"></div></pre>
+			 <li>Run the query by pressing F5 or pressing the execute button.</li>
+			 <pre><div align="center"><img src="images/Execute-Button.JPG" alt="Execute Button"></div></pre>
 			 <li>The code will execute with errors. This is because we do not have full-text search
 			 enabled.</li>
 			 <li>Ensure that you can see an AdventureWorks database and tables, shown below.</li>
 			<pre><div align="center"><img src="images/Adv.JPG" alt="AdventureWorks Database in Object Explorer"></div></pre>
 			</ol>
+			<p>Debugging:</p>
+			<ul>
+			<li>If the code generate errors immediately upon executing, make sure the SQLCMD mode is selected and that you are connected to your server instance.</li>
+			<li>If the tables are empty, make sure all files are extracted in C:\Samples\AdventureWorks\. If you did not extract them here, you will need to 
+			manipulate the folder path in the script. See step 6 in the same section <a href="https://mrrisley.github.io/SQL/SQL-Setup-Alt.html" target="_blank">here</a> (under "Download AdventureWorks 2014").
+			If they are still showing empty, ensure that you refesh your server instance by 
+			pressing refresh the refresh button in the Object Explorer (hotkey F5).</li>
+			<pre><div align="center"><img src="images/Refresh-Server.JPG" alt="Refresh Server Instance"></div></pre>
+			</ul>
 			<br><br>
 			
 			<p><b>Download Accompanying Files for Ben-Gan</b>
