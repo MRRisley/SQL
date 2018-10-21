@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<!--SQL-->
+
+<html lang="en">
+
+<!--HEAD-->
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125795941-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125795941-1');
+</script>
+	
+	<meta charset="UTF-8">
+	<title>MRRisley:=("SQL Setup")</title>
+	<meta name="description" content="Setting up T-SQL">
+	<meta name="author" content="Matt Risley">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../MRRisley/css/normalize.css">
+	<link rel="stylesheet" href="../MRRisley/css/skeleton.css">
+	<link rel="stylesheet" href="../MRRisley/css/custom.css">
+	
+		<style>
+		* body {
+			margin: 0;
+			font-family: Courier New, Arial, monotype;
+		}
+		</style>
+</head>
+
+<!--BODY-->
+<body>
+	
+  	<div class="container" id="top">
+	<h3 align="center">MRRisley:=("Setting up T-SQL")</h3>
+		<h6 align="center">Note: This guide is adapted from Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Home</a></h5>
+	
+<div class="docs-section" id="intro">
+  <h5 class="title">Setting up T-SQL</h5>
+             
+             <p><b>Open SQL Server Management Studio (SSMS) through UC computer.</b></p>
+			                                                     
+             <p><b>Connect to LocalDB</b></p>
+			 <ol>
+			 <li>After starting SSMS, ensure Server type is set to "Database Engine."</li>
+			 <li>Type (LocalDB)\MSSQLLOCALDB in the Server name field.</li>
+			 <li>Windows Authentication should be set as default and your user name / password should be grayed out. No 
+			 change is necessary.</li>
+			 <pre><div align="center"><img src="images/LocalDB-Connection.JPG" alt="LocalDB Connection"></div></pre>
+			 </ol>
+			 <br><br>
+			 
+			 <p><b>Download AdventureWorks 2014 to your Personal Drive</b>
+			 <br>This is a sample database provided by MS.</p>
+             <ol>
+			 <li>On UC computer, follow link <a href="https://github.com/Microsoft/sql-server-samples/blob/master/samples/databases/adventure-works/README.md">here</a>.</li>
+			 <li>Under "To install AdventureWorks", click the link under number (2), "download AdventureWorks-oltp-install-script.zip".</li>
+			 <li>Move or extract <b>all</b> files from Downloads folder to I:/Documents/AdventureWorks/ . You'll have to create
+			 the AdventureWorks folder.</li>
+			 <pre><div align="center"><img src="images/AdventureWorks-Extract-Destination.JPG" alt="Extract AdventureWorks"></div></pre>
+			 
+			 
+			 <li>Open the file instawdb.sql. Make sure you connect to SQL Server prior to opening.</li>
+			 <li>Click the Query menu at top and select SQLCMD mode. This is the command mode for SQL.</li>
+			 <li>Navigate to the first line that is not colored green in the script. The code should read:</li>
+			 <pre><code>
+ :setvar SqlSamplesSourceDataPath "C:\Samples\AdventureWorks\"			 
+			 </code></pre>
+			 <p>Change it to:</p>
+			 <pre><code>
+ :setvar SqlSamplesSourceDataPath "I:\Documents\AdventureWorks\"			 
+			 </code></pre>		 
+			 
+			 
+			 <li>Run the query by pressing F5 or pressing the Execute button.</li>
+			 <li>The code will execute with errors. This is because we do not have full-text search
+			 enabled.</li>
+			 <li>Ensure that you can see an AdventureWorks database and tables, shown below.</li>
+			<pre><div align="center"><img src="images/Adv.JPG" alt="AdventureWorks Database in Object Explorer"></div></pre>
+			</ol>
+			<br><br>
+			
+			<p><b>Download Accompanying Files for Ben-Gan</b>
+			 <br>These are files to accompany <i>T-SQL Fundamentals.</i>, 3rd ed. by Itzik Ben-Gan</p>
+             <ol>
+			 <li>Follow link <a href="http://aka.ms/T-SQLFund3e/downloads">here</a>.</li>
+			 <li>The zip file is a collection of scripts for each chapter. If running these scripts are required, the
+			 steps will be reviewed together with the concepts.</li>
+			</ol>
+</div>
+	
+             
+
+	
+
+	
+	
+</div>
+	
+  	
+
+	
+
+	<div class="docs-section" align="center">
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<a href="../SQL/index.html"><h5>Back to SQL Home</h5></a>
+	</div>
+
+</div>
+</body>
+
+</html> 
