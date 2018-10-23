@@ -330,27 +330,41 @@ from
 	</code></pre>		
 
 	<p>In this example, <code>[T530-PC\SQLEXPRESS]</code> is the name of my own local server instance. Notice that I 
-	use the brackets with the server name due to the "\" character. Without it:</p>
+	use the brackets with the server name due to the "-" and "\" special characters. Without it:</p>
 
 	<pre><code>
 select *
 from 
-[T530-PC\SQLEXPRESS].adventureworks.person.address	
+T530-PC\SQLEXPRESS.adventureworks.person.address	
 	</code></pre>	
 
-	<p>returns:</p>
+	<p>returns an error:</p>
 	
-	<pre>
+	<pre><code>
 Msg 102, Level 15, State 1, Line 3
 Incorrect syntax near '-'.
-	</pre>
+	</code></pre>
 	
 	<li>If you don't have to refer to the server name, you only need to refer to the database name if 
 	you are querying a database other than the one your query script is connected to.</li>
 
 	<li>If you don't have to refer to the server name and the database name, 
-	you only need to refer to a schema name if the schema is not <code>dbo</code>.</li>
+	you only need to refer to a schema name if the schema is not <code>dbo</code>. When connected to the AdventureWorks
+	database:</li>
+	
+	<pre><code>
+select top 10 *
+from AWBuildVersion
+	</code></pre>
+	
+	<p>returns the first ten records in <code>dbo.AWBuildVersion</code> while the following code returns an error because
+	the <code>Person</code> schema that contains the <code>Address</code> table is not specified.
 
+	<pre><code>
+select top 10 *
+from [Address]
+	</code></pre>
+	
 	</ol>
 	
 	<p>I tend to use the <code>[database name].[schema name].[table/view name]</code> qualification so that I can work within
