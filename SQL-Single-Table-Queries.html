@@ -43,7 +43,7 @@
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
 	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
 
-
+<!--Navigation-->
 <div class="container" id="nav">
 	<h5>Topics</h5>
 	<p><a href = "#intro">1. Intro to Single-Table Queries</a>
@@ -52,8 +52,6 @@
 	<br><a href = "#select">2. The <code>SELECT</code> statement</a>
 	
 	<br><a href = "#from">3. The <code>FROM</code> clause</a>
-	
-	
 	
 	<br><a href = "#clauses">4. Clauses</a>
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#where-clause">a. <code>WHERE</code> clause</a>
@@ -71,7 +69,9 @@
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#dates">c. Dates</a>
 	</p>
 </div>
-	
+
+
+<!--Intro-->	
 <div class="docs-section" id="intro">
   <h5 class="title">1. Intro to Single-Table Queries</h5>
 	<p>Data within relational databases are stored in tables as observations, or <b>records</b>. Each record has one or more <b>fields</b>, or columns.
@@ -81,19 +81,18 @@
 	
 	
 	<pre>
-DepartmentID	Name		GroupName			ModifiedDate
-1		Engineering	Research and Development	2008-04-30 00:00:00.000
-2		Tool Design	Research and Development	2008-04-30 00:00:00.000
-3		Sales		Sales and Marketing		2008-04-30 00:00:00.000
-4		Marketing	Sales and Marketing		2008-04-30 00:00:00.000
-5		Purchasing	Inventory Management		2008-04-30 00:00:00.000
+DepartmentID Name                                               GroupName                                          ModifiedDate
+------------ -------------------------------------------------- -------------------------------------------------- -----------------------
+1            Engineering                                        Research and Development                           2008-04-30 00:00:00.000
+2            Tool Design                                        Research and Development                           2008-04-30 00:00:00.000
+3            Sales                                              Sales and Marketing                                2008-04-30 00:00:00.000
+4            Marketing                                          Sales and Marketing                                2008-04-30 00:00:00.000
+5            Purchasing                                         Inventory Management                               2008-04-30 00:00:00.000
 
 ...
 	</pre>
 	
-	
-	
-	Single-table queries are the foundation of SQL. A single-table query is simply what it says: a query on a single table. A query is (usually) a small program
+	<p>Single-table queries are the foundation of SQL. A single-table query is simply what it says: a query on a single table. A query is (usually) a small program
 	that specifies what to return from a table. Queries can "filter" results, they can aggregate results, and they can sort them. Imagine you work at a bank and have
 	a table with checking accounts. You want to return checking accounts that are inactive. A pseudo-query may look like:</p>
 	
@@ -111,8 +110,9 @@ where status = 'inactive'
 </div>
 
 
+<!--SELECT-->	
 <div class="docs-section" id="select">
-  <h5 class="select">2. The <code>SELECT</code> Statement</h5>
+  <h5 class="title">2. The <code>SELECT</code> Statement</h5>
 	<p>The <code>SELECT</code> statement is the mother of all statements. The base requirement for a query is the <code>SELECT</code> statement. As shown above,
 	this statement essentially tells the server precisely what you want to see. Without it, there is no query.</p>
 	<p>Because the <code>SELECT</code> statement is the only required piece of a query, all other components are usually referred to as <b>clauses</b>,
@@ -246,9 +246,9 @@ SELECT TOP 1000 [DepartmentID]
 
 
 
-
+<!--FROM-->	
 <div class="docs-section" id="from">
-  <h5 class="select">2. The <code>FROM</code> clause</h5>
+  <h5 class="title">3. The <code>FROM</code> clause</h5>
 
 	<p>The <code>FROM</code> clause is such a common feature in SQL that it may as well be considered as its own statement rather
 	than a "clause." But because the <code>SELECT</code> statement can stand on its own,
@@ -381,6 +381,36 @@ from [Address]
 
 	
 
+	
+	
+<!--CLAUSES-->	
+<div class="docs-section" id="clauses">
+  <h5 class="title">4. Clauses</h5>	
+	<p>As mentioned above, a clause is simply a modification of the <code>SELECT</code> statement. There are four principal clauses
+	in SQL outside of the <code>FROM</code> clause:</p>
+	<ul>
+	<li>The <code>WHERE</code> clause is usually required for nearly every query. This specifies which records to include or exclude <b>on a record-by-record basis</b>.
+	Rarely does a real-life table include the data exactly as you require it.</li>
+	<li>The <code>GROUP BY</code> is required when you aggregate date. For example, if revenue posts daily to a general ledger,
+	the revenue for a given month would be the sum of revenue grouped by month.</li>
+	<li>The <code>HAVING</code> clause is utilized in conjunction with the <code>GROUP BY</code> clause. This specifies which records to include or exclude <b>on a grouped basis</b>.
+	It is a <code>WHERE</code> clause for groups.</li>
+	<li>The <code>ORDER BY</code> clause is the simplest to understand. It specifies the sort order of the results and can include several sort levels.</li>
+	</ul>
+
+  <h5 class="title" id="where-clause">&nbsp;&nbsp;&nbsp;&nbsp;a. <code>WHERE</code> clause</h5>
+	
+
+	
+	
+	
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>	
+	
+	
+	
+	
+	
 	<div class="docs-section" align="center">
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
 	<a href="../MRRisley/index.html"><h5>Back to SQL Main Page</h5></a>
