@@ -200,20 +200,20 @@ select top 10 *
 from adventureworks.person.address
 	</code></pre>	
 	
-	<p>Returns:</p>
+	<p>returns:</p>
 	
 <pre>
-AddressID	AddressLine1	AddressLine2	City	StateProvinceID	PostalCode	SpatialLocation	rowguid	ModifiedDate
-1	1970 Napa Ct.	NULL	Bothell	79	98011	0xE6100000010CAE8BFC28BCE4474067A89189898A5EC0	9AADCB0D-36CF-483F-84D8-585C2D4EC6E9	2007-12-04 00:00:00.000
-2	9833 Mt. Dias Blv.	NULL	Bothell	79	98011	0xE6100000010CD6FA851AE6D74740BC262A0A03905EC0	32A54B9E-E034-4BFB-B573-A71CDE60D8C0	2008-11-30 00:00:00.000
-3	7484 Roundtree Drive	NULL	Bothell	79	98011	0xE6100000010C18E304C4ADE14740DA930C7893915EC0	4C506923-6D1B-452C-A07C-BAA6F5B142A4	2013-03-07 00:00:00.000
-4	9539 Glenside Dr	NULL	Bothell	79	98011	0xE6100000010C813A0D5F9FDE474011A5C28A7C955EC0	E5946C78-4BCC-477F-9FA1-CC09DE16A880	2009-02-03 00:00:00.000
-5	1226 Shoe St.	NULL	Bothell	79	98011	0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0	FBAFF937-4A97-4AF0-81FD-B849900E9BB0	2008-12-19 00:00:00.000
-6	1399 Firestone Drive	NULL	Bothell	79	98011	0xE6100000010CE0B4E50458DA47402F12A5F80C975EC0	FEBF8191-9804-44C8-877A-33FDE94F0075	2009-02-13 00:00:00.000
-7	5672 Hale Dr.	NULL	Bothell	79	98011	0xE6100000010C18E304C4ADE1474011A5C28A7C955EC0	0175A174-6C34-4D41-B3C1-4419CD6A0446	2009-12-11 00:00:00.000
-8	6387 Scenic Avenue	NULL	Bothell	79	98011	0xE6100000010C0029A5D93BDF4740E248962FD5975EC0	3715E813-4DCA-49E0-8F1C-31857D21F269	2008-12-17 00:00:00.000
-9	8713 Yosemite Ct.	NULL	Bothell	79	98011	0xE6100000010C6A80AD742DDC4740851574F7198C5EC0	268AF621-76D7-4C78-9441-144FD139821A	2012-05-30 00:00:00.000
-10	250 Race Court	NULL	Bothell	79	98011	0xE6100000010C219D64AE1FE4474040862564B7825EC0	0B6B739D-8EB6-4378-8D55-FE196AF34C04	2008-12-02 00:00:00.000
+AddressID	AddressLine1			AddressLine2	City	StateProvinceID	PostalCode	SpatialLocation									rowguid									ModifiedDate
+1			1970 Napa Ct.			NULL			Bothell	79				98011		0xE6100000010CAE8BFC28BCE4474067A89189898A5EC0	9AADCB0D-36CF-483F-84D8-585C2D4EC6E9	2007-12-04 00:00:00.000
+2			9833 Mt. Dias Blv.		NULL			Bothell	79				98011		0xE6100000010CD6FA851AE6D74740BC262A0A03905EC0	32A54B9E-E034-4BFB-B573-A71CDE60D8C0	2008-11-30 00:00:00.000
+3			7484 Roundtree Drive	NULL			Bothell	79				98011		0xE6100000010C18E304C4ADE14740DA930C7893915EC0	4C506923-6D1B-452C-A07C-BAA6F5B142A4	2013-03-07 00:00:00.000
+4			9539 Glenside Dr		NULL			Bothell	79				98011		0xE6100000010C813A0D5F9FDE474011A5C28A7C955EC0	E5946C78-4BCC-477F-9FA1-CC09DE16A880	2009-02-03 00:00:00.000
+5			1226 Shoe St.			NULL			Bothell	79				98011		0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0	FBAFF937-4A97-4AF0-81FD-B849900E9BB0	2008-12-19 00:00:00.000
+6			1399 Firestone Drive	NULL			Bothell	79				98011		0xE6100000010CE0B4E50458DA47402F12A5F80C975EC0	FEBF8191-9804-44C8-877A-33FDE94F0075	2009-02-13 00:00:00.000
+7			5672 Hale Dr.			NULL			Bothell	79				98011		0xE6100000010C18E304C4ADE1474011A5C28A7C955EC0	0175A174-6C34-4D41-B3C1-4419CD6A0446	2009-12-11 00:00:00.000
+8			6387 Scenic Avenue		NULL			Bothell	79				98011		0xE6100000010C0029A5D93BDF4740E248962FD5975EC0	3715E813-4DCA-49E0-8F1C-31857D21F269	2008-12-17 00:00:00.000
+9			8713 Yosemite Ct.		NULL			Bothell	79				98011		0xE6100000010C6A80AD742DDC4740851574F7198C5EC0	268AF621-76D7-4C78-9441-144FD139821A	2012-05-30 00:00:00.000
+10			250 Race Court			NULL			Bothell	79				98011		0xE6100000010C219D64AE1FE4474040862564B7825EC0	0B6B739D-8EB6-4378-8D55-FE196AF34C04	2008-12-02 00:00:00.000
 </pre>
 	
 	<li>Right-click on a table in the Object Explorer, and select "Select Top 1000 Rows." A query is then self-generated. 
@@ -234,8 +234,6 @@ SELECT TOP 1000 [DepartmentID]
 	</code></pre>		
 
 	</ol>
-	
-	<!-- Add example pic -->
 	
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
@@ -300,18 +298,19 @@ server_name.[database_name].schema_name.[table/view name]
 	<br>
 	
 	<p>
-	The server stores databases, and databases store tables/views assigned to a schema. Schema can be used for a number of
+	The server stores databases, and databases store tables/views assigned to a schema. Schemas can be used for a number of
 	reasons, and it's mostly an organizational/grouping framework. Some companies may assign a group its own schema within a 
 	database, which becomes more relevant and even necessary if the group is creating their own tables or curating their own
 	data. The default schema within SSMS is <code>dbo</code>.
 	</p>
 
-	<!-- Add example pic and finish statement below-->	
-	
 	<p>
-	Servers can have more schemas. In the example below, ... are also schemas within the ... database. 
+	Databases can have more schemas than <code>dbo</code>. In the example below, <code>HumanResources</code> and
+	<code>Person</code> are also schemas within the AdventureWorks database. 
 	</p>
 	
+	<pre><div align="center"><img src="images/select-top-1000.JPG" alt="Select Top 1000 Rows Example"></div></pre>
+
 	<p>
 	Deciding when and when you do not have to use all pieces of the table name shown above can be a bit tricky to
 	first-time SSMS users. You can only remove elements from the fully qualified table name above starting with the server
@@ -320,11 +319,32 @@ server_name.[database_name].schema_name.[table/view name]
 	</p>
 	
 	<ol>
-	<li>You only need to refer to the server name if you are querying a server other than the one your query script is connected to.</li>
+	<li>You only need to refer to the server name if you are querying a server other than the one your query script is connected to.
+	In this course, we only work within a single local server. However, if we were connected to a server other than this, a query
+	would have to include the server name:</li>
+
+	<pre><code>
+select *
+from 
+[T530-PC\SQLEXPRESS].adventureworks.person.address	
+	</code></pre>		
+
+	<p>In this example, <code>[T530-PC\SQLEXPRESS]</code> is the name of my own local server instance. Notice that I 
+	use the brackets with the server name due to the "\" character. Without it:</p>
+
+	<pre><code>
+select *
+from 
+[T530-PC\SQLEXPRESS].adventureworks.person.address	
+	</code></pre>	
+
+	<p>returns:</p>
 	
-		<!-- Add example pic -->
-		
-		
+	<pre>
+Msg 102, Level 15, State 1, Line 3
+Incorrect syntax near '-'.
+	</pre>
+	
 	<li>If you don't have to refer to the server name, you only need to refer to the database name if 
 	you are querying a database other than the one your query script is connected to.</li>
 
@@ -334,7 +354,9 @@ server_name.[database_name].schema_name.[table/view name]
 	</ol>
 	
 	<p>I tend to use the <code>[database name].[schema name].[table/view name]</code> qualification so that I can work within
-	a server without having to change my connection in the query script. I only refer to the server name when necessary.</p>
+	a server without having to change my connection in the query script. I only refer to the server name when necessary. As 
+	Itzik Ben-Gan points out, this also has the benefit of reducing the "load" of the query. In other words, it makes the 
+	query more efficient. In general, fully qualified logic and references generate more effecient queries.</p>
 
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
