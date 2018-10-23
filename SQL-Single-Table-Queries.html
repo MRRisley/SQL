@@ -41,7 +41,7 @@
 	<h3 align="center">MRRisley:=("Single-Table Queries in T-SQL")</h3>
 		<h6 align="center">Note: This guide is adapted from Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Home</a></h5>
+	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
 
 
 <div class="container" id="nav">
@@ -185,14 +185,55 @@ from adventureworks.humanresources.department
 	<p>There are two options I tend to prefer if I don't know the size of the table, or if there is risk that a <code>SELECT *</code> will
 	take time to complete:</p>
 	
-	<ul>
+	<ol>
 	<li>Use <code>SELECT TOP 10 *</code>, which will return the top 10 records. You can change the number 10 to any number
 	you prefer. Also, if your query is written with logic that filters results, only the top 10 records that meet the filtering 
 	criteria will be displayed. <b>Note:</b> the TOP keyword does not exist in PL/SQL.</li>
+
+	<pre><code>
+select *
+from adventureworks.humanresources.department
+	</code></pre>
+	
+	<pre><code>
+select top 10 *
+from adventureworks.person.address
+	</code></pre>	
+	
+	<p>Returns:</p>
+	
+<pre>
+AddressID	AddressLine1	AddressLine2	City	StateProvinceID	PostalCode	SpatialLocation	rowguid	ModifiedDate
+1	1970 Napa Ct.	NULL	Bothell	79	98011	0xE6100000010CAE8BFC28BCE4474067A89189898A5EC0	9AADCB0D-36CF-483F-84D8-585C2D4EC6E9	2007-12-04 00:00:00.000
+2	9833 Mt. Dias Blv.	NULL	Bothell	79	98011	0xE6100000010CD6FA851AE6D74740BC262A0A03905EC0	32A54B9E-E034-4BFB-B573-A71CDE60D8C0	2008-11-30 00:00:00.000
+3	7484 Roundtree Drive	NULL	Bothell	79	98011	0xE6100000010C18E304C4ADE14740DA930C7893915EC0	4C506923-6D1B-452C-A07C-BAA6F5B142A4	2013-03-07 00:00:00.000
+4	9539 Glenside Dr	NULL	Bothell	79	98011	0xE6100000010C813A0D5F9FDE474011A5C28A7C955EC0	E5946C78-4BCC-477F-9FA1-CC09DE16A880	2009-02-03 00:00:00.000
+5	1226 Shoe St.	NULL	Bothell	79	98011	0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0	FBAFF937-4A97-4AF0-81FD-B849900E9BB0	2008-12-19 00:00:00.000
+6	1399 Firestone Drive	NULL	Bothell	79	98011	0xE6100000010CE0B4E50458DA47402F12A5F80C975EC0	FEBF8191-9804-44C8-877A-33FDE94F0075	2009-02-13 00:00:00.000
+7	5672 Hale Dr.	NULL	Bothell	79	98011	0xE6100000010C18E304C4ADE1474011A5C28A7C955EC0	0175A174-6C34-4D41-B3C1-4419CD6A0446	2009-12-11 00:00:00.000
+8	6387 Scenic Avenue	NULL	Bothell	79	98011	0xE6100000010C0029A5D93BDF4740E248962FD5975EC0	3715E813-4DCA-49E0-8F1C-31857D21F269	2008-12-17 00:00:00.000
+9	8713 Yosemite Ct.	NULL	Bothell	79	98011	0xE6100000010C6A80AD742DDC4740851574F7198C5EC0	268AF621-76D7-4C78-9441-144FD139821A	2012-05-30 00:00:00.000
+10	250 Race Court	NULL	Bothell	79	98011	0xE6100000010C219D64AE1FE4474040862564B7825EC0	0B6B739D-8EB6-4378-8D55-FE196AF34C04	2008-12-02 00:00:00.000
+</pre>
+	
 	<li>Right-click on a table in the Object Explorer, and select "Select Top 1000 Rows." A query is then self-generated. 
 	The benefit of this option is that for a table with many columns, reading the fields is much easier. You can also copy/paste
 	field names or the table name.</li>
-	</ul>
+	
+		<pre><div align="center"><img src="images/select-top-1000.JPG" alt="Select Top 1000 Rows Example"></div></pre>
+	
+	<p>Once selected, SSMS returns the following code:</p>
+
+	<pre><code>
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP 1000 [DepartmentID]
+      ,[Name]
+      ,[GroupName]
+      ,[ModifiedDate]
+  FROM [AdventureWorks].[HumanResources].[Department]
+	</code></pre>		
+
+	</ol>
 	
 	<!-- Add example pic -->
 	
@@ -303,7 +344,7 @@ server_name.[database_name].schema_name.[table/view name]
 
 	<div class="docs-section" align="center">
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-	<a href="../MRRisley/index.html"><h5>Back to SQL Home</h5></a>
+	<a href="../MRRisley/index.html"><h5>Back to SQL Main Page</h5></a>
 	</div>
 
 </div>
