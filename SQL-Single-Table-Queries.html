@@ -384,6 +384,7 @@ select top 10 *
 	<li>The <code>ORDER BY</code> clause is the simplest to understand. It specifies the sort order of the results and can include several sort levels.</li>
 	</ol>
 
+		<!--WHERE-->	
   <h5 class="title" id="where-clause">&nbsp;&nbsp;&nbsp;&nbsp;a. <code>WHERE</code> clause</h5>
 	<p>The <code>WHERE</code> clause is one of the primary places that introduces <a href="https://mrrisley.github.io/Programming/index.html#logic">logic</a> into the
 	query. You can think of the <code>WHERE</code> clause as a query filter. For example, you may only need records from the prior month, or you may only need
@@ -438,6 +439,33 @@ BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
 (10 row(s) affected)
 	</pre>
 	
+	<p>As with all logic, you can create compound conditions uses the <code>AND</code> or <code>OR</code> operators. The query
+	below returns the 6 records from the 10 above because both <code>DepartmentID</code> is equal to 4 and 
+	<code>BusinessEntityID</code> is greater than or equal to ( <b>>=</b> ) 20.</p>
+
+	<pre><code>
+select *
+from adventureworks.humanresources.employeedepartmenthistory
+<b>where departmentid = 4
+and businessentityid >= 20</b>
+	</code></pre>	
+	
+	<pre>
+BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
+---------------- ------------ ------- ---------- ---------- -----------------------
+20               4            1       2011-01-07 NULL       2011-01-06 00:00:00.000
+21               4            1       2009-03-02 NULL       2009-03-01 00:00:00.000
+22               4            1       2008-12-12 NULL       2008-12-11 00:00:00.000
+23               4            1       2009-01-12 NULL       2009-01-11 00:00:00.000
+24               4            1       2009-01-18 NULL       2009-01-17 00:00:00.000
+250              4            1       2011-02-25 2011-07-30 2011-07-28 00:00:00.000
+
+(6 row(s) affected)
+	</pre>
+	
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+	
+
 	
 	
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
