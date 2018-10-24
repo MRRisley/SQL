@@ -59,7 +59,7 @@
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#having-clause">c. <code>HAVING</code> clause</a>
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#order-by-clause">d. <code>ORDER BY</code> clause</a>
 	
-	<br><a href = "#clauses">5. Operators</a>
+	<br><a href = "#operators">5. Operators</a>
 	
 	<br><a href = "#clauses">6. <code>CASE</code> expressions</a>
 	
@@ -69,7 +69,6 @@
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#dates">c. Dates</a>
 	</p>
 </div>
-
 
 <!--Intro-->	
 <div class="docs-section" id="intro">
@@ -109,7 +108,6 @@ where status = 'inactive'
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
-
 <!--SELECT-->	
 <div class="docs-section" id="select">
   <h5 class="title">2. The <code>SELECT</code> Statement</h5>
@@ -140,9 +138,9 @@ select 50/100
 	or manipulations of existing fields.</p>
 	
 	<pre><code>
-select name, 
+<b>select name, 
 groupname,  
-modifieddate
+modifieddate</b>
 from adventureworks.humanresources.department
 	</code></pre>	
 	
@@ -169,7 +167,7 @@ adventureworks.humanresources.department
 	The query below also returns the table shown above because all fields were selected in the original query.</p>
 	
 	<pre><code>
-select *
+<b>select *</b>
 from adventureworks.humanresources.department
 	</code></pre>
 	
@@ -191,12 +189,7 @@ from adventureworks.humanresources.department
 	criteria will be displayed. <b>Note:</b> the TOP keyword does not exist in PL/SQL.</li>
 
 	<pre><code>
-select *
-from adventureworks.humanresources.department
-	</code></pre>
-	
-	<pre><code>
-select top 10 *
+<b>select top 10 *</b>
 from adventureworks.person.address
 	</code></pre>	
 	
@@ -241,11 +234,6 @@ SELECT TOP 1000 [DepartmentID]
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
-
-
-
-
-
 <!--FROM-->	
 <div class="docs-section" id="from">
   <h5 class="title">3. The <code>FROM</code> clause</h5>
@@ -254,7 +242,10 @@ SELECT TOP 1000 [DepartmentID]
 	than a "clause." But because the <code>SELECT</code> statement can stand on its own,
 	anything that provides specificity to the <code>SELECT</code> statement is considered a clause.</p>
 	
-	<p>The <code>FROM</code> clause simply points to a table or a view. We've already seen it used before. There is a specific syntax
+	<p>The <code>FROM</code> clause simply points to a table or a view. It comes <b>after and always directly after</b> the
+	<code>SELECT</code> statement. We've already seen it used in this way in the examples above.</p>
+	
+	<p>There is a specific syntax
 	to table/view names. If you're familiar with the . in VBA, you'll recognize the way a table is referred to. In VBA, the period
 	allows you to navigate down a hierarchy. So, you start with the highest level first, then the next highest, and so on. For a table or 
 	a view (and also a function), the full qualification is:</p>
@@ -329,7 +320,7 @@ server_name.[database_name].schema_name.[table/view name]
 	<pre><code>
 select *
 from 
-[T530-PC\SQLEXPRESS].adventureworks.person.address	
+<b>[T530-PC\SQLEXPRESS].adventureworks.person.address</b>	
 	</code></pre>		
 
 	<p>In this example, <code>[T530-PC\SQLEXPRESS]</code> is the name of my own local server instance. Notice that I 
@@ -338,7 +329,7 @@ from
 	<pre><code>
 select *
 from 
-T530-PC\SQLEXPRESS.adventureworks.person.address	
+<b>T530-PC\SQLEXPRESS.adventureworks.person.address</b>	
 	</code></pre>	
 
 	<p>returns an error:</p>
@@ -357,15 +348,15 @@ Incorrect syntax near '-'.
 	
 	<pre><code>
 select top 10 *
-from AWBuildVersion
+<b>from AWBuildVersion</b>
 	</code></pre>
 	
 	<p>returns the first ten records in <code>dbo.AWBuildVersion</code> while the following code returns an error because
-	the <code>Person</code> schema that contains the <code>Address</code> table is not specified.
+	the <code>Person</code> schema that contains the <code>Address</code> table is not specified.</p>
 
 	<pre><code>
 select top 10 *
-from [Address]
+<b>from [Address]</b>
 	</code></pre>
 	
 	</ol>
@@ -378,11 +369,6 @@ from [Address]
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
-
-	
-
-	
-	
 <!--CLAUSES-->	
 <div class="docs-section" id="clauses">
   <h5 class="title">4. Clauses</h5>	
@@ -399,8 +385,58 @@ from [Address]
 	</ol>
 
   <h5 class="title" id="where-clause">&nbsp;&nbsp;&nbsp;&nbsp;a. <code>WHERE</code> clause</h5>
+	<p>The <code>WHERE</code> clause is one of the primary places that introduces <a href="https://mrrisley.github.io/Programming/index.html#logic">logic</a> into the
+	query. You can think of the <code>WHERE</code> clause as a query filter. For example, you may only need records from the prior month, or you may only need
+	active accounts. You may also be working on a project that focuses on a segment of data rather than the entire population.</p>
 	
+	<p>The <code>WHERE</code> clause <b>always comes directly after</b> the
+	<code>FROM</code> clause. It is then followed by logic statements that use <a href="https://mrrisley.github.io/Programming/index.html#operators">operators</a>.
+	SQL-specific logic operators are described <a href="#operators">below</a>.</p>
+	
+	<p>Consider the query below:</p>
 
+	<pre><code>
+select *
+from adventureworks.humanresources.department
+<b>where departmentid = 4</b>
+	</code></pre>	
+	
+	<p>The query can be read as "return all records from the table where the <code>DepartmentID</code> is equal to 4. As shown below, the query returns one
+	record where this is true.</p>
+
+	<pre>
+DepartmentID Name                                               GroupName                                          ModifiedDate
+------------ -------------------------------------------------- -------------------------------------------------- -----------------------
+4            Marketing                                          Sales and Marketing                                2008-04-30 00:00:00.000
+
+(1 row(s) affected)	
+	</pre>
+
+	<p>If there were more than one record that satisfied the criteria, those records would also be returned. For example, in another table,
+	<code>HumanResources.EmployeeDepartmentHistory</code>, the same logic returns 10 records.</p>
+
+	<pre><code>
+select *
+from adventureworks.humanresources.employeedepartmenthistory
+<b>where departmentid = 4</b>
+	</code></pre>	
+	
+	<pre>
+BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
+---------------- ------------ ------- ---------- ---------- -----------------------
+16               4            1       2009-07-15 NULL       2009-07-14 00:00:00.000
+17               4            1       2007-01-26 NULL       2007-01-25 00:00:00.000
+18               4            1       2011-02-07 NULL       2011-02-06 00:00:00.000
+19               4            1       2011-02-14 NULL       2011-02-13 00:00:00.000
+20               4            1       2011-01-07 NULL       2011-01-06 00:00:00.000
+21               4            1       2009-03-02 NULL       2009-03-01 00:00:00.000
+22               4            1       2008-12-12 NULL       2008-12-11 00:00:00.000
+23               4            1       2009-01-12 NULL       2009-01-11 00:00:00.000
+24               4            1       2009-01-18 NULL       2009-01-17 00:00:00.000
+250              4            1       2011-02-25 2011-07-30 2011-07-28 00:00:00.000
+
+(10 row(s) affected)
+	</pre>
 	
 	
 	
@@ -413,7 +449,7 @@ from [Address]
 	
 	<div class="docs-section" align="center">
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-	<a href="../MRRisley/index.html"><h5>Back to SQL Main Page</h5></a>
+	<a href="../SQL/index.html"><h5>Back to SQL Main Page</h5></a>
 	</div>
 
 </div>
