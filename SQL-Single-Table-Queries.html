@@ -465,7 +465,69 @@ BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
 	
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 	
+<!--WHERE-->	
+  <h5 class="title" id="#group-by-clause">&nbsp;&nbsp;&nbsp;&nbsp;b. <code>GROUP BY</code> clause</h5>
+	
+	<p>The <code>GROUP BY</code> clause was one of the more difficult clauses for me to learn. 
+	This clause is required if you <b>perform a function on a field</b> <i>across another field</i>. 
+	This could mean:</p>
+	<ul>
+	<li><b>summing</b> revenue <i>by month</i></li>
+	<li><b>counting</b> records <i>by geographical region</i></li>
+	<li>finding a <b>minimum/maximum</b> transaction <i>for each customer</i></li>
+	</ul>
 
+	<p>The <code>GROUP BY</code> clause <b>always comes directly after</b> the
+	<code>WHERE</code> clause. If there is no <code>WHERE</code> clause, it <b>always comes directly after</b> the
+	<code>FROM</code> clause. It is then followed by the fields <b>across which</b> you are performing a function.</p>
+	
+	<p>
+	The <code>COUNT()</code> function is probably the easiest way to understand the <code>GROUP BY</code> clause.
+	It simply returns a count of what is included between the parentheses. Unless you are a SQL power user, your use of this
+	function will mostly be limited to <code>COUNT(*)</code>. Notice the use of the asterisk, <code>*</code>, which we saw
+	with <code>SELECT *</code> above. The asterisk in SQL simply stands for "record." So you can interpret <code>SELECT *</code>
+	as "return all records" (which also means all fields) and <code>COUNT(*)</code> as "count all records."
+	Let's start with an example that doesn't require a <code>GROUP BY</code> clause:
+	</p> 
+	
+	<pre><code>
+<b>select count(*)</b>
+from adventureworks.person.address
+	</code></pre>		
+
+	<pre>
+-----------
+19614
+
+(1 row(s) affected)
+	</pre>
+	
+	<p>
+	Notice that we performed a function, <code>COUNT()</code> but did not use a <code>GROUP BY</code> clause. Why? Because
+	we did not perform the function <i>across another field</i>. If we wanted to count the number of persons by the field 
+	<code>city</code>, we would include <code>city</code> in the <code>SELECT</code> list in addition to <code>COUNT(*)</code>,
+	and we would also include the <code>GROUP BY</code> clause after the <code>FROM</code> clause.</p>
+	
+	<pre><code>
+select count(*), <b>city</b>
+from adventureworks.person.address
+<b>group by city</b>	
+	</code></pre>	
+
+	<pre>
+            city
+----------- ------------------------------
+55          Cheltenham
+1           Kingsport
+31          Suresnes
+1           Baltimore
+31          Reading
+1           Fontana
+
+...
+
+(575 row(s) affected)
+	</pre>
 	
 	
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
