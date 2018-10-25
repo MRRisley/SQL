@@ -532,14 +532,14 @@ from adventureworks.person.address
 	
 	<p>Notice that the first column in the results has no field name. Within the grid displayed in SSMS when you run a query,
 	this column will show <code>(No column name)</code>. This is because the <code>COUNT(*)</code> item in the <code>SELECT</code> list
-	is not a field. All functions return this without a column specified. There are several ways to rename a field, but placing the 
-	name for the resultant field within single-quotation marks will work as well as any other method. You can also change default field 
+	is not a field within the table. There are several ways to name a field in the results, but placing the 
+	name for the field within single-quotation marks after the item works as well as any other method. You can also change default field 
 	names this way.</p>
 	
 	<pre><code>
 select count(*) <b>'Count'</b>, city <b>'City of Record'</b>
 from adventureworks.person.address
-group by <b>city</b>	
+group by city	
 	</code></pre>		
 	
 	<pre>
@@ -557,7 +557,7 @@ Count       City of Record
 	</pre>
 	
 	<p>One important note: these field names do not exist until after the query is returned.
-	Therefore, the following code returns an error (notice the use of brackets to incorporate the special character of a blank space.</p>
+	Therefore, the following code returns an error (notice the use of brackets to incorporate the special character of a blank space).</p>
 
 	<pre><code>
 select count(*) 'Count', city <b>'City of Record'</b>
@@ -595,7 +595,8 @@ Column 'adventureworks.person.address.StateProvinceID' is invalid in the select 
 	<p>The error message tells us we either need to aggregate <code>StateProvinceID</code> (which doesn't make sense in this instance) or put it in the <code>GROUP BY</code> clause.
 	In this case, including it in the clause will return the result without error. Why is including it here necessary if every city has a single state/province? SQL certainly doesn't
 	know that this is the case.  You also may not have realized that the same city name can exist in two or more states/regions. For example, there is a city "Paris" in Kentucky, Texas, Tennessee, Illinois, and of course, France.
-	If a city were to have more than one state, SQL would fail without the grouping by state. Even if the addition of another field does not result in another record, it is still required in the clause.</p>
+	If a city were to have more than one state, SQL would fail without the grouping by state, which is why it doesn't even allow it to occur in the first place. 
+	Therefore, even if the addition of another field does not result in another record, it is still required in the <code>GROUP BY</code> clause.</p>
 
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>	
