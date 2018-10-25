@@ -478,8 +478,8 @@ BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
 	</ul>
 
 	<p>The <code>GROUP BY</code> clause <b>always comes directly after</b> the
-	<code>WHERE</code> clause. If there is no <code>WHERE</code> clause, it <b>always comes directly after</b> the
-	<code>FROM</code> clause. It is then followed by the fields <b>across which</b> you are performing a function.</p>
+	<code>WHERE</code> clause. If there is no <code>WHERE</code> clause, it always comes directly after the
+	<code>FROM</code> clause. It is then followed by the fields <i>across which</i> you are performing a function.</p>
 	
 	<p>
 	The <code>COUNT()</code> function is probably the easiest way to understand the <code>GROUP BY</code> clause.
@@ -503,9 +503,10 @@ from adventureworks.person.address
 	</pre>
 	
 	<p>
-	Notice that we performed a function, <code>COUNT()</code> but did not use a <code>GROUP BY</code> clause. Why? Because
+	The result tells us there are 19,614 records in this table. 
+	Notice that we performed a function, <code>COUNT()</code>, but did not use a <code>GROUP BY</code> clause. Why? Because
 	we did not perform the function <i>across another field</i>. If we wanted to count the number of persons by the field 
-	<code>city</code>, we would include <code>city</code> in the <code>SELECT</code> list in addition to <code>COUNT(*)</code>,
+	<code>city</code>, we would include "city" in the <code>SELECT</code> list in addition to <code>COUNT(*)</code>,
 	and we would also include the <code>GROUP BY</code> clause after the <code>FROM</code> clause.</p>
 	
 	<pre><code>
@@ -529,7 +530,73 @@ from adventureworks.person.address
 (575 row(s) affected)
 	</pre>
 	
+	<p>Notice that the first column in the results has no field name. Within the grid displayed in SSMS when you run a query,
+	this column will show <code>(No column name)</code>. This is because the <code>COUNT(*)</code> item in the <code>SELECT</code> list
+	is not a field. All functions return this without a column specified. There are several ways to rename a field, but placing the 
+	name for the resultant field within single-quotation marks will work as well as any other method. You can also change default field 
+	names this way.</p>
 	
+	<pre><code>
+select count(*) <b>'Count'</b>, city <b>'City of Record'</b>
+from adventureworks.person.address
+group by <b>city</b>	
+	</code></pre>		
+	
+	<pre>
+Count       City of Record
+----------- ------------------------------
+55          Cheltenham
+1           Kingsport
+31          Suresnes
+1           Baltimore
+31          Reading
+
+...
+
+(575 row(s) affected)
+	</pre>
+	
+	<p>One important note: these field names do not exist until after the query is returned.
+	Therefore, the following code returns an error (notice the use of brackets to incorporate the special character of a blank space.</p>
+
+	<pre><code>
+select count(*) 'Count', city <b>'City of Record'</b>
+from adventureworks.person.address
+group by <b>[City of Record]</b>	
+	</code></pre>		
+	
+	<pre>
+Msg 207, Level 16, State 1, Line 3
+Invalid column name 'City of Record'.	
+	</pre>
+	
+	<p>The message is straightforward enough, but don't confuse it with a typo: when the query is compiled, it cannot find this field
+	in the <b>original</b> table, which is what it is searching for in this instance.</p>
+	
+	<p>Finally, if you perform a function across <i>multiple</i> fields, you will need these fields represented in the <code>GROUP BY</code>
+	clause. For me, this is where things probably became frustrating when learning SQL. Think of the example above where we returned the
+	counts of persons (records) for each city name. Say that we want the State info as well, which in this table is stored as an identifier in
+	the field <code>StateProvinceID</code>. It is logical to think that every city will have a single state associated with it. You may add this
+	field to the query and not realize you need the field in the <code>GROUP BY</code> clause as well:</p>
+	
+	<pre><code>
+select count(*) 'Count', city, <b>stateprovinceid</b>
+from adventureworks.person.address
+group by city	
+	</code></pre>	
+	
+	<p>Thankfully, SSMS returns an error message that is interpretable. I don't recall this being the case with SQL Developer.</p>
+
+<pre>
+Msg 8120, Level 16, State 1, Line 1
+Column 'adventureworks.person.address.StateProvinceID' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause.	
+</pre>
+
+	<p>The error message tells us we either need to aggregate <code>StateProvinceID</code> (which doesn't make sense in this instance) or put it in the <code>GROUP BY</code> clause.
+	In this case, including it in the clause will return the result without error. Why is including it here necessary if every city has a single state/province? SQL certainly doesn't
+	know that this is the case.  You also may not have realized that the same city name can exist in two or more states/regions. For example, there is a city "Paris" in Kentucky, Texas, Tennessee, Illinois, and of course, France.
+	If a city were to have more than one state, SQL would fail without the grouping by state. Even if the addition of another field does not result in another record, it is still required in the clause.</p>
+
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>	
 	
