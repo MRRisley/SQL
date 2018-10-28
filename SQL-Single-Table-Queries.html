@@ -469,7 +469,7 @@ BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
   <h5 class="title" id="group-by-clause">&nbsp;&nbsp;&nbsp;&nbsp;b. <code>GROUP BY</code> clause</h5>
 	
 	<p>The <code>GROUP BY</code> clause was one of the more difficult clauses for me to learn. 
-	This clause is required if you <b>perform a function on a field</b> <i>across another field</i>. 
+	This clause is required if you <b>perform a function on a field</b> <i>across another field or fields</i>. 
 	This could mean:</p>
 	<ul>
 	<li><b>summing</b> revenue <i>by month</i></li>
@@ -479,7 +479,7 @@ BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
 
 	<p>The <code>GROUP BY</code> clause <b>always comes directly after</b> the
 	<code>WHERE</code> clause. If there is no <code>WHERE</code> clause, it always comes directly after the
-	<code>FROM</code> clause. It is then followed by the fields <i>across which</i> you are performing a function.</p>
+	<code>FROM</code> clause. It is then followed by the field(s) <i>across which</i> you are performing a function.</p>
 	
 	<p>
 	The <code>COUNT()</code> function is probably the easiest way to understand the <code>GROUP BY</code> clause.
@@ -599,6 +599,65 @@ Column 'adventureworks.person.address.StateProvinceID' is invalid in the select 
 	Therefore, even if the addition of another field does not result in another record, it is still required in the <code>GROUP BY</code> clause.</p>
 
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+
+	<!--HAVING-->	
+  <h5 class="title" id="having-clause">&nbsp;&nbsp;&nbsp;&nbsp;c. <code>HAVING</code> clause</h5>
+	
+	<p>The <code>HAVING</code> clause is conceptually similar to the <code>WHERE</code> clause. However,
+	the <code>WHERE</code> clause only applies to <i>indiviual records</i>. The <code>HAVING</code> clause, on the other hand, is
+	utilized for <i>groupings</i> (i.e., function(s) performed across one or more fields). Therefore, you will
+	only use the <code>HAVING</code> clause in conjunction with a <code>GROUP BY</code> clause when you
+	want to filter the grouped results.</p>
+	
+	<p>What does this mean in practice? I find the <code>HAVING</code> clause useful in the following cases:</p>
+	
+	<ul>
+	<li><b>Finding if duplicate records exist.</b></li>
+	<p>Referred to casually as "dups" (pronounced dupes), duplicate records
+	are not at all uncommon in the real world, but they usually require some sort of cleaning. For one reason or another,
+	and usually for a good reason, the same account number may exist in a database twice or more. However, it is
+	impossible for two identical accounts to exist in practice--they always represent a single account. For example, imagine
+	you share a checking account with your spouse. Two records for the account number may exist in a database, each with
+	a different name on the account:</p>
+
+	<pre>
+acct_number  owner
+0006678		 Ashley Jackson
+0006678		 John Jackson
+...
+	</pre>
+
+	<p>In this example, it is more likely you'd need to answer the question, "How many accounts do I have?" and not "How
+	many account owners do I have?" Duplicate records would overstate the answer to this question if not properly handled</p>
+	
+	<p>The table <code>[AdventureWorks].[Person].[EmailAddress]</code> has a field <code>EmailAddress</code> with email addresses
+	registered to the adventure-works.com domain. This table has 19,972 records. A query can quickly tell us whether there are
+	more than one record with the same email address:</p>
+
+<pre><code>
+select count(*) 'Count', emailaddress
+from [AdventureWorks].[Person].[EmailAddress]
+group by emailaddress
+<b>having count(*) > 1</b>
+</code></pre>
+
+	<p>There are no records with the same email address, as shown in the results below. However, this assumes all email addresses
+	are correctly spelled, etc., because the field <code>EmailAddress</code> will only be grouped when two records are identical. 
+	SQL would count "jack.johnson@gmail.com" and "jackjohnson@gmail.com" as separate email addresses even though they are highly
+	similar.</p>
+	
+<pre>
+Count       emailaddress
+----------- --------------------------------------------------
+
+(0 row(s) affected)
+</pre>
+	
+	<li><b>Excluding inconsequential records (or including on consequential ones).</b></li>
+
+	
+	</ul>
+
 </div>	
 	
 	
