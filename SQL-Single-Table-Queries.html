@@ -665,14 +665,14 @@ Count       emailaddress
 	be expanded to other applications:</p>
 	
 	<ul>
-	<li>Only including customers with high spending (e.g., a <code>SUM></code> across all transactions in a month that is greater than $5,000).</li>
+	<li>Only including customers with high spending (e.g., a <code>SUM</code> across all transactions in a month that is greater than $5,000).</li>
 	<li>Excluding records whose aggregated field is zero or some other value of interest. 
-	(e.g., a <code>SUM></code> of credit inquiries in a year that is equal to zero).</li>
+	(e.g., a <code>SUM</code> of credit inquiries in a year that is equal to zero).</li>
 	<li>Including only the tails of distributions by using the <code>AND</code> operator.</li> 
 	</ul>
 	
 	<p>In the <code>GROUP BY</code> section above, we showed the necessity of including the <code>StateProvinceID</code> field in the 
-	<code>GROUP BY</clause> if it is contained in the <code>SELECT</code> list:</p>
+	<code>GROUP BY</code> clause if it is contained in the <code>SELECT</code> list:</p>
 	
 	<pre><code>
 select count(*) 'Count', city, <b>stateprovinceid</b>
