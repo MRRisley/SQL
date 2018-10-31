@@ -693,7 +693,7 @@ group by city, stateprovinceid
 	<p>There are 253 records where only one record exists for a distinct city and state/province combination.</p>
 
 	<pre>
-	Count       city                           stateprovinceid
+Count       city                           stateprovinceid
 ----------- ------------------------------ ---------------
 1           Tupelo                         39
 1           Michigan City                  25
@@ -746,9 +746,9 @@ productid
 	field to also show the corresponding weight of each <code>ProductID</code></p>
 
 	<pre><code>
-select productid
+select productid, <b>weight</b>
 from [AdventureWorks].[Production].[Product]
-<b>order by weight</b>
+order by weight
 	</code></pre>
 	
 	<pre>	
