@@ -607,11 +607,11 @@ Column 'adventureworks.person.address.StateProvinceID' is invalid in the select 
 	the <code>WHERE</code> clause only applies to <i>indiviual records</i>. The <code>HAVING</code> clause, on the other hand, is
 	utilized for <i>groupings</i> (i.e., function(s) performed across one or more fields). Therefore, you will
 	only use the <code>HAVING</code> clause in conjunction with a <code>GROUP BY</code> clause when you
-	want to filter the grouped results.</p>
+	want to filter the grouped results. The <code>HAVING</clause> clause follows the <code>GROUP BY</code> clause.</p>
 	
-	<p>What does this mean in practice? I find the <code>HAVING</code> clause useful in the following cases:</p>
+	<p>What does this mean in practice? I find the <code>HAVING</code> clause useful in the following two cases:</p>
 	
-	<ul>
+	<ol>
 	<li><b>Finding if duplicate records exist.</b></li>
 	<p>Referred to casually as "dups" (pronounced dupes), duplicate records
 	are not at all uncommon in the real world, but they usually require some sort of cleaning. For one reason or another,
@@ -634,30 +634,271 @@ acct_number  owner
 	registered to the adventure-works.com domain. This table has 19,972 records. A query can quickly tell us whether there are
 	more than one record with the same email address:</p>
 
-<pre><code>
+	<pre><code>
 select count(*) 'Count', emailaddress
 from [AdventureWorks].[Person].[EmailAddress]
 group by emailaddress
 <b>having count(*) > 1</b>
-</code></pre>
+	</code></pre>
 
 	<p>There are no records with the same email address, as shown in the results below. However, this assumes all email addresses
 	are correctly spelled, etc., because the field <code>EmailAddress</code> will only be grouped when two records are identical. 
 	SQL would count "jack.johnson@gmail.com" and "jackjohnson@gmail.com" as separate email addresses even though they are highly
 	similar.</p>
 	
-<pre>
+	<pre>
 Count       emailaddress
 ----------- --------------------------------------------------
 
 (0 row(s) affected)
-</pre>
+	</pre>
 	
-	<li><b>Excluding inconsequential records (or including on consequential ones).</b></li>
-
+	<li><b>Excluding inconsequential records (or including the consequential ones).</b></li>
 	
+	<p>I've found the <code>HAVING</code> clause useful in my work for limiting results to those that
+	are influential. For example, say you have a database of all vehicles registered in the US and you wanted
+	to count them by make (so, General Motors, Ford, Honda, etc.). You're analyzing the popularity of vehicle makes, 
+	in which case it may be desirable to eliminate makes that don't have a lot of registered owners: the Ferraris,
+	the Smart cars, the Teslas. The <code>HAVING</code> clause can specify to return makes only when there are over one
+	million registered owners, for example. In general, I find the <code>HAVING</code> clause most useful when there
+	are a lot of results are irrelevant to the analytical question you're trying to answer. This could also
+	be expanded to other applications:</p>
+	
+	<ul>
+	<li>Only including customers with high spending (e.g., a <code>SUM></code> across all transactions in a month that is greater than $5,000).</li>
+	<li>Excluding records whose aggregated field is zero or some other value of interest. 
+	(e.g., a <code>SUM></code> of credit inquiries in a year that is equal to zero).</li>
+	<li>Including only the tails of distributions by using the <code>AND</code> operator.</li> 
 	</ul>
+	
+	<p>In the <code>GROUP BY</code> section above, we showed the necessity of including the <code>StateProvinceID</code> field in the 
+	<code>GROUP BY</clause> if it is contained in the <code>SELECT</code> list:</p>
+	
+	<pre><code>
+select count(*) 'Count', city, <b>stateprovinceid</b>
+from adventureworks.person.address
+group by city, <b>stateprovinceid</b>
+	</code></pre>
 
+	<p>This ensures that if a city exists in two or more separate states/provinces, a result will be returned for each city and state/province.
+	Imagine our analysis wanted to explore cases when only a single person is registered in a city. Our query would look like:</p>
+	
+	<pre><code>
+select count(*) 'Count', city, stateprovinceid
+from adventureworks.person.address
+group by city, stateprovinceid
+<b>having count(*) > 1</b>
+	</code></pre>
+	
+	<p>There are 253 records where only one record exists for a distinct city and state/province combination.</p>
+
+	<pre>
+	Count       city                           stateprovinceid
+----------- ------------------------------ ---------------
+1           Tupelo                         39
+1           Michigan City                  25
+1           Norridge                       24
+1           Monroe                         35
+1           Stamford                       11
+	</pre>
+
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+
+	<!--ORDER BY-->	
+  <h5 class="title" id="order-by-clause">&nbsp;&nbsp;&nbsp;&nbsp;d. <code>ORDER BY</code> clause</h5>
+	
+	<p>The <code>ORDER BY</code> clause is the simplest of the clauses in my opinion. The <code>ORDER BY</code> clause tells
+	SQL how to order, or sort, the results. Nearly everyone is familiar with sorting data as this is a common way to 
+	add interpretability to numbers and is usually a first step in exploratory analysis. The <code>ORDER BY</code> list
+	can sort by one or more fields from:</p>
+	
+	<ol>
+	<li>Least to greatest, which is called <b>ascending</b> order. This is the default sort order in SQL.</li>
+	<li>Greatest to least, which is called <b>descending</b> order. If you use this sort method, you must also 
+	use the <code>desc</code> keyword after the field name. "desc" is short for descending.</li>
+	</ol>
+	
+	<p>Let's start with a simple query. The <code>[AdventureWorks].[Production].[Product]</code> table contains information for
+	various products, including weight. The first result in the following query tells us which product has the <i>lowest</i> weight.
+	Remember that the default order is ascending, and this query does not use the <code>desc</code> keyword.</p>
+	
+	<pre><code>
+select productid
+FROM [AdventureWorks].[Production].[Product]
+<b>order by weight</b>
+	</code></pre>
+	
+	<pre>
+productid
+-----------
+1
+2
+3
+4
+316
+...
+
+(504 row(s) affected)
+	</pre>
+
+	<p>Of the 504 products in the table, the product with an ID of 1 is the product with the lowest weight. Or, this <i>appears</i> to be
+	the case. However, the results of the query don't provide any check to ensure the query performed as intended. We can add the <code>weight</code>
+	field to also show the corresponding weight of each <code>ProductID</code></p>
+
+	<pre><code>
+select productid
+from [AdventureWorks].[Production].[Product]
+<b>order by weight</b>
+	</code></pre>
+	
+	<pre>	
+productid   weight
+----------- ---------------------------------------
+1           NULL
+2           NULL
+3           NULL
+4           NULL
+316         NULL
+...
+
+(504 row(s) affected)
+	</pre>
+	
+	<p>This is a great example for the necessity of performing checks during analytic work. When sorting fields with the <code>ORDER BY</code>
+	clause, NULL values are returned first for ascending sorts (and last for descending sorts). Imagine if you ran the query, which seemed
+	appropriate, but you told your manager that ProductID 1 had the lowest weight. The manager then makes a decision based on this information,
+	which is most likely bad information. Within the table, the <code>NULL</code> values for weight tell us that the <code>WEIGHT</code> field
+	is "missing" for these products. Occassionally <code>NULL</code> values are intentional, but in other cases they may reveal incomplete information.
+	So what should you tell your manager in this instance? The fact is that, in the presence of <code>NULL</code> values, answers to questions about weight
+	across <i>all</li> products are uknowable without understanding better the rationale and interpretation of the <code>NULL</code> values. This is also
+	why summary statistics on your data are a good first step before drawing conclusions from it.</p>
+	
+	<p>Imagine that your manager tells you that you can simply ignore these <code>NULL</code> values, referred to casually in the coding community as "nulls".
+	How could we write a query to ensure that NULL values for the <code>WEIGHT</code> field are not displayed? With the <code>WHERE</code> clause:</p>
+	
+	<pre><code>
+select productid, weight
+from [AdventureWorks].[Production].[Product]
+<b>where weight is not null</b>
+order by weight
+	</code></pre>
+	
+	<pre>
+productid   weight
+----------- ---------------------------------------
+718         2.12
+838         2.12
+839         2.16
+719         2.16
+822         2.18
+...
+
+(205 row(s) affected)
+	</pre>
+	
+	<p><code>NULL</code> and <code>IS</code> are both keywords in T-SQL, which we will cover in another section. From the results, we can determine that there are
+	also quite a few nulls (299 out of 504) for the <code>WEIGHT</code> field.</p>
+	
+	<br>
+	<p>Like most programming languages, SQL does allow sorting of character data, which relies on alphabetical order. Ascending sorts (the default) are from A-Z
+	and descending (with the <code>desc</code> keyword ) are from Z-A.</p>
+	
+	<p>To sort store names (<code>name</code>) within the <code>[AdventureWorks].[Sales].[Store]</code> table in reverse alphabetical order (that is, from Z-A)
+	and return the first five records::</p>
+
+	<pre><code>
+select top 5 name
+from [AdventureWorks].[Sales].[Store]
+<b>order by name desc</b>
+	</code></pre>
+
+	<pre>
+name
+--------------------------------------------------
+Yellow Bicycle Company
+Year-Round Sports
+Worthwhile Activity Store
+World of Bikes
+World Bike Discount Store
+
+(5 row(s) affected)
+	</pre>
+	
+	<br>
+	<p>Sorting by more than one field is referred to as a "multi-level" sort. This is most useful for character fields. Think of a table with the genus and species
+	of trees from Ohio. Because genus refers to a group of species that share like characteristics, there will likely be multiple species for a particular genus.
+	For Maple trees, there are Red Maple, Black Maple, Sugar Maple, .... (see <a href="https://ohioline.osu.edu/factsheet/f-36" target="_blank">this link</a> if you're
+	curious about this). For Oak trees, there are similarly many types. A list that's sorted A-Z on genus but not species may look something like:
+	
+	<pre>
+genus			species
+--------------- ----------------------------------
+Acer			nigrum
+Acer			rubrum
+Acer			saccharum
+Acer			platanoides
+...
+Quercus			velutina
+Quercus			coccinea
+...
+	</pre>
+	
+	<p>A multi-level sort (both ascending) on genus and species would look like the following, which makes the data more readable, especially when these lists are expanded.</p>
+	
+	<pre>
+genus			species
+--------------- ----------------------------------
+Acer			nigrum
+Acer			platanoides
+Acer			rubrum
+Acer			saccharum
+...
+Quercus			coccinea
+Quercus			velutina		
+...
+	</pre>	
+	
+	<p>The code below demonstrates a multi-level sort within a query on the <code>[AdventureWorks].[Person].[StateProvince]</code> for the fields
+	<code>TerritoryID</code> (descending), <code>CountryRegionCode<code>, and <code>StateProvinceCode</code></p>
+
+<pre><code>
+select territoryid,
+countryregioncode,
+stateprovincecode
+from [AdventureWorks].[Person].[StateProvince]
+order by 
+territoryid desc,
+countryregioncode,
+stateprovincecode
+</code></pre>
+
+	<pre>
+territoryid countryregioncode stateprovincecode
+----------- ----------------- -----------------
+10          GB                ENG
+9           AU                NSW
+9           AU                QLD
+9           AU                SA 
+9           AU                TAS
+9           AU                VIC
+9           FM                FM 
+9           MH                MH 
+9           MP                MP 
+9           PW                PW 
+8           DE                BB 
+8           DE                BY 
+8           DE                HE 
+8           DE                HH 
+8           DE                NW 
+8           DE                SL 
+8           DE                SN 
+...
+
+(181 row(s) affected)	
+	</pre>
+
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+	
 </div>	
 	
 	
