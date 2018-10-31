@@ -687,7 +687,7 @@ group by city, <b>stateprovinceid</b>
 select count(*) 'Count', city, stateprovinceid
 from adventureworks.person.address
 group by city, stateprovinceid
-<b>having count(*) > 1</b>
+<b>having count(*) = 1</b>
 	</code></pre>
 	
 	<p>There are 253 records where only one record exists for a distinct city and state/province combination.</p>
