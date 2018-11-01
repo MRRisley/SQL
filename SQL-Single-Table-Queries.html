@@ -17,8 +17,10 @@
 </script>
 	
 	<meta charset="UTF-8">
-	<title>MRRisley:=("Simple Queries")</title>
-	<meta name="description" content="Single-Table Queries in T-SQL">
+	<title>MRRisley:=("The SQL Query")</title>
+	<meta name="description" content="An introduction to the fundamental structure of the 
+		SQL query, including SELECT, FROM, and the four clauses: WHERE, GROUP BY,
+		HAVING, and ORDER BY.">
 	<meta name="author" content="Matt Risley">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
@@ -38,15 +40,15 @@
 <body>
 	
 <div class="container" id="top">
-	<h3 align="center">MRRisley:=("Single-Table Queries in T-SQL")</h3>
-		<h6 align="center">Note: This guide is adapted from Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
+	<h3 align="center">MRRisley:=("The SQL Query")</h3>
+		<h6 align="center">Note: This guide is meant to be a companion to Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
 	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
 
 <!--Navigation-->
 <div class="container" id="nav">
 	<h5>Topics</h5>
-	<p><a href = "#intro">1. Intro to Single-Table Queries</a>
+	<p><a href = "#intro">1. Intro to the SQL Query</a>
 	<!--<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#intro_a">a. Types of Programming</a>-->
 	
 	<br><a href = "#select">2. The <code>SELECT</code> statement</a>
@@ -116,12 +118,15 @@ where status = 'inactive'
 <!--SELECT-->	
 <div class="docs-section" id="select">
   <h5 class="title">2. The <code>SELECT</code> Statement</h5>
+	
 	<p>The <code>SELECT</code> statement is the mother of all statements. The base requirement for a query is the <code>SELECT</code> statement. As shown above,
-	this statement essentially tells the server precisely what you want to see. Without it, there is no query.</p>
+	this statement tells the server precisely what you want to see. Without it, there is no query.</p>
+	
 	<p>Because the <code>SELECT</code> statement is the only required piece of a query, all other components are usually referred to as <b>clauses</b>,
 	which are simply qualifiactions to the statement. Telling the statement what table to look at and how to look at it are common clauses--so common, in fact, that
-    the distinction between the <code>SELECT</code> statement and the <code>FROM</code> clause is mostly a semantic issue.</p>	
-	<p>I have only used the <code>SELECT</code> statement by itself in practice to perform basic operations. Unlike some programming languages, such as R or Excel VBA,
+    the distinction between the <code>SELECT</code> statement and the <code>FROM</code> clause is mostly a semantic consideration.</p>	
+	
+	<p>In practice, I have only used the <code>SELECT</code> statement <i>by itself</i> to perform basic operations. Unlike some programming languages, such as R or Excel VBA,
 	SQL does not have a "console," which is essentially a command line. In other languages, this is where you could easily and quickly return a result, such as the 
 	square root of 898. Without a console, the code must be written within the script:</p>	
 	
@@ -149,9 +154,35 @@ modifieddate</b>
 from adventureworks.humanresources.department
 	</code></pre>	
 	
-<p>This query returns the table shown above. One important point about this and all queries: just as SQL does not care about case (i.e. capitalization),
+	<p>The query above selects the fields <code>name</code>, <code>groupname</code>, and <code>modifieddate</code> 
+	from the table <code>adventureworks.humanresources.department</code>:</p>
+	
+	<pre>
+name                                               groupname                                          modifieddate
+-------------------------------------------------- -------------------------------------------------- -----------------------
+Engineering                                        Research and Development                           2008-04-30 00:00:00.000
+Tool Design                                        Research and Development                           2008-04-30 00:00:00.000
+Sales                                              Sales and Marketing                                2008-04-30 00:00:00.000
+Marketing                                          Sales and Marketing                                2008-04-30 00:00:00.000
+Purchasing                                         Inventory Management                               2008-04-30 00:00:00.000
+Research and Development                           Research and Development                           2008-04-30 00:00:00.000
+Production                                         Manufacturing                                      2008-04-30 00:00:00.000
+Production Control                                 Manufacturing                                      2008-04-30 00:00:00.000
+Human Resources                                    Executive General and Administration               2008-04-30 00:00:00.000
+Finance                                            Executive General and Administration               2008-04-30 00:00:00.000
+Information Services                               Executive General and Administration               2008-04-30 00:00:00.000
+Document Control                                   Quality Assurance                                  2008-04-30 00:00:00.000
+Quality Assurance                                  Quality Assurance                                  2008-04-30 00:00:00.000
+Facilities and Maintenance                         Executive General and Administration               2008-04-30 00:00:00.000
+Shipping and Receiving                             Inventory Management                               2008-04-30 00:00:00.000
+Executive                                          Executive General and Administration               2008-04-30 00:00:00.000
+
+(16 row(s) affected)
+	</pre>
+	
+<p>One important point about this and all queries: just as SQL does not care about case (i.e. capitalization),
 it also does not care about line breaks. I have never heard of "rules" for when to break lines with SQL. Generally, however, as you become more 
-comfortable with programming in T-SQL you should code in a way that promotes readability as well as consistency. The code below will work
+comfortable with programming in T-SQL, you should code in a way that promotes readability as well as consistency. The code below will work
 just as well as the code above, but it's not nearly as readable:</p> 	
 
 	<pre><code>
@@ -176,14 +207,16 @@ adventureworks.humanresources.department
 from adventureworks.humanresources.department
 	</code></pre>
 	
-	<p>This is a mostly useful statement in practice; however, it should not be used indiscriminantly. It is generally useful
-	because when you enter a server used in the real world, it is likely that there will be many, many databases and many tables.
+	<p>This is a mostly useful statement in practice; however, it should <b>not</b> be used indiscriminantly. It is usually useful
+	because when you enter a real-world server, it is likely that there will be many, many databases and even more tables.
 	The process of learning what is in them (fields and types of data) requires a query in most cases. However, if you don't understand 
 	the size or the structure of a table, using <code>SELECT *</code> could very well initiate a query that takes hours if the table is large enough.
 	In practice, I have found the act of stopping a query (sometimes referred to casually as "killing" the query) easy enough to do in
 	SQL Server Management Studio. I have found it to lock up other programs such as SQL Developer. If you ever have a query that 
 	continues to run for a while (referred to casually as a query that's "spinning"), you can cancel it in SSMS by pressing the red "Stop"
-	button:</p>
+	button. This is the red square next to the execute and debug buttons (it will only show red when a query is in the process of executing):</p>
+	
+		<pre><div align="center"><img src="images/stop-example.JPG" alt="The Stop Button"></div></pre>
 	
 	<p>There are two options I tend to prefer if I don't know the size of the table, or if there is risk that a <code>SELECT *</code> will
 	take time to complete:</p>
@@ -191,7 +224,7 @@ from adventureworks.humanresources.department
 	<ol>
 	<li>Use <code>SELECT TOP 10 *</code>, which will return the top 10 records. You can change the number 10 to any number
 	you prefer. Also, if your query is written with logic that filters results, only the top 10 records that meet the filtering 
-	criteria will be displayed. <b>Note:</b> the TOP keyword does not exist in PL/SQL.</li>
+	criteria will be displayed. Note: the TOP keyword does not exist in PL/SQL.</li>
 
 	<pre><code>
 <b>select top 10 *</b>
@@ -200,7 +233,7 @@ from adventureworks.person.address
 	
 	<p>returns:</p>
 	
-<pre>
+	<pre>
 AddressID   AddressLine1                                                 AddressLine2                                                 City                           StateProvinceID PostalCode      SpatialLocation                                                                                                                                                                                                                                                  rowguid                              ModifiedDate
 ----------- ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------ --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------ -----------------------
 1           1970 Napa Ct.                                                NULL                                                         Bothell                        79              98011           0xE6100000010CAE8BFC28BCE4474067A89189898A5EC0                                                                                                                                                                                                                   9AADCB0D-36CF-483F-84D8-585C2D4EC6E9 2007-12-04 00:00:00.000
@@ -215,11 +248,11 @@ AddressID   AddressLine1                                                 Address
 10          250 Race Court                                               NULL                                                         Bothell                        79              98011           0xE6100000010C219D64AE1FE4474040862564B7825EC0                                                                                                                                                                                                                   0B6B739D-8EB6-4378-8D55-FE196AF34C04 2008-12-02 00:00:00.000
 
 (10 row(s) affected)
-</pre>
+	</pre>
 	
 	<li>Right-click on a table in the Object Explorer, and select "Select Top 1000 Rows." A query is then self-generated. 
 	The benefit of this option is that for a table with many columns, reading the fields is much easier. You can also copy/paste
-	field names or the table name.</li>
+	field names or the table name from the generated query.</li>
 	
 		<pre><div align="center"><img src="images/select-top-1000.JPG" alt="Select Top 1000 Rows Example"></div></pre>
 	
