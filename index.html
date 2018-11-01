@@ -17,8 +17,10 @@
 </script>
 	
 	<meta charset="UTF-8">
-	<title>MRRisley:=("T-SQL")</title>
-	<meta name="description" content="A guide to T-SQL">
+	<title>MRRisley:=("The SQL Query")</title>
+	<meta name="description" content="An introduction to the fundamental structure of the 
+		SQL query, including SELECT, FROM, and the four clauses: WHERE, GROUP BY,
+		HAVING, and ORDER BY.">
 	<meta name="author" content="Matt Risley">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
@@ -37,65 +39,914 @@
 <!--BODY-->
 <body>
 	
-  	<div class="container" id="top">
-	<h3 align="center">MRRisley:=("A Guide to Learning T-SQL")</h3>
-		<h6 align="center">Note: This guide is adapted from Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
+<div class="container" id="top">
+	<h3 align="center">MRRisley:=("The SQL Query")</h3>
+		<h6 align="center">Note: This guide is meant to be a companion to Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-		
+	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
+
 <!--Navigation-->
-<div class="docs-section">
-	<h5>Course Navigation</h5>
+<div class="container" id="nav">
+	<h5>Topics</h5>
+	<p><a href = "#intro">1. Intro to the SQL Query</a>
+	<!--<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#intro_a">a. Types of Programming</a>-->
 	
-		<p>This guide is used to teach a graduate-level course at the University of Cincinnati and is for
-		education purposes only. The course week-by-week curriculum and syllabus is listed below:</p>
-		
-	<h6 align="center"><a href="../SQL/IS6030_Risley.pdf" target="_blank">Current Course Syllabus</a></h6>
-	<h6 align="center"><a href="../SQL/Day-1.html">Week 1</a></h6>
+	<br><a href = "#select">2. The <code>SELECT</code> statement</a>
+	
+	<br><a href = "#from">3. The <code>FROM</code> clause</a>
+	
+	<br><a href = "#clauses">4. Clauses</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#where-clause">a. <code>WHERE</code> clause</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#group-by-clause">b. <code>GROUP BY</code> clause</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#having-clause">c. <code>HAVING</code> clause</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#order-by-clause">d. <code>ORDER BY</code> clause</a>
+
+<!--
+	
+	<br><a href = "#operators">5. Operators</a>
+	
+	<br><a href = "#clauses">6. <code>CASE</code> expressions</a>
+	
+	<br><a href = "#operators">7. Data Types</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#null">a. <code>NULL</code></a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#characters">b. Character Data</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#dates">c. Dates</a>
+
+-->	
+	
+	</p>
 </div>
-		
-<div class="docs-section">		
-	<h5>SQL Site Navigation</h5>
+
+<!--Intro-->	
+<div class="docs-section" id="intro">
+  <h5 class="title">1. Intro to Single-Table Queries</h5>
+	<p>Data within relational databases are stored in tables as observations, or <b>records</b>. Each record has one or more <b>fields</b>, or columns.
+	If you're familiar with Excel Pivot tables, relational data are essentially the original, un-pivoted data.
+	The table excerpt below demonstrates the structure of tables within relational databases.</p>
 	
-	<p><a href = "../SQL/SQL_Setup.html">A. Setting Up SQL Server on Local PC</a>
-	<br>This section is a step-by-step guide to installing SQL Server, setting up a local server instance, and
-	installing the AdventureWorks databases. This option is appropriate if you own a Windows PC.</p>
 	
-	<p><a href = "../SQL/SQL-Setup-Alt.html">B. Connecting to SQL Server on UC PC</a>
-	<br>This section is a step-by-step guide to setting up SQL Server on a UC computer. This option is appropriate if
-	you are at a UC lab or connect to a Virtual Lab. This option will also work on your own PC.</p>
 	
-	<p><a href = "../SQL/SQL-Intro.html">C. Intro to SQL</a>
-	<br>This section is a very high-level overview of SQL.</p>
+	<pre>
+DepartmentID Name                                               GroupName                                          ModifiedDate
+------------ -------------------------------------------------- -------------------------------------------------- -----------------------
+1            Engineering                                        Research and Development                           2008-04-30 00:00:00.000
+2            Tool Design                                        Research and Development                           2008-04-30 00:00:00.000
+3            Sales                                              Sales and Marketing                                2008-04-30 00:00:00.000
+4            Marketing                                          Sales and Marketing                                2008-04-30 00:00:00.000
+5            Purchasing                                         Inventory Management                               2008-04-30 00:00:00.000
+
+...
+	</pre>
 	
-	<p><a href = "../SQL/SQL-Single-Table-Queries.html">D. Single-Table Queries</a>
-	<br>This section introduces the basics of the SQL query.</p>
+	<p>Single-table queries are the foundation of SQL. A single-table query is simply what it says: a query on a single table. A query is (usually) a small program
+	that specifies what to return from a table. Queries can "filter" results, they can aggregate results, and they can sort them. Imagine you work at a bank and have
+	a table with checking accounts. You want to return checking accounts that are inactive. A pseudo-query may look like:</p>
 	
+	<pre><code>
+select account#
+from checkingaccountdata
+where status = 'inactive'
+	</code></pre>
+	
+	<p>The query can be read as follows: <code>select</code> the <code>account#</code> field from the <code>checkingaccountdata</code> table 
+	for all records where another field, <code>status</code>, is equal to "inactive". Note that SQL is <b>NOT</b> case sensitive. It does not
+	care whether you capitalize or not. This is not true for all programming languages, however.</p>
+	
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
+<!--SELECT-->	
+<div class="docs-section" id="select">
+  <h5 class="title">2. The <code>SELECT</code> Statement</h5>
+	
+	<p>The <code>SELECT</code> statement is the mother of all statements. The base requirement for a query is the <code>SELECT</code> statement. As shown above,
+	this statement tells the server precisely what you want to see. Without it, there is no query.</p>
+	
+	<p>Because the <code>SELECT</code> statement is the only required piece of a query, all other components are usually referred to as <b>clauses</b>,
+	which are simply qualifiactions to the statement. Telling the statement what table to look at and how to look at it are common clauses--so common, in fact, that
+    the distinction between the <code>SELECT</code> statement and the <code>FROM</code> clause is mostly a semantic consideration.</p>	
+	
+	<p>In practice, I have only used the <code>SELECT</code> statement <i>by itself</i> to perform basic operations. Unlike some programming languages, such as R or Excel VBA,
+	SQL does not have a "console," which is essentially a command line. In other languages, this is where you could easily and quickly return a result, such as the 
+	square root of 898. Without a console, the code must be written within the script:</p>	
+	
+		<pre><code>
+select sqrt(898)
+		</code></pre>
+	
+	<p>Note that these kind of operations in SQL are usually much more difficult to program than simply arriving at the answer using a calculator.
+	This is due to a number of reasons, such as T-SQL not supporting complex numbers as well as floating-point precision. For example,</p> 
 
-<div class="docs-section" id="overview">
-	<h5>SQL Overview</h5>
-	<p>For analytics in the private sector, SQL is almost a universal requirement for data retrieval, manipulation,
-		cleaning, and segmentation. Corporations tend to rely heavily on Relational Databases, for which the SQL language
-		was designed. If you're familiar with R or SAS or any other statistics-based programming language, SQL will probably 
-		seem like a brand new language. At its core, SQL (Structured Query Language) involves <b>queries</b> of
-		the objects within databases. A query tells the program what it requires from a database and how to structure the results. 
-		Importantly, however, there are several procedural extensions to SQL, with PL/SQL (Oracle) and T-SQL (Microsoft) being 
-		the most popular. These extensions bring procedural elements to SQL, such as logic and loops. SQL is almost exclusively 
-		used with a procedural extension, which allows the user to customize the output through data definitions, etc.
-		This guide relies on the T-SQL extension.</p>
-</div>		
-			
-  	
+		<pre><code>
+select 50/100
+		</code></pre>
+	
+	<p>returns 1. This is because SQL reads 50 and 100 as integers and returns the nearest integer (i.e., 0.5 gets rounded to 1). For issues related to
+	floating-point precision and numeric values, see <a href="../Programming/index.html#numeric">a description</a> of numeric variables in programming.</p>
 
+	<p>Most applications of the <code>SELECT</code> statement will include use of a table. From a table, the statement will usually refer to fields, aggregations of fields,
+	or manipulations of existing fields.</p>
+	
+	<pre><code>
+<b>select name, 
+groupname,  
+modifieddate</b>
+from adventureworks.humanresources.department
+	</code></pre>	
+	
+	<p>The query above selects the fields <code>name</code>, <code>groupname</code>, and <code>modifieddate</code> 
+	from the table <code>adventureworks.humanresources.department</code>:</p>
+	
+	<pre>
+name                                               groupname                                          modifieddate
+-------------------------------------------------- -------------------------------------------------- -----------------------
+Engineering                                        Research and Development                           2008-04-30 00:00:00.000
+Tool Design                                        Research and Development                           2008-04-30 00:00:00.000
+Sales                                              Sales and Marketing                                2008-04-30 00:00:00.000
+Marketing                                          Sales and Marketing                                2008-04-30 00:00:00.000
+Purchasing                                         Inventory Management                               2008-04-30 00:00:00.000
+Research and Development                           Research and Development                           2008-04-30 00:00:00.000
+Production                                         Manufacturing                                      2008-04-30 00:00:00.000
+Production Control                                 Manufacturing                                      2008-04-30 00:00:00.000
+Human Resources                                    Executive General and Administration               2008-04-30 00:00:00.000
+Finance                                            Executive General and Administration               2008-04-30 00:00:00.000
+Information Services                               Executive General and Administration               2008-04-30 00:00:00.000
+Document Control                                   Quality Assurance                                  2008-04-30 00:00:00.000
+Quality Assurance                                  Quality Assurance                                  2008-04-30 00:00:00.000
+Facilities and Maintenance                         Executive General and Administration               2008-04-30 00:00:00.000
+Shipping and Receiving                             Inventory Management                               2008-04-30 00:00:00.000
+Executive                                          Executive General and Administration               2008-04-30 00:00:00.000
 
+(16 row(s) affected)
+	</pre>
+	
+<p>One important point about this and all queries: just as SQL does not care about case (i.e. capitalization),
+it also does not care about line breaks. I have never heard of "rules" for when to break lines with SQL. Generally, however, as you become more 
+comfortable with programming in T-SQL, you should code in a way that promotes readability as well as consistency. The code below will work
+just as well as the code above, but it's not nearly as readable:</p> 	
 
+	<pre><code>
+select 
+name, groupname  
+,modifieddate
+
+from 
+adventureworks.humanresources.department
+	</code></pre>	
+			 
+			 <div align="center"><a href = "#top"><h6>Top</h6></a></div>
 	
 	
+	<br>
+	<p><b><code>SELECT *</code></b></p>
+	<p>To return the complete contents of a table, you can simply use the <code>SELECT *</code> statement on a table.
+	The query below also returns the table shown above because all fields were selected in the original query.</p>
+	
+	<pre><code>
+<b>select *</b>
+from adventureworks.humanresources.department
+	</code></pre>
+	
+	<p>This is a mostly useful statement in practice; however, it should <b>not</b> be used indiscriminantly. It is usually useful
+	because when you enter a real-world server, it is likely that there will be many, many databases and even more tables.
+	The process of learning what is in them (fields and types of data) requires a query in most cases. However, if you don't understand 
+	the size or the structure of a table, using <code>SELECT *</code> could very well initiate a query that takes hours if the table is large enough.
+	In practice, I have found the act of stopping a query (sometimes referred to casually as "killing" the query) easy enough to do in
+	SQL Server Management Studio. I have found it to lock up other programs such as SQL Developer. If you ever have a query that 
+	continues to run for a while (referred to casually as a query that's "spinning"), you can cancel it in SSMS by pressing the red "Stop"
+	button. This is the red square next to the execute and debug buttons (it will only show red when a query is in the process of executing):</p>
+	
+		<pre><div align="center"><img src="images/stop-example.JPG" alt="The Stop Button"></div></pre>
+	
+	<p>There are two options I tend to prefer if I don't know the size of the table, or if there is risk that a <code>SELECT *</code> will
+	take time to complete:</p>
+	
+	<ol>
+	<li>Use <code>SELECT TOP 10 *</code>, which will return the top 10 records. You can change the number 10 to any number
+	you prefer. Also, if your query is written with logic that filters results, only the top 10 records that meet the filtering 
+	criteria will be displayed. Note: the TOP keyword does not exist in PL/SQL.</li>
 
+	<pre><code>
+<b>select top 10 *</b>
+from adventureworks.person.address
+	</code></pre>	
+	
+	<p>returns:</p>
+	
+	<pre>
+AddressID   AddressLine1                                                 AddressLine2                                                 City                           StateProvinceID PostalCode      SpatialLocation                                                                                                                                                                                                                                                  rowguid                              ModifiedDate
+----------- ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------ --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------ -----------------------
+1           1970 Napa Ct.                                                NULL                                                         Bothell                        79              98011           0xE6100000010CAE8BFC28BCE4474067A89189898A5EC0                                                                                                                                                                                                                   9AADCB0D-36CF-483F-84D8-585C2D4EC6E9 2007-12-04 00:00:00.000
+2           9833 Mt. Dias Blv.                                           NULL                                                         Bothell                        79              98011           0xE6100000010CD6FA851AE6D74740BC262A0A03905EC0                                                                                                                                                                                                                   32A54B9E-E034-4BFB-B573-A71CDE60D8C0 2008-11-30 00:00:00.000
+3           7484 Roundtree Drive                                         NULL                                                         Bothell                        79              98011           0xE6100000010C18E304C4ADE14740DA930C7893915EC0                                                                                                                                                                                                                   4C506923-6D1B-452C-A07C-BAA6F5B142A4 2013-03-07 00:00:00.000
+4           9539 Glenside Dr                                             NULL                                                         Bothell                        79              98011           0xE6100000010C813A0D5F9FDE474011A5C28A7C955EC0                                                                                                                                                                                                                   E5946C78-4BCC-477F-9FA1-CC09DE16A880 2009-02-03 00:00:00.000
+5           1226 Shoe St.                                                NULL                                                         Bothell                        79              98011           0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0                                                                                                                                                                                                                   FBAFF937-4A97-4AF0-81FD-B849900E9BB0 2008-12-19 00:00:00.000
+6           1399 Firestone Drive                                         NULL                                                         Bothell                        79              98011           0xE6100000010CE0B4E50458DA47402F12A5F80C975EC0                                                                                                                                                                                                                   FEBF8191-9804-44C8-877A-33FDE94F0075 2009-02-13 00:00:00.000
+7           5672 Hale Dr.                                                NULL                                                         Bothell                        79              98011           0xE6100000010C18E304C4ADE1474011A5C28A7C955EC0                                                                                                                                                                                                                   0175A174-6C34-4D41-B3C1-4419CD6A0446 2009-12-11 00:00:00.000
+8           6387 Scenic Avenue                                           NULL                                                         Bothell                        79              98011           0xE6100000010C0029A5D93BDF4740E248962FD5975EC0                                                                                                                                                                                                                   3715E813-4DCA-49E0-8F1C-31857D21F269 2008-12-17 00:00:00.000
+9           8713 Yosemite Ct.                                            NULL                                                         Bothell                        79              98011           0xE6100000010C6A80AD742DDC4740851574F7198C5EC0                                                                                                                                                                                                                   268AF621-76D7-4C78-9441-144FD139821A 2012-05-30 00:00:00.000
+10          250 Race Court                                               NULL                                                         Bothell                        79              98011           0xE6100000010C219D64AE1FE4474040862564B7825EC0                                                                                                                                                                                                                   0B6B739D-8EB6-4378-8D55-FE196AF34C04 2008-12-02 00:00:00.000
+
+(10 row(s) affected)
+	</pre>
+	
+	<li>Right-click on a table in the Object Explorer, and select "Select Top 1000 Rows." A query is then self-generated. 
+	The benefit of this option is that for a table with many columns, reading the fields is much easier. You can also copy/paste
+	field names or the table name from the generated query.</li>
+	
+		<pre><div align="center"><img src="images/select-top-1000.JPG" alt="Select Top 1000 Rows Example"></div></pre>
+	
+	<p>Once selected, SSMS returns the following code:</p>
+
+	<pre><code>
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP 1000 [DepartmentID]
+      ,[Name]
+      ,[GroupName]
+      ,[ModifiedDate]
+  FROM [AdventureWorks].[HumanResources].[Department]
+	</code></pre>		
+
+	</ol>
+	
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--FROM-->	
+<div class="docs-section" id="from">
+  <h5 class="title">3. The <code>FROM</code> clause</h5>
+
+	<p>The <code>FROM</code> clause is such a common feature in SQL that it may as well be considered as its own statement rather
+	than a "clause." But because the <code>SELECT</code> statement can stand on its own,
+	anything that provides specificity to the <code>SELECT</code> statement is considered a clause.</p>
+	
+	<p>The <code>FROM</code> clause simply points to a table or a view. It comes <b>after and always directly after</b> the
+	<code>SELECT</code> statement. We've already seen it used in this way in the examples above.</p>
+	
+	<p>There is a specific syntax
+	to table/view names. If you're familiar with the . in VBA, you'll recognize the way a table is referred to. In VBA, the period
+	allows you to navigate down a hierarchy. So, you start with the highest level first, then the next highest, and so on. For a table or 
+	a view (and also a function), the full qualification is:</p>
+	
+	<pre><code>
+[server name].[database name].[schema name].[table/view name]
+	</code></pre>	
+	
+	<p>Since I used brackets, I may as well explain them here. SSMS allows the use of special characters and keywords in naming
+	fields, tables, etc. In all programming languages I know of, a space " " is not permitted in variable naming conventions.
+	It is a special character, and all programs have rules to handle special characters. 
+	Typically programmers (myself included) are used to this and avoid spaces altogether. 
+	But, you don't have to in T-SQL. Brackets are designed to tell the program to interpret the character only as a character.
+	This is called "escaping" a special character. In the example above, the forward slash, "/", is also a special
+	character.
+	</p>
+	
+	<p>
+	For keywords, T-SQL also allows you to use them as names so long as they're enclosed in brackets. For example, you can name a field
+	"year" even though it is also a function that will return the year of a date. The rule is: if you use a 
+	special character, you must use brackets. <b>If there is not a special character, you don't have to use brackets.</b> 
+	Brackets help with fields that are simultaneously keywords because they will remove the default blue font type for keywords, 
+	which can become confusing. By default, a query generated by SSMS will use brackets for everything. I tend to view brackets as a hindrance and only 
+	use them when necessary. You will find others who use them all the time. The examples below demonstrate the rules of brackets:
+	</p>
+	
+	<br>
+	<pre><code>
+[server name].[database name].[schema name].[table/view name]
+	</code></pre>	
+
+	<p>and</p>
+
+	<pre><code>
+server_name.database_name.schema_name.table_view_name
+	</code></pre>	
+
+	<p>and</p>
+
+	<pre><code>
+server_name.[database_name].schema_name.[table/view name]
+	</code></pre>	
+	
+	<p>are all acceptable.</p>
+	<br>
+	
+	<p>
+	The server stores databases, and databases store tables/views assigned to a schema. Schemas can be used for a number of
+	reasons, and it's mostly an organizational/grouping framework. Some companies may assign a group its own schema within a 
+	database, which becomes more relevant and even necessary if the group is creating their own tables or curating their own
+	data. The default schema within SSMS is <code>dbo</code>.
+	</p>
+
+	<p>
+	Databases can have more schemas than <code>dbo</code>. In the example below, <code>HumanResources</code> and
+	<code>Person</code> are also schemas within the AdventureWorks database. 
+	</p>
+	
+	<pre><div align="center"><img src="images/schema-example.JPG" alt="Example of Schemas in AdventureWorks Database"></div></pre>
+
+	<p>
+	Deciding when and when you do not have to use all pieces of the table name shown above can be a bit tricky to
+	first-time SSMS users. You can only remove elements from the fully qualified table name above starting with the server
+	and working toward the table/view. For example, you cannot specify the database name and simultaneously omit the
+	schema name. The following rules will help on when you can drop elements of the fully qualified table name:
+	</p>
+	
+	<ol>
+	<li>You only need to refer to the server name if you are querying a server other than the one your query script is connected to.
+	In this course, we only work within a single local server. However, if we were connected to a server other than this, a query
+	would have to include the server name:</li>
+
+	<pre><code>
+select *
+from 
+<b>[T530-PC\SQLEXPRESS].adventureworks.person.address</b>	
+	</code></pre>		
+
+	<p>In this example, <code>[T530-PC\SQLEXPRESS]</code> is the name of my own local server instance. Notice that I 
+	use the brackets with the server name due to the "-" and "\" special characters. Without it:</p>
+
+	<pre><code>
+select *
+from 
+<b>T530-PC\SQLEXPRESS.adventureworks.person.address</b>	
+	</code></pre>	
+
+	<p>returns an error:</p>
+	
+	<pre><code>
+Msg 102, Level 15, State 1, Line 3
+Incorrect syntax near '-'.
+	</code></pre>
+	
+	<li>If you don't have to refer to the server name, you only need to refer to the database name if 
+	you are querying a database other than the one your query script is connected to.</li>
+
+	<li>If you don't have to refer to the server name and the database name, 
+	you only need to refer to a schema name if the schema is not <code>dbo</code>. When connected to the AdventureWorks
+	database:</li>
+	
+	<pre><code>
+select top 10 *
+<b>from AWBuildVersion</b>
+	</code></pre>
+	
+	<p>returns the first ten records in <code>dbo.AWBuildVersion</code> while the following code returns an error because
+	the <code>Person</code> schema that contains the <code>Address</code> table is not specified.</p>
+
+	<pre><code>
+select top 10 *
+<b>from [Address]</b>
+	</code></pre>
+	
+	</ol>
+	
+	<p>I tend to use the <code>[database name].[schema name].[table/view name]</code> qualification so that I can work within
+	a server without having to change my connection in the query script. I only refer to the server name when necessary. As 
+	Itzik Ben-Gan points out, this also has the benefit of reducing the "load" of the query. In other words, it makes the 
+	query more efficient. In general, fully qualified logic and references generate more effecient queries.</p>
+
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--CLAUSES-->	
+<div class="docs-section" id="clauses">
+  <h5 class="title">4. Clauses</h5>	
+	<p>As mentioned above, a clause is simply a modification of the <code>SELECT</code> statement. There are four principal clauses
+	in SQL outside of the <code>FROM</code> clause:</p>
+	<ol>
+	<li>The <code>WHERE</code> clause is usually required for nearly every query. This specifies which records to include or exclude <b>on a record-by-record basis</b>.
+	Rarely does a real-life table include the data exactly as you require it.</li>
+	<li>The <code>GROUP BY</code> is required when you aggregate date. For example, if revenue posts daily to a general ledger,
+	the revenue for a given month would be the sum of revenue grouped by month.</li>
+	<li>The <code>HAVING</code> clause is utilized in conjunction with the <code>GROUP BY</code> clause. This specifies which records to include or exclude <b>on a grouped basis</b>.
+	It is a <code>WHERE</code> clause for groups.</li>
+	<li>The <code>ORDER BY</code> clause is the simplest to understand. It specifies the sort order of the results and can include several sort levels.</li>
+	</ol>
+
+		<!--WHERE-->	
+  <h5 class="title" id="where-clause">&nbsp;&nbsp;&nbsp;&nbsp;a. <code>WHERE</code> clause</h5>
+	<p>The <code>WHERE</code> clause is one of the primary places that introduces <a href="https://mrrisley.github.io/Programming/index.html#logic">logic</a> into the
+	query. You can think of the <code>WHERE</code> clause as a query filter. For example, you may only need records from the prior month, or you may only need
+	active accounts. You may also be working on a project that focuses on a segment of data rather than the entire population.</p>
+	
+	<p>The <code>WHERE</code> clause <b>always comes directly after</b> the
+	<code>FROM</code> clause. It is then followed by logic statements that use <a href="https://mrrisley.github.io/Programming/index.html#operators">operators</a>.
+	SQL-specific logic operators are described <a href="#operators">below</a>.</p>
+	
+	<p>Consider the query below:</p>
+
+	<pre><code>
+select *
+from adventureworks.humanresources.department
+<b>where departmentid = 4</b>
+	</code></pre>	
+	
+	<p>The query can be read as "return all records from the table where the <code>DepartmentID</code> is equal to 4. As shown below, the query returns one
+	record where this is true.</p>
+
+	<pre>
+DepartmentID Name                                               GroupName                                          ModifiedDate
+------------ -------------------------------------------------- -------------------------------------------------- -----------------------
+4            Marketing                                          Sales and Marketing                                2008-04-30 00:00:00.000
+
+(1 row(s) affected)	
+	</pre>
+
+	<p>If there were more than one record that satisfied the criteria, those records would also be returned. For example, in another table,
+	<code>HumanResources.EmployeeDepartmentHistory</code>, the same logic returns 10 records.</p>
+
+	<pre><code>
+select *
+from adventureworks.humanresources.employeedepartmenthistory
+<b>where departmentid = 4</b>
+	</code></pre>	
+	
+	<pre>
+BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
+---------------- ------------ ------- ---------- ---------- -----------------------
+16               4            1       2009-07-15 NULL       2009-07-14 00:00:00.000
+17               4            1       2007-01-26 NULL       2007-01-25 00:00:00.000
+18               4            1       2011-02-07 NULL       2011-02-06 00:00:00.000
+19               4            1       2011-02-14 NULL       2011-02-13 00:00:00.000
+20               4            1       2011-01-07 NULL       2011-01-06 00:00:00.000
+21               4            1       2009-03-02 NULL       2009-03-01 00:00:00.000
+22               4            1       2008-12-12 NULL       2008-12-11 00:00:00.000
+23               4            1       2009-01-12 NULL       2009-01-11 00:00:00.000
+24               4            1       2009-01-18 NULL       2009-01-17 00:00:00.000
+250              4            1       2011-02-25 2011-07-30 2011-07-28 00:00:00.000
+
+(10 row(s) affected)
+	</pre>
+	
+	<p>As with all logic, you can create compound conditions uses the <code>AND</code> or <code>OR</code> operators. The query
+	below returns the 6 records from the 10 above because both <code>DepartmentID</code> is equal to 4 and 
+	<code>BusinessEntityID</code> is greater than or equal to ( <b>>=</b> ) 20.</p>
+
+	<pre><code>
+select *
+from adventureworks.humanresources.employeedepartmenthistory
+<b>where departmentid = 4
+and businessentityid >= 20</b>
+	</code></pre>	
+	
+	<pre>
+BusinessEntityID DepartmentID ShiftID StartDate  EndDate    ModifiedDate
+---------------- ------------ ------- ---------- ---------- -----------------------
+20               4            1       2011-01-07 NULL       2011-01-06 00:00:00.000
+21               4            1       2009-03-02 NULL       2009-03-01 00:00:00.000
+22               4            1       2008-12-12 NULL       2008-12-11 00:00:00.000
+23               4            1       2009-01-12 NULL       2009-01-11 00:00:00.000
+24               4            1       2009-01-18 NULL       2009-01-17 00:00:00.000
+250              4            1       2011-02-25 2011-07-30 2011-07-28 00:00:00.000
+
+(6 row(s) affected)
+	</pre>
+	
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+	
+<!--WHERE-->	
+  <h5 class="title" id="group-by-clause">&nbsp;&nbsp;&nbsp;&nbsp;b. <code>GROUP BY</code> clause</h5>
+	
+	<p>The <code>GROUP BY</code> clause was one of the more difficult clauses for me to learn. 
+	This clause is required if you <b>perform a function on a field</b> <i>across another field or fields</i>. 
+	This could mean:</p>
+	<ul>
+	<li><b>summing</b> revenue <i>by month</i></li>
+	<li><b>counting</b> records <i>by geographical region</i></li>
+	<li>finding a <b>minimum/maximum</b> transaction <i>for each customer</i></li>
+	</ul>
+
+	<p>The <code>GROUP BY</code> clause <b>always comes directly after</b> the
+	<code>WHERE</code> clause. If there is no <code>WHERE</code> clause, it always comes directly after the
+	<code>FROM</code> clause. It is then followed by the field(s) <i>across which</i> you are performing a function.</p>
+	
+	<p>
+	The <code>COUNT()</code> function is probably the easiest way to understand the <code>GROUP BY</code> clause.
+	It simply returns a count of what is included between the parentheses. Unless you are a SQL power user, your use of this
+	function will mostly be limited to <code>COUNT(*)</code>. Notice the use of the asterisk, <code>*</code>, which we saw
+	with <code>SELECT *</code> above. The asterisk in SQL simply stands for "record." So you can interpret <code>SELECT *</code>
+	as "return all records" (which also means all fields) and <code>COUNT(*)</code> as "count all records."
+	Let's start with an example that doesn't require a <code>GROUP BY</code> clause:
+	</p> 
+	
+	<pre><code>
+<b>select count(*)</b>
+from adventureworks.person.address
+	</code></pre>		
+
+	<pre>
+-----------
+19614
+
+(1 row(s) affected)
+	</pre>
+	
+	<p>
+	The result tells us there are 19,614 records in this table. 
+	Notice that we performed a function, <code>COUNT()</code>, but did not use a <code>GROUP BY</code> clause. Why? Because
+	we did not perform the function <i>across another field</i>. If we wanted to count the number of persons by the field 
+	<code>city</code>, we would include "city" in the <code>SELECT</code> list in addition to <code>COUNT(*)</code>,
+	and we would also include the <code>GROUP BY</code> clause after the <code>FROM</code> clause.</p>
+	
+	<pre><code>
+select count(*), <b>city</b>
+from adventureworks.person.address
+<b>group by city</b>	
+	</code></pre>	
+
+	<pre>
+            city
+----------- ------------------------------
+55          Cheltenham
+1           Kingsport
+31          Suresnes
+1           Baltimore
+31          Reading
+1           Fontana
+
+...
+
+(575 row(s) affected)
+	</pre>
+	
+	<p>Notice that the first column in the results has no field name. Within the grid displayed in SSMS when you run a query,
+	this column will show <code>(No column name)</code>. This is because the <code>COUNT(*)</code> item in the <code>SELECT</code> list
+	is not a field within the table. There are several ways to name a field in the results, but placing the 
+	name for the field within single-quotation marks after the item works as well as any other method. You can also change default field 
+	names this way.</p>
+	
+	<pre><code>
+select count(*) <b>'Count'</b>, city <b>'City of Record'</b>
+from adventureworks.person.address
+group by city	
+	</code></pre>		
+	
+	<pre>
+Count       City of Record
+----------- ------------------------------
+55          Cheltenham
+1           Kingsport
+31          Suresnes
+1           Baltimore
+31          Reading
+
+...
+
+(575 row(s) affected)
+	</pre>
+	
+	<p>One important note: these field names do not exist until after the query is returned.
+	Therefore, the following code returns an error (notice the use of brackets to incorporate the special character of a blank space).</p>
+
+	<pre><code>
+select count(*) 'Count', city <b>'City of Record'</b>
+from adventureworks.person.address
+group by <b>[City of Record]</b>	
+	</code></pre>		
+	
+	<pre>
+Msg 207, Level 16, State 1, Line 3
+Invalid column name 'City of Record'.	
+	</pre>
+	
+	<p>The message is straightforward enough, but don't confuse it with a typo: when the query is compiled, it cannot find this field
+	in the <b>original</b> table, which is what it is searching for in this instance.</p>
+	
+	<p>Finally, if you perform a function across <i>multiple</i> fields, you will need these fields represented in the <code>GROUP BY</code>
+	clause. For me, this is where things probably became frustrating when learning SQL. Think of the example above where we returned the
+	counts of persons (records) for each city name. Say that we want the State info as well, which in this table is stored as an identifier in
+	the field <code>StateProvinceID</code>. It is logical to think that every city will have a single state associated with it. You may add this
+	field to the query and not realize you need the field in the <code>GROUP BY</code> clause as well:</p>
+	
+	<pre><code>
+select count(*) 'Count', city, <b>stateprovinceid</b>
+from adventureworks.person.address
+group by city	
+	</code></pre>	
+	
+	<p>Thankfully, SSMS returns an error message that is interpretable. I don't recall this being the case with SQL Developer.</p>
+
+<pre>
+Msg 8120, Level 16, State 1, Line 1
+Column 'adventureworks.person.address.StateProvinceID' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause.	
+</pre>
+
+	<p>The error message tells us we either need to aggregate <code>StateProvinceID</code> (which doesn't make sense in this instance) or put it in the <code>GROUP BY</code> clause.
+	In this case, including it in the clause will return the result without error. Why is including it here necessary if every city has a single state/province? SQL certainly doesn't
+	know that this is the case.  You also may not have realized that the same city name can exist in two or more states/regions. For example, there is a city "Paris" in Kentucky, Texas, Tennessee, Illinois, and of course, France.
+	If a city were to have more than one state, SQL would fail without the grouping by state, which is why it doesn't even allow it to occur in the first place. 
+	Therefore, even if the addition of another field does not result in another record, it is still required in the <code>GROUP BY</code> clause.</p>
+
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+
+	<!--HAVING-->	
+  <h5 class="title" id="having-clause">&nbsp;&nbsp;&nbsp;&nbsp;c. <code>HAVING</code> clause</h5>
+	
+	<p>The <code>HAVING</code> clause is conceptually similar to the <code>WHERE</code> clause. However,
+	the <code>WHERE</code> clause only applies to <i>indiviual records</i>. The <code>HAVING</code> clause, on the other hand, is
+	utilized for <i>groupings</i> (i.e., function(s) performed across one or more fields). Therefore, you will
+	only use the <code>HAVING</code> clause in conjunction with a <code>GROUP BY</code> clause when you
+	want to filter the grouped results. The <code>HAVING</code> clause follows the <code>GROUP BY</code> clause.</p>
+	
+	<p>What does this mean in practice? I find the <code>HAVING</code> clause useful in the following two cases:</p>
+	
+	<ol>
+	<li><b>Finding if duplicate records exist.</b></li>
+	<p>Referred to casually as "dups" (pronounced dupes), duplicate records
+	are not at all uncommon in the real world, but they usually require some sort of cleaning. For one reason or another,
+	and usually for a good reason, the same account number may exist in a database twice or more. However, it is
+	impossible for two identical accounts to exist in practice--they always represent a single account. For example, imagine
+	you share a checking account with your spouse. Two records for the account number may exist in a database, each with
+	a different name on the account:</p>
+
+	<pre>
+acct_number  owner
+0006678		 Ashley Jackson
+0006678		 John Jackson
+...
+	</pre>
+
+	<p>In this example, it is more likely you'd need to answer the question, "How many accounts do I have?" and not "How
+	many account owners do I have?" Duplicate records would overstate the answer to this question if not properly handled</p>
+	
+	<p>The table <code>[AdventureWorks].[Person].[EmailAddress]</code> has a field <code>EmailAddress</code> with email addresses
+	registered to the adventure-works.com domain. This table has 19,972 records. A query can quickly tell us whether there are
+	more than one record with the same email address:</p>
+
+	<pre><code>
+select count(*) 'Count', emailaddress
+from [AdventureWorks].[Person].[EmailAddress]
+group by emailaddress
+<b>having count(*) > 1</b>
+	</code></pre>
+
+	<p>There are no records with the same email address, as shown in the results below. However, this assumes all email addresses
+	are correctly spelled, etc., because the field <code>EmailAddress</code> will only be grouped when two records are identical. 
+	SQL would count "jack.johnson@gmail.com" and "jackjohnson@gmail.com" as separate email addresses even though they are highly
+	similar.</p>
+	
+	<pre>
+Count       emailaddress
+----------- --------------------------------------------------
+
+(0 row(s) affected)
+	</pre>
+	
+	<li><b>Excluding inconsequential records (or including the consequential ones).</b></li>
+	
+	<p>I've found the <code>HAVING</code> clause useful in my work for limiting results to those that
+	are influential. For example, say you have a database of all vehicles registered in the US and you wanted
+	to count them by make (so, General Motors, Ford, Honda, etc.). You're analyzing the popularity of vehicle makes, 
+	in which case it may be desirable to eliminate makes that don't have a lot of registered owners: the Ferraris,
+	the Smart cars, the Teslas. The <code>HAVING</code> clause can specify to return makes only when there are over one
+	million registered owners, for example. In general, I find the <code>HAVING</code> clause most useful when there
+	are a lot of results are irrelevant to the analytical question you're trying to answer. This could also
+	be expanded to other applications:</p>
+	
+	<ul>
+	<li>Only including customers with high spending (e.g., a <code>SUM</code> across all transactions in a month that is greater than $5,000).</li>
+	<li>Excluding records whose aggregated field is zero or some other value of interest. 
+	(e.g., a <code>SUM</code> of credit inquiries in a year that is equal to zero).</li>
+	<li>Including only the tails of distributions by using the <code>AND</code> operator.</li> 
+	</ul>
+	
+	<p>In the <code>GROUP BY</code> section above, we showed the necessity of including the <code>StateProvinceID</code> field in the 
+	<code>GROUP BY</code> clause if it is contained in the <code>SELECT</code> list:</p>
+	
+	<pre><code>
+select count(*) 'Count', city, <b>stateprovinceid</b>
+from adventureworks.person.address
+group by city, <b>stateprovinceid</b>
+	</code></pre>
+
+	<p>This ensures that if a city exists in two or more separate states/provinces, a result will be returned for each city and state/province.
+	Imagine our analysis wanted to explore cases when only a single person is registered in a city. Our query would look like:</p>
+	
+	<pre><code>
+select count(*) 'Count', city, stateprovinceid
+from adventureworks.person.address
+group by city, stateprovinceid
+<b>having count(*) = 1</b>
+	</code></pre>
+	
+	<p>There are 253 records where only one record exists for a distinct city and state/province combination.</p>
+
+	<pre>
+Count       city                           stateprovinceid
+----------- ------------------------------ ---------------
+1           Tupelo                         39
+1           Michigan City                  25
+1           Norridge                       24
+1           Monroe                         35
+1           Stamford                       11
+	</pre>
+
+	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+
+	<!--ORDER BY-->	
+  <h5 class="title" id="order-by-clause">&nbsp;&nbsp;&nbsp;&nbsp;d. <code>ORDER BY</code> clause</h5>
+	
+	<p>The <code>ORDER BY</code> clause is the simplest of the clauses in my opinion. The <code>ORDER BY</code> clause tells
+	SQL how to order, or sort, the results. Nearly everyone is familiar with sorting data as this is a common way to 
+	add interpretability to numbers and is usually a first step in exploratory analysis. The <code>ORDER BY</code> list
+	can sort by one or more fields from:</p>
+	
+	<ol>
+	<li>Least to greatest, which is called <b>ascending</b> order. This is the default sort order in SQL.</li>
+	<li>Greatest to least, which is called <b>descending</b> order. If you use this sort method, you must also 
+	use the <code>desc</code> keyword after the field name. "desc" is short for descending.</li>
+	</ol>
+	
+	<p>Let's start with a simple query. The <code>[AdventureWorks].[Production].[Product]</code> table contains information for
+	various products, including weight. The first result in the following query tells us which product has the <i>lowest</i> weight.
+	Remember that the default order is ascending, and this query does not use the <code>desc</code> keyword.</p>
+	
+	<pre><code>
+select productid
+FROM [AdventureWorks].[Production].[Product]
+<b>order by weight</b>
+	</code></pre>
+	
+	<pre>
+productid
+-----------
+1
+2
+3
+4
+316
+...
+
+(504 row(s) affected)
+	</pre>
+
+	<p>Of the 504 products in the table, the product with an ID of 1 is the product with the lowest weight. Or, this <i>appears</i> to be
+	the case. However, the results of the query don't provide any check to ensure the query performed as intended. We can add the <code>weight</code>
+	field to also show the corresponding weight of each <code>ProductID</code></p>
+
+	<pre><code>
+select productid, <b>weight</b>
+from [AdventureWorks].[Production].[Product]
+order by weight
+	</code></pre>
+	
+	<pre>	
+productid   weight
+----------- ---------------------------------------
+1           NULL
+2           NULL
+3           NULL
+4           NULL
+316         NULL
+...
+
+(504 row(s) affected)
+	</pre>
+	
+	<p>This is a great example for the necessity of performing checks during analytic work. When sorting fields with the <code>ORDER BY</code>
+	clause, NULL values are returned first for ascending sorts (and last for descending sorts). Imagine if you ran the query, which seemed
+	appropriate, but you told your manager that ProductID 1 had the lowest weight. The manager then makes a decision based on this information,
+	which is most likely bad information. Within the table, the <code>NULL</code> values for weight tell us that the <code>WEIGHT</code> field
+	is "missing" for these products. Occassionally <code>NULL</code> values are intentional, but in other cases they may reveal incomplete information.
+	So what should you tell your manager in this instance? The fact is that, in the presence of <code>NULL</code> values, answers to questions about weight
+	across <i>all</i> products are uknowable without understanding better the rationale and interpretation of the <code>NULL</code> values. This is also
+	why summary statistics on your data are a good first step before drawing conclusions from it.</p>
+	
+	<p>Imagine that your manager tells you that you can simply ignore these <code>NULL</code> values, referred to casually in the coding community as "nulls".
+	How could we write a query to ensure that NULL values for the <code>WEIGHT</code> field are not displayed? With the <code>WHERE</code> clause:</p>
+	
+	<pre><code>
+select productid, weight
+from [AdventureWorks].[Production].[Product]
+<b>where weight is not null</b>
+order by weight
+	</code></pre>
+	
+	<pre>
+productid   weight
+----------- ---------------------------------------
+718         2.12
+838         2.12
+839         2.16
+719         2.16
+822         2.18
+...
+
+(205 row(s) affected)
+	</pre>
+	
+	<p><code>NULL</code> and <code>IS</code> are both keywords in T-SQL, which we will cover in another section. From the results, we can determine that there are
+	also quite a few nulls (299 out of 504) for the <code>WEIGHT</code> field.</p>
+	
+	<br>
+	<p>Like most programming languages, SQL does allow sorting of character data, which relies on alphabetical order. Ascending sorts (the default) are from A-Z
+	and descending (with the <code>desc</code> keyword ) are from Z-A.</p>
+	
+	<p>To sort store names (<code>name</code>) within the <code>[AdventureWorks].[Sales].[Store]</code> table in reverse alphabetical order (that is, from Z-A)
+	and return the first five records::</p>
+
+	<pre><code>
+select top 5 name
+from [AdventureWorks].[Sales].[Store]
+<b>order by name desc</b>
+	</code></pre>
+
+	<pre>
+name
+--------------------------------------------------
+Yellow Bicycle Company
+Year-Round Sports
+Worthwhile Activity Store
+World of Bikes
+World Bike Discount Store
+
+(5 row(s) affected)
+	</pre>
+	
+	<br>
+	<p>Sorting by more than one field is referred to as a "multi-level" sort. This is most useful for character fields. Think of a table with the genus and species
+	of trees from Ohio. Because genus refers to a group of species that share like characteristics, there will likely be multiple species for a particular genus.
+	For Maple trees, there are Red Maple, Black Maple, Sugar Maple, .... (see <a href="https://ohioline.osu.edu/factsheet/f-36" target="_blank">this link</a> if you're
+	curious about this). For Oak trees, there are similarly many types. A list that's sorted A-Z on genus but not species may look something like:
+	
+	<pre>
+genus			species
+--------------- ----------------------------------
+Acer			nigrum
+Acer			rubrum
+Acer			saccharum
+Acer			platanoides
+...
+Quercus			velutina
+Quercus			coccinea
+...
+	</pre>
+	
+	<p>A multi-level sort (both ascending) on genus and species would look like the following, which makes the data more readable, especially when these lists are expanded.</p>
+	
+	<pre>
+genus			species
+--------------- ----------------------------------
+Acer			nigrum
+Acer			platanoides
+Acer			rubrum
+Acer			saccharum
+...
+Quercus			coccinea
+Quercus			velutina		
+...
+	</pre>	
+	
+	<p>The code below demonstrates a multi-level sort within a query on the <code>[AdventureWorks].[Person].[StateProvince]</code> for the fields
+	<code>TerritoryID</code> (descending), <code>CountryRegionCode</code>, and <code>StateProvinceCode</code></p>
+
+<pre><code>
+select territoryid,
+countryregioncode,
+stateprovincecode
+from [AdventureWorks].[Person].[StateProvince]
+order by 
+territoryid desc,
+countryregioncode,
+stateprovincecode
+</code></pre>
+
+	<pre>
+territoryid countryregioncode stateprovincecode
+----------- ----------------- -----------------
+10          GB                ENG
+9           AU                NSW
+9           AU                QLD
+9           AU                SA 
+9           AU                TAS
+9           AU                VIC
+9           FM                FM 
+9           MH                MH 
+9           MP                MP 
+9           PW                PW 
+8           DE                BB 
+8           DE                BY 
+8           DE                HE 
+8           DE                HH 
+8           DE                NW 
+8           DE                SL 
+8           DE                SN 
+...
+
+(181 row(s) affected)	
+	</pre>
+
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+	
+</div>	
+	
+	
+	
+	
+	
 	<div class="docs-section" align="center">
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-	<a href="../MRRisley/index.html"><h5>Back to MRRisley Home</h5></a>
+	<a href="../SQL/index.html"><h5>Back to SQL Main Page</h5></a>
 	</div>
 
 </div>
