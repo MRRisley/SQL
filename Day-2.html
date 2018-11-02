@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<!--SQL-->
+
+<html lang="en">
+
+<!--HEAD-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Week 1</title>
+	<meta name="description" content="IS6030: Week 2/3">
+	<meta name="author" content="Matt Risley">
+	<link rel="stylesheet" href="../MRRisley/css/normalize.css">
+	<link rel="stylesheet" href="../MRRisley/css/skeleton.css">
+	<link rel="stylesheet" href="../MRRisley/css/custom.css">
+	
+		<style>
+		* body {
+			margin: 0;
+			font-family: Courier New, Arial, monotype;
+		}
+		</style>
+</head>
+
+
+<!--BODY-->
+<body>
+	
+<div class="container" id="top">
+	<h3 align="center">IS6030: Week 2/3</h3>
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<h5 align="center"><a href = "../SQL/index.html">SQL Home Page</a></h5>
+	<br>
+	
+	<h5><b>Questions from Week 1</b></h5>
+	
+	<h5><b>Assessment</b></h5>
+	
+	<h5><b>Answers to Homework 1</b></h5>
+	
+	<h5><b>Part 1: The SQL Query</b></h5>
+	
+	<p>
+	<ol>
+	<li><a href="https://mrrisley.github.io/SQL/SQL-Single-Table-Queries.html#intro" target="_blank">Intro</a></li>
+		
+		<ul>
+		<li>The relational model</li>
+			<blockquote>Participation: what is a relational database?</blockquote>
+		<li>What is a query?</li>
+			<blockquote>A query instructs SQL precisely what results to display, almost always from a table or view.</blockquote>
+		<li>What does a SQL table look like?</li>
+			<blockquote>Data are organized as <b>records</b> with <b>fields</b>. 
+			There are no row names, and fields are represented as columns.</blockquote>
+		</ul>
+	
+	<li><a href="https://mrrisley.github.io/SQL/SQL-Single-Table-Queries.html#select" target="_blank"><code>SELECT</code></a></li>
+		
+		<ul>
+		<li>The <code>SELECT</code> statement</li>
+			<blockquote>It can be used by itself (rare) or with a table/view (most cases). It is required for 
+			all queries.</blockquote>
+		<li><code>SELECT *</code></li>
+			<blockquote>The asterisk <code>*</code> is used in SQL to refer to all records. <code>SELECT *</code>
+			returns all records.</blockquote>
+		<li><code>SELECT TOP 10</code></li>
+			<blockquote>You can specify a certain number of records to be returned with the <code>TOP</code> keyword.</blockquote>
+		<li>Point-and-Click "Select Top 1000 Rows"</li>
+		</ul>
+
+	<li><a href="https://mrrisley.github.io/SQL/SQL-Single-Table-Queries.html#from" target="_blank"><code>FROM</code></a></li>
+		
+		<ul>
+		<li>The <code>FROM</code> clause</li>
+			<blockquote>Directs SQL the table to use for the query.</blockquote>
+		<li>Referring to a table</li>
+			<ol>
+			<li><blockquote>A table is contained with a schema, a schema is contained within a database, and a database is contained on
+			the server. Sometimes you must refer to all these things in the <code>FROM</code> clause, and other times you do not.
+			Best practice is to refer to database name, schema name, and then table.</blockquote></li>
+			<li><blockquote>We use the period to navigate down the hierarchy: <code>database.schema.table</code></blockquote></li>
+			<li><blockquote>Brackets are required for special characters: <code>[database name].schema.[table name]</code></blockquote></li>
+			</ol>
+		</ul>	
+			
+			
+			<li><code>SELECT TOP 10</code></li>
+			<blockquote>You can specify a certain number of records to be returned with the <code>TOP</code> keyword.</blockquote>
+		<li>Point-and-Click "Select Top 1000 Rows"</li>
+		</ul>
+
+	
+	
+	
+	
+	
+	
+	<li><a href="../SQL/IS6030_Risley.pdf" target="_blank">Syllabus</a></li>
+	<li><a href="https://mrrisley.github.io/About  target="_blank">About Me</a></li>
+	<li>About You</li>
+	<li><a href="https://mrrisley.github.io/MRRisley  target="_blank">Website</a></li>
+	<li>Blackboard</li>
+	<li><a href="https://github.com/" target="_blank">About Github</a></li>
+	<li>Intro to Programming</li>
+	<ul>
+	<li><a href="https://mrrisley.github.io/Programming/#intro  target="_blank"">Programming - What is it?</a></li>
+	<li>On your own, if you want: <a href="https://mrrisley.github.io/Programming/#intro_a"  target="_blank">Types of Programming</a></li>
+	<li><a href="https://mrrisley.github.io/Programming/#intro_b"  target="_blank">Programming Concepts</a></li>
+	</ul>
+	</ol>
+	</p>
+	
+	<br><br><br>
+	<h5><b>Break</b></h5>
+	<br><br><br>
+	
+	<h5><b>Part 2: Intro to SQL</b></h5>
+	<ol>
+	<p>
+	<li><a href="https://mrrisley.github.io/SQL/SQL_Setup.html"  target="_blank">Setup SSMS on Local PC</a> 
+	or 
+	<a href="https://mrrisley.github.io/SQL/SQL-Setup-Alt.html"  target="_blank">Setup SSMS on UC PC</a>
+	</li>
+	<li><a href="https://mrrisley.github.io/SQL/index.html#overview"  target="_blank">SQL vs. T-SQL vs. PL/SQL</a></li>
+	<li><a href="https://mrrisley.github.io/SQL/SQL-Intro.html"  target="_blank">Intro to T-SQL</a></li>
+	<ul>
+	<li>What is a server?</li>
+	<li>Databases</li>
+	<li>DB Objects</li>
+	</ul>
+	<li>Intro to Relational Data</li>
+	<ul>
+	<li><a href="https://mrrisley.github.io/SQL/SQL-Single-Table-Queries.html#intro" target="_blank">The relational model</a></li>
+	<li>Explore AdventureWorks</li>
+	</ul>
+	</ol>
+	</p>
+	
+	<br><br><br>
+	
+	<h5><b>For Next Week</b></h5>
+	<p>
+	<ol>
+	<li>Review this week's material</li>
+	<li>In-class Assignment: Upload a screenshot of SSMS on your machine with a connection to the AdventureWorks Database. <b>Turn in through BlackBoard!</b></li>
+	<li>Read Itzik Ben-Gan:</li>
+	<ul>
+	<li>Databases, Schemas and objects: pgs. 15-19</li>
+	<li>The SELECT statement: pgs. 27-46 (stop at The Offset-Fetch filter)</li>
+	<li>Predicates and operators, CASE expressions, and NULLS: pgs. 49-58</li>
+	</ul>
+	<li>Homework Assignment: a Question & Answer on the reading to be completed as you read. <b>Turn in through BlackBoard!</b>
+	<br><br>
+	<a href="../SQL/IS6030-Week-1-Homework-Word.docx" target="_blank">Homework in Microsoft Word</a>
+	<br><br>
+	<a href="../SQL/IS6030-Week-1-Homework-Text.txt" target="_blank">Homework as Text File</a></li>
+	<br>
+	</li>
+	<li>Week 2 will begin with an assessment that covers material from Week 1. It will <b>not</b> touch on any material from
+	Itzik Ben-Gan.</li>
+	</ol>
+	</p>
+
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>	
+
+</div>
+
+</body>
+
+</html> 
