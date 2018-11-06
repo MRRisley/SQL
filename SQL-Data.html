@@ -83,15 +83,57 @@
 
 <!--CAST-->	
 <div class="docs-section" id="cast">
-  <h5 class="title">1. The <code>CAST</code> function.</h5>
+  <h5 class="title">1. The <code>CAST</code> function</h5>
   
-  		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+	<p>The <code>CAST</code> function is extremely useful in T-SQL. Data type conversion functions are a regular feature in programming. This is because
+	when we read in data to a program, the program assumes a data type for us unless we specify it. In most cases the program gets it right enough, but in others,
+	such as with dates, the program may need to be told to treat it as a date versus a character string.</p>
+	
+	<p>The <code>CAST</code> function takes a single argument--the field or value you are converting and the type to which you are converting it:</p>
+	
+	<pre><code>
+cast(<i>value</i> as <i>data_type</i>)
+	</code></pre>
+	
+	<p>The following examples demonstrate the various uses of the <code>CAST</code> function.</p>
+
+	<pre><code>
+select 
+/*line 1*/  cast('9999' as float) 'string to float',
+/*line 2*/  cast(9999.9 as int) 'decimal to integer',
+/*line 3*/  cast(3.14 as dec(6, 5)) 'adding decimal places',
+/*line 4*/  cast('12/18/2015' as datetime) 'datetime',
+/*line 5*/  cast('5/6/1971' as smalldatetime) 'smalldatetime',
+/*line 6*/  cast('January 31, 2018' as date) 'date',
+/*line 7*/  cast('hello world' as varchar) 'varchar'
+	</code></pre>
+		
+	<pre>
+string to float        decimal to integer adding decimal places                   datetime                smalldatetime           date       varchar
+---------------------- ------------------ --------------------------------------- ----------------------- ----------------------- ---------- ------------------------------
+9999                   9999               3.14000                                 2015-12-18 00:00:00.000 1971-05-06 00:00:00     2018-01-31 hello world
+
+(1 row(s) affected)
+	</pre>
+
+	<p>The query executes the following:</p>
+	<ol>
+	<li>line 1: converts the <b>string</b> to a <code>float</code> data type (i.e., a number)</li>
+	<li>line 2: converts a number with a decimal to an <b>integer</b>. Note that conversions to integer always round the decimal down to the nearest whole number.</li>
+	<li>line 3: uses the decimal data type to add 5 decimal places</li>
+	<li>line 4: converts the date 12/18/2015 to a <code>datetime</code> data type (which includes hours, minutes, seconds, and milliseconds)</li>
+	<li>line 5: converts the date 12/18/2015 to a <code>smalldatetime</code> data type (which includes hours, minutes, and seconds)</li>
+	<li>line 6: converts the string 'January 31, 2018' to <code>date</code> data type (which does not include time)</li>
+	<li>line 7: string 'hello world' has a <code>varchar</code> (character) data type</li>
+	</ol>
+	
+   		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
 <!--Numeric Data-->	
 <div class="docs-section" id="number-data">
   <h5 class="title">2. Number Data</h5>
-	<p>A language-neutral description of numeric data in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#numeric">here</a>.</p>
+	<p>A language-neutral description of numeric data in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#numeric" target="_blank">here</a>.</p>
 	
 	<p>Similar to other programming languages, T-SQL relies on types of numeric values for the purposes of managing data storage, which is mostly a question of 
 	decimal precision when it comes to analytics. However, it is important to understand the memory requirements with each data type and also ways in which queries
@@ -138,13 +180,13 @@
 	</tr>
 	<tr>
 		<td><code>bigint</code></td>
-		<td>-2^63 to 2^63</td>
-		<td>4 bytes</td>
+		<td>-2<sup>63</sup> to 2<sup>63</sup>-1</td>
+		<td>8 bytes</td>
 	</tr>
 </tbody>
 </table>
 
-	<p>This information sourced from the relevant <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-2017">Microsoft Doc</a></p>
+	<p>This information sourced from the relevant <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-2017" target="_blank">Microsoft Doc</a>.</p>
 
 	<p>
 	The integer data type is generally useful for data that does not require division or other operations that may produce a decimal point. 
@@ -178,13 +220,13 @@ Arithmetic overflow error for data type tinyint, value = -5.
 
 	<pre><code>
 select cast(1.234 as dec(4, 3)) 'p=4, s=3',			--original
-cast(1.234 as numeric(4, 3)) 'Numeric p=4, s=3',	--line 1
+cast(1.234 as numeric(4, 3)) 'Numeric p=4, s=3',		--line 1
 cast(1.234 as dec(5, 4)) 'p=5, s=4',				--line 2
 cast(1.234 as dec(5, 3)) 'p=5, s=3',				--line 3
 cast(1.234 as dec(3, 2)) 'p=3, s=2',				--line 4
 cast(1.234 as dec(2, 1)) 'p=2, s=1',				--line 5
 cast(1.234 as dec(1, 0)) 'p=1, s=0',				--line 6
-cast(1.234 as dec(2)) 'p=2, s=0'					--line 7
+cast(1.234 as dec(2)) 'p=2, s=0'				--line 7
 	</code></pre>
 	
 	<pre>
@@ -209,7 +251,7 @@ p=4, s=3                                Numeric p=4, s=3                        
 	</ol>
 	
 	<p>Decimal/numeric types require more storage than integer types. With a precision (i.e., total place values) of 1-9, 5 bytes are required. For 
-	the maximum precision of 29-38, 17 bytes are required. See the <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-2017">Microsoft Doc</a>
+	the maximum precision of 29-38, 17 bytes are required. See the <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-2017" target="_blank">Microsoft Doc</a>
 	on decimal/numeric data types for more information regarding memory requirements.</p>
 	
  <h5 class="title" id="#float">&nbsp;&nbsp;&nbsp;&nbsp;c. Float </h5>
