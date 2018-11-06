@@ -276,6 +276,43 @@ p=4, s=3                                Numeric p=4, s=3                        
 <div class="docs-section" id="character-data">
   <h5 class="title">3. Character Data</h5>
 
+	<p>A language-neutral description of character data, or <i>strings</i>, in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#strings" target="_blank">here</a>.</p>
+
+  
+	<p>Character data have a few different possible data types in T-SQL. First, there are regular characters, which support the English language, and Unicode, which supports
+	other language characters. For Unicode, see the relevant <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql?view=sql-server-2017">
+	Microsoft Doc</a>. This section will only discuss regular characters.</p>
+	  
+	<p>For regular characters, there are two data character types: <code>char</code> and <code>varchar</code>. The <code>char</code> data type is fixed length. When a string
+	exceeds the fixed length, it is truncated. On the other hand, <code>varchar</code> is variable length. Consider the two examples below:</p>
+	
+	<pre><code>
+select
+cast('This is a string.' as char(10)) 'char 10',
+cast('This is a string.' as varchar(10)) 'varchar 10',
+cast('This is a string.' as char) 'char default',
+cast('This is a string.' as varchar) 'varchar default'
+	</code></pre>
+	
+	<pre>
+char 10    varchar 10 char default                   varchar default
+---------- ---------- ------------------------------ ------------------------------
+This is a  This is a  This is a string.              This is a string.
+
+(1 row(s) affected)
+	</pre>
+	
+	<p>In the first two lines, the specified column width for both the <code>char</code> and <code>varchar</code> data type is 10, meaning that the returned result will accomodate 
+	ten characters (remember that spaces are characters as well). In the next two lines, no length is specified, so the default length of 30 is utilized. Because the string 
+	is not longer than 30 characters, the full result is returned for both data types. In addition, both <code>char</code> and <code>varchar</code> data types have
+	a maximum length of 8,000 characters.</p>
+	
+	<p>So when is <code>char</code> recommended over <code>varchar</code> and vice versa? In the practice of <i>analytics</i> through data in a SQL server, it doesn't matter much.
+	For data storage, Microsoft recommends using <code>char</code> when the possible values are relatively consistent in length and <code>varchar</code> when they can vary
+	considerably.</p>
+	
+	<p>See the <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/char-and-varchar-transact-sql?view=sql-server-2017">Microsoft Doc</a> for more detail.</p>
+	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
