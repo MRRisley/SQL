@@ -46,17 +46,17 @@ the StartTime for the work shift with the name "Day"? (10 pts)
 Use [AdventureWorks].[Production].[ProductInventory] 
 for questions 7-10.
 *******************************************************************/
---#7: How many products in inventory have a 
+--#7: How many records have a 
 --	LocationID of 60? (5 pts)
 
---#8: How many products in inventory have a 
+--#8: How many records have a 
 --	quantity less than 50? (5 pts)
 
---#9: How many products (i.e., not total quantity) 
+--#9: How many records 
 --have a bin of zero? (5 pts)
 
 --#10: Use the SUM function to return the inventory quantity for 
---ach LocationID. Name the returned column 'Total'.
+--each LocationID. Name the returned column 'Total'.
 --Sort LocationID in ascending order. (20 pts)
 /******************************************************************/
 
