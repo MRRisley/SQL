@@ -53,9 +53,11 @@
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#decimal-numeric">b. Decimal/Numeric</a>
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#float">c. Float</a>
 	
-	<br><a href ="#character-data">2. Character Data</a>
+	<br><a href ="#character-data">3. Character Data</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#char-varchar">a. <code>char</code> and <code>varchar</code> data types</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#character-functions">b. Character Functions</a>
 	
-	<br><a href = "#date-data">3. Date Data</a>
+	<br><a href = "#date-data">4. Date Data</a>
 
 	<br><a href = "#date-data">4. Operators</a>
 <!--
@@ -150,7 +152,7 @@ string to float        decimal to integer adding decimal places                 
 	<p>There are also <code>bit</code> and <code>money</code> types, but these are rarely required for analytics purposes, and I've never seen the money type used in the real world. The bit 
 	type is useful in database design for dummy variables due to its low storage requirements. It takes the values of 0, 1, and NULL.</p>
 	
-  <h5 class="title" id="#integers">&nbsp;&nbsp;&nbsp;&nbsp;a. Integers</h5>
+  <h5 class="title" id="integers">&nbsp;&nbsp;&nbsp;&nbsp;a. Integers</h5>
 	
 	<p>Integers are counting numbers and have no decimal precision. There are four types, shown below. For most applications, <code>int</code> will suffice and uses little memory.</p>
 	
@@ -206,7 +208,7 @@ Arithmetic overflow error for data type tinyint, value = -5.
 	
 	<p>In this example, we try to coerce -5 to the <code>tinyint</code> type. Because <code>tinyint</code> only has a range of 0 to 255, the error results.</p>
 	
- <h5 class="title" id="#decimal-numeric">&nbsp;&nbsp;&nbsp;&nbsp;b. Decimal/Numeric</h5>
+ <h5 class="title" id="decimal-numeric">&nbsp;&nbsp;&nbsp;&nbsp;b. Decimal/Numeric</h5>
 	
 	<p>Decimal and numeric values are identical in T-SQL. They have fixed levels of precision and scale. <i>Precision</i> refers to the 
 	<b>total</b> number of digits stored <b>both to the left and the right of the decimal point</b>. It has a value of 1 through 38 (the maximum). 
@@ -254,7 +256,7 @@ p=4, s=3                                Numeric p=4, s=3                        
 	the maximum precision of 29-38, 17 bytes are required. See the <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-2017" target="_blank">Microsoft Doc</a>
 	on decimal/numeric data types for more information regarding memory requirements.</p>
 	
- <h5 class="title" id="#float">&nbsp;&nbsp;&nbsp;&nbsp;c. Float </h5>
+ <h5 class="title" id="float">&nbsp;&nbsp;&nbsp;&nbsp;c. Float </h5>
 	
 	<p>The float data type is an approximate-number data type for floating point numeric data. It is slightly more flexible than the decimal/numeric type 
 	because only precision is required. The precision argument refers to the number of <b>bits</b> rather than the number of 
@@ -275,9 +277,10 @@ p=4, s=3                                Numeric p=4, s=3                        
 <!--Character Data-->	
 <div class="docs-section" id="character-data">
   <h5 class="title">3. Character Data</h5>
+  
+  	<p>A language-neutral description of character data, or <i>strings</i>, in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#strings" target="_blank">here</a>.</p>
 
-	<p>A language-neutral description of character data, or <i>strings</i>, in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#strings" target="_blank">here</a>.</p>
-
+  <h5 class="title" id="char-varchar">&nbsp;&nbsp;&nbsp;&nbsp;a. <code>char</code> and <code>varchar</code> data types</h5>
   
 	<p>Character data have a few different possible data types in T-SQL. First, there are regular characters, which support the English language, and Unicode, which supports
 	other language characters. For Unicode, see the relevant <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql?view=sql-server-2017">
@@ -319,11 +322,6 @@ This is a  This is a  This is a string.              This is a string.
 <!--Date Data-->	
 <div class="docs-section" id="date-data">
   <h5 class="title">4. Date Data</h5>
-
-		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
-</div>
-
-  <h5 class="title">4. Numeric Data</h5>
 
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
