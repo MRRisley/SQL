@@ -117,7 +117,7 @@ string to float        decimal to integer adding decimal places                 
 	</pre>
 
 	<p>The query executes the following:</p>
-	<ol>
+	<ul>
 	<li>line 1: converts the <b>string</b> to a <code>float</code> data type (i.e., a number)</li>
 	<li>line 2: converts a number with a decimal to an <b>integer</b>. Note that conversions to integer always round the decimal down to the nearest whole number.</li>
 	<li>line 3: uses the decimal data type to add 5 decimal places</li>
@@ -125,7 +125,7 @@ string to float        decimal to integer adding decimal places                 
 	<li>line 5: converts the date 12/18/2015 to a <code>smalldatetime</code> data type (which includes hours, minutes, and seconds)</li>
 	<li>line 6: converts the string 'January 31, 2018' to <code>date</code> data type (which does not include time)</li>
 	<li>line 7: string 'hello world' has a <code>varchar</code> (character) data type</li>
-	</ol>
+	</ul>
 	
    		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
@@ -242,13 +242,13 @@ p=4, s=3                                Numeric p=4, s=3                        
 	<b>left and right</b> of the decimal. Scale is 3 because it has 3 place values to the right of the decimal. 
 	The query above demonstrates the following:</p>
 	
-	<ol>
+	<ul>
 	<li>line 1: decimal and numeric are equivalent data types and can be used in lieu of one another</li>
 	<li>line 2: decimal places can be added beyond the original number</li>
 	<li>line 3: precision (p=5) can be added beyond the returned result, which has a p=4</li>
 	<li>line 4, 5, 6: decimal place values can be truncated</li>
 	<li>line 7: scale is optional with default of 0</li>
-	</ol>
+	</ul>
 	
 	<p>Decimal/numeric types require more storage than integer types. With a precision (i.e., total place values) of 1-9, 5 bytes are required. For 
 	the maximum precision of 29-38, 17 bytes are required. See the <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-2017" target="_blank">Microsoft Doc</a>
