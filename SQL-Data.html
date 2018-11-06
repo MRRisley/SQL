@@ -1,0 +1,260 @@
+<!--SQL-->
+
+<html lang="en">
+
+<!--HEAD-->
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125795941-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125795941-1');
+</script>
+	
+	<meta charset="UTF-8">
+	<title>MRRisley:=("SQL Data")</title>
+	<meta name="description" content="An introduction to data in SQL,
+	including date, character, and numeric data. This page also
+	introduces the functions associated with these data types.">
+	<meta name="author" content="Matt Risley">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../MRRisley/css/normalize.css">
+	<link rel="stylesheet" href="../MRRisley/css/skeleton.css">
+	<link rel="stylesheet" href="../MRRisley/css/custom.css">
+	
+		<style>
+		* body {
+			margin: 0;
+			font-family: Courier New, Arial, monotype;
+		}
+		</style>
+</head>
+
+<!--BODY-->
+<body>
+	
+<div class="container" id="top">
+	<h3 align="center">MRRisley:=("SQL Data, Functions, and Operators")</h3>
+		<h6 align="center">Note: This guide is meant to be a companion to Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
+
+<!--Navigation-->
+<div class="container" id="nav">
+	<h5>Topics</h5>
+	<p><a href = "#cast">1. The <code>CAST</code> Function</a>
+	
+	<br><p><a href = "#number-data">2. Number Data</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#integers">a. Integers</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#decimal-numeric">b. Decimal/Numeric</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#float">c. Float</a>
+	
+	<br><a href ="character-data">2. Character Data</a>
+	
+	<br><a href = "#date-data">3. Date Data</a>
+
+	<br><a href = "#date-data">4. Operators</a>
+<!--
+	
+	<br><a href = "#clauses">4. Clauses</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#where-clause">a. <code>WHERE</code> clause</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#group-by-clause">b. <code>GROUP BY</code> clause</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#having-clause">c. <code>HAVING</code> clause</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#order-by-clause">d. <code>ORDER BY</code> clause</a>
+
+	
+	<br><a href = "#operators">5. Operators</a>
+	
+	<br><a href = "#clauses">6. <code>CASE</code> expressions</a>
+	
+	<br><a href = "#operators">7. Data Types</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#null">a. <code>NULL</code></a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#characters">b. Character Data</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#dates">c. Dates</a>
+
+-->	
+	
+	</p>
+</div>
+
+<!--CAST-->	
+<div class="docs-section" id="cast">
+  <h5 class="title">1. The <code>CAST</code> function.</h5>
+  
+  		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--Numeric Data-->	
+<div class="docs-section" id="number-data">
+  <h5 class="title">2. Number Data</h5>
+	<p>A language-neutral description of numeric data in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#numeric">here</a>.</p>
+	
+	<p>Similar to other programming languages, T-SQL relies on types of numeric values for the purposes of managing data storage, which is mostly a question of 
+	decimal precision when it comes to analytics. However, it is important to understand the memory requirements with each data type and also ways in which queries
+	can be optimized if relying upon large quantities of data conversions.</p>
+	
+	<p>Numeric data within SQL can be divided as follows:</p>
+	
+	<ol>
+	<li>Integer</li>
+	<li>Decimal and Numeric</li>
+	<li>Float and Real</li>
+	</ol>
+	
+	<p>There are also <code>bit</code> and <code>money</code> types, but these are rarely required for analytics purposes, and I've never seen the money type used in the real world. The bit 
+	type is useful in database design for dummy variables due to its low storage requirements. It takes the values of 0, 1, and NULL.</p>
+	
+  <h5 class="title" id="#integers">&nbsp;&nbsp;&nbsp;&nbsp;a. Integers</h5>
+	
+	<p>Integers are counting numbers and have no decimal precision. There are four types, shown below. For most applications, <code>int</code> will suffice and uses little memory.<p>
+	
+<table class="u-full-width">
+<thead>
+	<tr>
+		<th>Type</th>
+		<th>Range</th>
+		<th>Storage</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td><code>tinyint</code></td>
+		<td>0 to 255</td>
+		<td>1 byte</td>
+	</tr>
+	<tr>
+		<td><code>smallint</code></td>
+		<td>-32,768 to 32,767</td>
+		<td>2 bytes</td>
+	</tr>
+	<tr>
+		<td><code>int</code></td>
+		<td>-2,147,483,648 to 2,147,483,647</td>
+		<td>4 bytes</td>
+	</tr>
+	<tr>
+		<td><code>bigint</code></td>
+		<td>-2^63 to 2^63</td>
+		<td>4 bytes</td>
+	</tr>
+</tbody>
+</table>
+
+	<p>This information sourced from the relevant <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-2017">Microsoft Doc</a></p>
+
+	<p>
+	The integer data type is generally useful for data that does not require division or other operations that may produce a decimal point. 
+	Operations on integers will always return the type integer, which has no decimal precision.
+	</p>	
+	
+	<p>When the value of an integer type exceeds the range shown in the chart above, an "overflow" error is returned:</p>
+	
+	<pre><code>
+select cast(-5 as tinyint)
+	</code></pre>
+	
+	<pre>
+Msg 220, Level 16, State 2, Line 2
+Arithmetic overflow error for data type tinyint, value = -5.
+	</pre>
+	
+	<p>In this example, we try to coerce -5 to the <code>tinyint</code> type. Because <code>tinyint</code> only has a range of 0 to 255, the error results.</p>
+	
+ <h5 class="title" id="#decimal-numeric">&nbsp;&nbsp;&nbsp;&nbsp;b. Decimal/Numeric</h5>
+	
+	<p>Decimal and numeric values are identical in T-SQL. They have fixed levels of precision and scale. <i>Precision</i> refers to the 
+	<b>total</b> number of digits stored <b>both to the left and the right of the decimal point</b>. It has a value of 1 through 38 (the maximum). 
+	<i>Scale</i> refers to the number of digits stored <b>only to the right of the decimal place</b>.</p>
+
+	<p>The default scale is zero. Scale is always greater than or equal to zero, and precision is always greater than or equal to scale.<p>
+	
+	<p>Let's see how this works in practice. When referring to the decimal and numeric data types, scale and precision can be supplied in parentheses.
+	Precision is provided first, then scale.
+	</p>
+
+	<pre><code>
+select cast(1.234 as dec(4, 3)) 'p=4, s=3',			--original
+cast(1.234 as numeric(4, 3)) 'Numeric p=4, s=3',	--line 1
+cast(1.234 as dec(5, 4)) 'p=5, s=4',				--line 2
+cast(1.234 as dec(5, 3)) 'p=5, s=3',				--line 3
+cast(1.234 as dec(3, 2)) 'p=3, s=2',				--line 4
+cast(1.234 as dec(2, 1)) 'p=2, s=1',				--line 5
+cast(1.234 as dec(1, 0)) 'p=1, s=0',				--line 6
+cast(1.234 as dec(2)) 'p=2, s=0'					--line 7
+	</code></pre>
+	
+	<pre>
+p=4, s=3                                Numeric p=4, s=3                        p=5, s=4                                p=5, s=3                                p=3, s=2                                p=2, s=1                                p=1, s=0                                p=2, s=0
+--------------------------------------- --------------------------------------- --------------------------------------- --------------------------------------- --------------------------------------- --------------------------------------- --------------------------------------- ---------------------------------------
+1.234                                   1.234                                   1.2340                                  1.234                                   1.23                                    1.2                                     1                                       1
+
+(1 row(s) affected)
+	</pre>
+	
+	<p>The query above coerces 1.234 to decimal/numeric type with a specified precision and scale. The first <code>cast</code> function
+	represents the precision and scale of 1.234 as-is. 1.234 has a precision of 4 because it has four total place values, that is, places to the 
+	<b>left and right</b> of the decimal. Scale is 3 because it has 3 place values to the right of the decimal. 
+	The query above demonstrates the following:</p>
+	
+	<ol>
+	<li>line 1: decimal and numeric are equivalent data types and can be used in lieu of one another</li>
+	<li>line 2: decimal places can be added beyond the original number</li>
+	<li>line 3: precision (p=5) can be added beyond the returned result, which has a p=4</li>
+	<li>line 4, 5, 6: decimal place values can be truncated</li>
+	<li>line 7: scale is optional with default of 0</li>
+	</ol>
+	
+	<p>Decimal/numeric types require more storage than integer types. With a precision (i.e., total place values) of 1-9, 5 bytes are required. For 
+	the maximum precision of 29-38, 17 bytes are required. See the <a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-2017">Microsoft Doc</a>
+	on decimal/numeric data types for more information regarding memory requirements.</p>
+	
+ <h5 class="title" id="#float">&nbsp;&nbsp;&nbsp;&nbsp;c. Float </h5>
+	
+	<p>The float data type is an approximate-number data type for floating point numeric data. It is slightly more flexible than the decimal/numeric type 
+	because only precision is required. The precision argument refers to the number of <b>bits</b> rather than the number of 
+	place values as was the case with the decimal/numeric type. The maximum number of place values is still 38. 
+	In practice, there are only two relevant values for this argument:
+	24 and 53. Data type <code>real</code> is equivalent to <code>float(24)</code>, which is also single precision. 
+	Double precision is <code>float(53)</code>. Operations involving single precision are accurate up to 6-9 digits and
+	double precision are generally accurate up to 15-17 decimal places. This is why float is an
+	approximate-number data type.</p>
+	
+	<p>As with the decimal/numeric type, be sure to think about what level of precision is required for your analysis. The default
+	argument for float is 53, which requires 8 bytes of memory. This isn't as large as a decimal(38) type, but it can become significant
+	in certain applications, especially if you store large amounts of data with these types on the server.</p>
+	
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--Character Data-->	
+<div class="docs-section" id="character-data">
+  <h5 class="title">3. Character Data</h5>
+
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--Date Data-->	
+<div class="docs-section" id="date-data">
+  <h5 class="title">4. Date Data</h5>
+
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+  <h5 class="title">4. Numeric Data</h5>
+
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+	<div class="docs-section" align="center">
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<a href="../SQL/index.html"><h5>Back to SQL Main Page</h5></a>
+	</div>
+
+</div>
+</body>
+
+</html> 
