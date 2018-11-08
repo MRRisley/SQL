@@ -340,14 +340,14 @@ This is a  This is a  This is a string.              This is a string.
 select
 substring('This is a string.', 5, 5) 'Result'
 	</code></pre>
-	<p>The resulting substring is: ' is a', which has a leading space. Remember that spaces are characters as well.</p>	
 	<pre>
 Result
 ------
  is a
 
 (1 row(s) affected)	
-	</pre>
+	</pre>	
+	<p>The resulting substring is: ' is a', which has a leading space. Remember that spaces are characters as well.</p>	
 	<br><br>
 	
 		<h6><b><code>LEFT(<i>string</i>, <i>length</i>)</code> and <code>RIGHT(<i>string</i>, <i>length</i>)</code></b></h6>
@@ -357,9 +357,6 @@ Result
 select
 substring('This is a string.', 5, 5) 'Result'
 	</code></pre>
-	<p>The resulting substring from the <code>LEFT</code> function is 'This i', which is 6 characters long from the first character
-	when reading from the <b>left</b>. The resulting substring from the <code>RIGHT</code> function is 'tring.', which is 6 characters long from the first character
-	when reading from the <b>right</b>.</p>
 	<pre>
 left   right
 ------ ------
@@ -367,15 +364,17 @@ This i tring.
 
 (1 row(s) affected)
 	</pre>
+	<p>The resulting substring from the <code>LEFT</code> function is 'This i', which is 6 characters long from the first character
+	when reading from the <b>left</b>. The resulting substring from the <code>RIGHT</code> function is 'tring.', which is 6 characters long from the first character
+	when reading from the <b>right</b>.</p>
 	<br><br>
 	
-		<h6><b><code>LEN<i>string</i>)</code></b></h6>
+		<h6><b><code>LEN(<i>string</i>)</code></b></h6>
 		<p>This functions returns the number of characters in the string.</p>
 	<pre><code>
 select
 len('This is a string.') 'len'
 	</code></pre>
-	<p>The string 'This is a string.' has 17 characters.</p>
 	<pre>
 len
 -----------
@@ -383,6 +382,7 @@ len
 
 (1 row(s) affected)
 	</pre>
+	<p>The string 'This is a string.' has 17 characters.</p>
 	<br><br>
 	
 		<h6><b><code>LTRIM(<i>string</i>)</code> and <code>RTRIM(<i>string</i>)</code></b></h6>
@@ -391,12 +391,8 @@ len
 	<pre><code>
 select
 ltrim('   leading spaces') 'ltrim leading',
-rtrim('trailing spaces    ') 'rtrim trailing',
-ltrim('trailing spaces    ') 'ltrim trailing',
-rtrim('   leading spaces') 'rtrim leading'
+rtrim('trailing spaces    ') 'rtrim trailing'
 	</code></pre>
-	<p>The resulting substrings have no leading or trailing spaces. Note that <code>LTRIM</code> will not remove trailing spaces and <code>RTRIM</code>
-	will not remove leading spaces.</p>
 	<pre>
 ltrim leading     rtrim trailing
 ----------------- -------------------
@@ -404,6 +400,38 @@ leading spaces    trailing spaces
 
 (1 row(s) affected)
 	</pre>
+	<p>The resulting substrings have no leading or trailing spaces. Note that <code>LTRIM</code> will not remove trailing spaces and <code>RTRIM</code>
+	will not remove leading spaces.</p>
+
+	</blockquote>
+	
+	<h6><b>Concatenation</b></h6>
+	<p>Concatenation is the process of joining one or more strings into a larger string. A general overview and description of 
+	concatenation in analytics programming can be found <a href="https://mrrisley.github.io/Programming/#concatenation" target="_blank">here</a>.</p>
+	
+	<p>Concatenation can be accomplished in T-SQL through the <code>+</code> operator or through the <code>CONCAT</code> function.</p>
+	
+	<pre><code>
+select 
+'example' + '1' 'Result 1',
+'example ' + '2' 'Result 2',
+'You ' + 'can ' + 'concatenate ' + 'many ' + 'strings.' 'Result 3',
+concat('You ', 'can ', 'also ', 'use ', 'CONCAT().') 'Result 4'
+	</code></pre>
+	<pre>
+Result 1 Result 2  Result 3                          Result 4
+-------- --------- --------------------------------- --------------------------
+example1 example 2 You can concatenate many strings. You can also use CONCAT().
+
+(1 row(s) affected)
+	</pre>
+	
+	<ul>
+	<li>Result 1 returns 'example1' by concatenating 'example' and '1'. Concatenation with number values is possible.</li>
+	<li>Result 2 returns 'example 2' by concatenating 'example ' and '2'. Note the space character after the word 'example' and the returned space in the result.</li>
+	<li>Result 3 returns a concatenation from many substrings.</li>
+	<li>Result 4 returns a concatenation from the <code>CONCAT</code> function.</li>
+	</ul>
 	
 	</blockquote>
 	
