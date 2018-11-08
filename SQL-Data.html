@@ -328,9 +328,10 @@ This is a  This is a  This is a string.              This is a string.
 	<p>There are a number of character functions within T-SQL that are useful for working within strings. The following functions are those that are fairly
 	common.</p>
 	
+	<h6><b>Character Functions</b></h6>
 	<blockquote>
 	
-		<b><code>SUBSTRING(<i>string</i>, <i>start_position</i>, <i>length</i>)</code></b>
+		<h6><b><code>SUBSTRING(<i>string</i>, <i>start_position</i>, <i>length</i>)</code></b></h6>
 		<p>The <code>SUBSTRING</code> function returns a portion of a string. The <i>start_position</i> is a numeric reference for where to begin the substring.
 		For example, a <i>start_position</i> of 5 would begin to return the substring starting at the fifth character of the original string. The <i>length</i>
 		argument tells SQL how many characters from the start position to return as the substring. For example, a <i>start_position</i> of 5 and <i>length</i> of
@@ -348,7 +349,7 @@ Result
 (1 row(s) affected)	
 	</pre>
 	
-		<b><code>LEFT(<i>string</i>, <i>length</i>)</code> and <code>RIGHT(<i>string</i>, <i>length</i>)</code></b>
+		<h6><b><code>LEFT(<i>string</i>, <i>length</i>)</code> and <code>RIGHT(<i>string</i>, <i>length</i>)</code></b></h6>
 		<p>These functions return a portion of a string beginning at the first character (from left or right). The <i>length</i>
 		argument tells SQL how many characters from the first character to return as the substring.</p>
 	<pre><code>
@@ -366,7 +367,7 @@ This i tring.
 (1 row(s) affected)
 	</pre>
 	
-		<b><code>LEN<i>string</i>)</code></b>
+		<h6><b><code>LEN<i>string</i>)</code></b></h6>
 		<p>This functions returns the number of characters in the string.</p>
 	<pre><code>
 select
@@ -381,7 +382,7 @@ len
 (1 row(s) affected)
 	</pre>
 	
-		<b><code>LTRIM(<i>string</i>)</code> and <code>RTRIM(<i>string</i>)</code></b>
+		<h6><b><code>LTRIM(<i>string</i>)</code> and <code>RTRIM(<i>string</i>)</code></b></h6>
 		<p>These functions truncate leading (<code>LTRIM</code>) or trailing (<code>RTRIM</code>)
 		spaces from a string.</p>
 	<pre><code>
@@ -400,6 +401,8 @@ leading spaces    trailing spaces
 
 (1 row(s) affected)
 	</pre>
+	
+	</blockquote>
 	
     <div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
