@@ -15,10 +15,10 @@
 </script>
 	
 	<meta charset="UTF-8">
-	<title>MRRisley:=("SQL Data")</title>
+	<title>MRRisley:=("SQL Data Types")</title>
 	<meta name="description" content="An introduction to data in SQL,
 	including date, character, and numeric data. This page also
-	introduces the functions associated with these data types.">
+	introduces some functions associated with these data types.">
 	<meta name="author" content="Matt Risley">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
@@ -38,7 +38,7 @@
 <body>
 	
 <div class="container" id="top">
-	<h3 align="center">MRRisley:=("SQL Data, Functions, and Operators")</h3>
+	<h3 align="center">MRRisley:=("SQL Data Types")</h3>
 		<h6 align="center">Note: This guide is meant to be a companion to Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
 	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
@@ -58,8 +58,10 @@
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#string-manipulation">b. String Manipulation</a>
 	
 	<br><a href = "#date-data">4. Date Data</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#date-time">a. Date/time data types</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#date-functions">b. Date functions</a>
 
-	<br><a href = "#date-data">4. Operators</a>
+	<br><a href = "#nulls">5. NULLs</a>
 <!--
 	
 	<br><a href = "#clauses">4. Clauses</a>
@@ -442,7 +444,114 @@ example1 example 2 You can concatenate many strings. You can also use CONCAT().
 <!--Date Data-->	
 <div class="docs-section" id="date-data">
   <h5 class="title">4. Date Data</h5>
+  
+	<h5 class="title" id="date-time">&nbsp;&nbsp;&nbsp;&nbsp;a. Date/time data types</h5>
 
+	<p>Working with dates in most programming languages is a painful task. T-SQL has been one of the better programs I've worked with it
+	when it comes to dates/times.</p>
+	
+	<p>SQL allows data types that include dates, such as 01/01/2000, and times, such as 12:45AM. <code>date</code> data types only 
+	have the date component, <code>time</code> data types only have the time component, and <code>datetime</code> have both. I  For other data types, see the relevant
+	<a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/date-and-time-types?view=sql-server-2017">Microsoft Doc</a>. It is not
+	uncommon that you will encounter <code>datetime</code> data types, but frequently the time dimension is the default of 12:00 AM, which displays
+	as 00:00:00.000.</p>
+	
+	<p>The Microsoft Doc recommends <code>date</code>, <code>time</code>, <code>datetime2</code>, and <code>datetimeoffset</code>. You may encounter <code>datetime</code>
+	or <code>smalldatetime</code> in older code. <code>datetimeoffset</code> can also store time zone, which is appropriate for day/time data with a time zone component.</p>
+	
+	<p>The following code demonstrates the <code>datetime2</code>, <code>date</code>, and <code>time</code> data types.</p>
+	
+	<pre><code>
+select 
+cast('01/01/2018 10:42:03.123' as datetime2) 'Result 1',
+cast('01/01/2018 10:42:03.123' as datetime2(3)) 'Result 2',
+cast('01-01-2018 10:42PM' as datetime2(0)) 'Result 3',
+cast('Jan 1 2015' as date) 'Result 4',
+cast('4am' as time) 'Result 5'
+	</code></pre>
+	<pre>
+Result 1                    Result 2                    Result 3                    Result 4   Result 5
+--------------------------- --------------------------- --------------------------- ---------- ----------------
+2018-01-01 10:42:03.1230000 2018-01-01 10:42:03.123     2018-01-01 22:42:00         2015-01-01 04:00:00.0000000
+
+(1 row(s) affected)
+	</pre>
+
+	<ul>
+	<li>Result 1 returns a date and time with fractional second values up to the millisecond place value. 
+	The <code>datetime2</code> data type allows fractional second precision up to 100 nanoseconds.</li>
+	<li>Result 2 specifies the precision argument of the <code>datetime2</code> data type. The argument of 3 returns a result with fractional 
+	second precision up to the thousandths place value (i.e., 3 decimal places).</li>
+	<li>Result 3 returns no fractional second values and also demonstrates that SQL can interpret AM/PM. Note that 10:42 in the first two examples are 
+	10:42 in the morning, while 10:42PM is equivalent to 24-hour time of 22:42.</li>
+	<li>Result 4 demonstrates the conversion of a string to a date while Result 5 demonstrates the conversion of a string to a time. 
+	SQL is fairly flexible with the date/time formats it will accept. See the 
+	<a href="https://docs.microsoft.com/en-us/sql/t-sql/data-types/date-and-time-types?view=sql-server-2017">Microsoft Doc</a> for the formats
+	T-SQL can read.</li>
+	</ul>
+
+	<h5 class="title" id="date-functions">&nbsp;&nbsp;&nbsp;&nbsp;b. Date functions</h5>	
+	
+	<p>The following date functions are those that I've commonly encountered:</p>
+	
+	<h6><b><code>YEAR(<i>date</i>) and <code>MONTH(<i>date</i>)</code> and <code>DAY(<i>date</i>)</code></b></h6>
+		<p>These functions return the four-digit year, the one/two-digit month of a date, and the one/two-digit day of a date.</p>
+	<pre><code>
+select 
+year('1-12-2013') 'Year',
+month('1-12-2013') 'Month',
+day('1-12-2013') 'Day'
+	</code></pre>
+	<pre>
+Year        Month       Day
+----------- ----------- -----------
+2013        1           12
+
+(1 row(s) affected)
+	</pre>
+	<br><br>
+	
+	<h6><b><code>DATEDIFF(<i>time_dimension</i>, <i>date1</i>, <i>date2</i>)</code></b></h6>
+		<p>This function returns the number of years, months, days, etc. between two supplied dates. Importantly, this number is 
+		an <b>integer</b>. Results are rounded <i>down</i> to the nearest integer.</p>
+	<pre><code>
+select 
+datediff(year, '20150101', 'Jan 31, 2019') 'Result 1a',
+datediff(year, '20150101', 'Dec 31, 2019') 'Result 1b',
+datediff(day, '20150101', 'Dec 31, 2019')/365.0 'Result 1c',
+datediff(month, '20150101', 'Dec 1, 2018') 'Result 2a',
+datediff(month, '20150101', 'Dec 31, 2018') 'Result 2b',
+datediff(month, '20150101', 'Jan 1, 2019') 'Result 2c',
+datediff(month, '20150101', 'Jan 31, 2019') 'Result 2d',
+datediff(day, '20150101', 'Jan 31, 2019')/(365/12.0) 'Result 2e',
+datediff(day, '20150101', 'Jan 31, 2019') 'Result 3',
+datediff(second, '20150101', 'Jan 31, 2019') 'Result 4'
+	</code></pre>
+	<pre>
+Result 1a   Result 1b   Result 1c                               Result 2a   Result 2b   Result 2c   Result 2d   Result 2e                               Result 3    Result 4
+----------- ----------- --------------------------------------- ----------- ----------- ----------- ----------- --------------------------------------- ----------- -----------
+4           4           5.000000                                47          47          48          48          49.01917915658                          1491        128822400
+
+(1 row(s) affected)
+	</pre>
+	
+	<ol>
+	<li>Result 1a returns the number of years between January 1, 2015, and January 31, 2019, as 4 years.</li>
+	<li>Result 1b also returns the number of years between January 1, 2015, and <b>December 31, 2019</b> as 4 years. At
+	January 1, 2020, the result becomes 5 years.</li>
+	<li>Result 1c demonstrates a work-around to return a fractional year value. For applications that require an even more precise measue than this, an average days per year
+	that incorporates leap year may be more appropriate.</li>
+	<li>Result 2a, 2b, 2c, 2d demonstrate the similarily in number of months returned between two dates (47 and 48) despite the fact that difference
+	between Dec 1, 2018, and Jan 31, 2019, is two months for all intents and purposes.</li>
+	<li>Result 2e demonstrates a work-around to return a fractional month value. For applications that require an even more precise measure than this,
+	an average days per month may be more appropriate.</li>
+	<li>Result 3 returns the number of days between January 1, 2015, and January 31, 2019.</li>
+	<li>Result 4 returns the number of seconds between January 1, 2015, 12:00AM and January 31, 2019, 12:00AM.</li>/
+	</ol>
+	
+	<br><br>
+	
+	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
