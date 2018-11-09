@@ -1,0 +1,406 @@
+<!--SQL-->
+
+<html lang="en">
+
+<!--HEAD-->
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125795941-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125795941-1');
+</script>
+	
+	<meta charset="UTF-8">
+	<title>MRRisley:=("SQL Operators")</title>
+	<meta name="description" content="An introduction to operators in SQL,
+	including mathematical, logic, string, and date operators.">
+	<meta name="author" content="Matt Risley">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../MRRisley/css/normalize.css">
+	<link rel="stylesheet" href="../MRRisley/css/skeleton.css">
+	<link rel="stylesheet" href="../MRRisley/css/custom.css">
+	
+		<style>
+		* body {
+			margin: 0;
+			font-family: Courier New, Arial, monotype;
+		}
+		</style>
+</head>
+
+<!--BODY-->
+<body>
+	
+<div class="container" id="top">
+	<h3 align="center">MRRisley:=("SQL Operators")</h3>
+		<h6 align="center">Note: This guide is meant to be a companion to Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition.</h6>
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<h5 align="center"><a href = "../SQL/index.html">Back to SQL Main Page</a></h5>
+
+<!--Navigation-->
+<div class="container" id="nav">
+	<h5>Topics</h5>
+	<p><a href = "#math-ops">1. Mathematical Operators</a>
+	
+	<br><a href = "#comp-ops">2. Comparison Operators</a>
+		
+	<br><a href ="#logic-ops">3. Logic Operators</a>
+
+	</p>
+</div>
+
+<div align="center"><a href = "https://docs.microsoft.com/en-us/sql/t-sql/language-elements/operators-transact-sql?view=sql-server-2017"><h6>Operators Microsoft Doc</h6></a></div>
+
+<!--Math Operators-->
+<div class="docs-section" id="math-ops">
+  <h5 class="title">1. Mathematical Operators</h5>
+   
+   <p>Mathematical operators allow you to perform simple mathematical procedures such as addition and multiplication.</p>
+
+<table class="u-full-width">
+<thead>
+	<tr>
+		<th>Operation</th>
+		<th>Operator</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>Addition</td>
+		<td>+</td>
+	</tr>
+	<tr>
+		<td>Subtraction</td>
+		<td>-</td>
+	</tr>
+	<tr>
+		<td>Multiplication</td>
+		<td>*</td>
+	</tr>
+	<tr>
+		<td>Division</td>
+		<td>/</td>
+	</tr>
+</tbody>
+</table>     
+  
+     		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--Comparison Operators-->
+<div class="docs-section" id="comp-ops">
+  <h5 class="title">1. Comparison Operators</h5>
+   
+   <p>Comparison operators allow you to compare values. These operators evaluate to True, False, or Unknown. All of these operators
+   work with number and date data. String data can be evaluated with these operators as well, but equivalence is usually the only relevant
+   operator for strings.</p>
+
+<table class="u-full-width">
+<thead>
+	<tr>
+		<th>Operation</th>
+		<th>Operator</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>equal to</td>
+		<td>=</td>
+	</tr>
+	<tr>
+		<td>not equal to</td>
+		<td><>  or  !=</td>
+	</tr>
+	<tr>
+		<td>greater than</td>
+		<td>></td>
+	</tr>
+	<tr>
+		<td>greater than or equal to</td>
+		<td>>=</td>
+	</tr>
+	<tr>
+		<td>not greater than</td>
+		<td>!></td>
+	</tr>
+	<tr>
+		<td>less than</td>
+		<td><</td>
+	</tr>
+	<tr>
+		<td>less than or equal to</td>
+		<td><=</td>
+	</tr>
+	<tr>
+		<td>not less than</td>
+		<td>!<</td>
+	</tr>
+</tbody>
+</table>     
+  
+     		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+<!--Comparison Operators-->
+<div class="docs-section" id="logic-ops">
+  <h5 class="title">3. Logic Operators</h5>
+   
+   <p>Logic operators assist in the evaluation of logical conditions, usually in the <code>WHERE</code> clause. The following logic operators are commonly used.</p>
+   
+<h6><b><code>AND</code></b></h6>
+		<p>The <code>AND</code> logic operator allows you to evaluate whether two or more conditions are true. The evaluation of conditions with the <code>AND</code> 
+		operator require all conditions to be satisfied.</p>
+	<pre><code>
+select businessentityid, persontype, title
+from [AdventureWorks].[Person].[Person]
+where persontype = 'EM' and title = 'Mr.'
+	</code></pre>
+	<pre>
+businessentityid persontype title
+---------------- ---------- --------
+6                EM         Mr.
+139              EM         Mr.
+273              EM         Mr.
+
+(3 row(s) affected)
+	</pre>	
+	<p>Results are only returned when the <code>persontype</code> field is equal to 'EM' and the <code>title</code> field is equal to 'Mr.'.</p>	
+	<br><br>
+
+<h6><b><code>OR</code></b></h6>
+		<p>The <code>OR</code> logic operator allows you to evaluate whether at least one condition is true. The evaluation of conditions with the <code>OR</code> 
+		operator require at least one condition to be satisfied.</p>
+	<pre><code>
+select businessentityid, persontype, title
+from [AdventureWorks].[Person].[Person]
+where persontype = 'EM' and title = 'Mr.'
+	</code></pre>
+	<pre>
+businessentityid persontype title
+---------------- ---------- --------
+1                EM         NULL
+2                EM         NULL
+3                EM         NULL
+4                EM         NULL
+5                EM         Ms.
+6                EM         Mr.
+7                EM         NULL
+8                EM         NULL
+9                EM         NULL
+10               EM         NULL
+...
+273              EM         Mr.
+284              SP         Mr.
+285              SP         Mr.
+291              SC         Mr.
+307              SC         Mr.
+...
+(847 row(s) affected)
+	</pre>	
+	<p>Results are returned when at least either the <code>persontype</code> field is equal to 'EM' or the <code>title</code> field is equal to 'Mr.'. Notice that both
+	can be true. The <code>OR</code> operator essentially specifies that <b>all</b> joined conditions cannot evaluate to False. Some can.</p>	
+	<br><br>
+
+	<h6><b><code>BETWEEN</code></b></h6>
+		<p>The <code>BETWEEN</code> logic operator allows you to evaluate whether a value falls within an interval, inclusive. </p>
+	<pre><code>
+select modifieddate, businessentityid
+from [AdventureWorks].[Person].[Person]
+where modifieddate between '12/15/2013' and '12/31/2013'
+order by modifieddate
+	</code></pre>
+	<pre>
+modifieddate            businessentityid
+----------------------- ----------------
+2013-12-15 00:00:00.000 2554
+2013-12-15 00:00:00.000 3680
+2013-12-15 00:00:00.000 3914
+...
+2013-12-23 00:00:00.000 2933
+2013-12-23 00:00:00.000 2455
+2013-12-23 00:00:00.000 1728
+...
+2013-12-31 00:00:00.000 18444
+2013-12-31 00:00:00.000 19638
+2013-12-31 00:00:00.000 19643
+
+(576 row(s) affected)
+	</pre>	
+	<p>Results are returned when the <code>modifieddate</code> field is greater than or equal to December 15, 2013, and less than or equal to December 31, 2013.</p>	
+	<br><br>
+	
+		<h6><b><code>BETWEEN</code></b></h6>
+		<p>The <code>BETWEEN</code> logic operator allows you to evaluate whether a value falls within an interval, inclusive.</p>
+	<pre><code>
+select modifieddate, businessentityid
+from [AdventureWorks].[Person].[Person]
+where modifieddate between '12/15/2013' and '12/31/2013'
+order by modifieddate
+	</code></pre>
+	<pre>
+modifieddate            businessentityid
+----------------------- ----------------
+2013-12-15 00:00:00.000 2554
+2013-12-15 00:00:00.000 3680
+2013-12-15 00:00:00.000 3914
+...
+2013-12-23 00:00:00.000 2933
+2013-12-23 00:00:00.000 2455
+2013-12-23 00:00:00.000 1728
+...
+2013-12-31 00:00:00.000 18444
+2013-12-31 00:00:00.000 19638
+2013-12-31 00:00:00.000 19643
+
+(576 row(s) affected)
+	</pre>	
+	<p>Results are returned when the <code>modifieddate</code> field is greater than or equal to December 15, 2013, and less than or equal to December 31, 2013.</p>	
+	<br><br>
+	
+			<h6><b><code>NOT</code></b></h6>
+		<p>The <code>NOT</code> logic operator allows you to negate a logical condition. If evaluation of the condition would return True, the addition of the <code>NOT</code>
+		operator would return False. The converse also occurs.</p>
+	<pre><code>
+select modifieddate, businessentityid
+from [AdventureWorks].[Person].[Person]
+where modifieddate <b>not</b> between '12/15/2013' and '12/31/2013'
+order by modifieddate
+	</code></pre>
+	<pre>
+modifieddate            businessentityid
+----------------------- ----------------
+2006-06-23 00:00:00.000 28
+2006-06-23 00:00:00.000 2298
+2007-01-19 00:00:00.000 2119
+...
+2013-12-14 00:00:00.000 16503
+2013-12-14 00:00:00.000 16437
+2013-12-14 00:00:00.000 16834
+2014-01-01 00:00:00.000 17110
+2014-01-01 00:00:00.000 16213
+2014-01-01 00:00:00.000 16646
+...
+2015-04-15 16:33:33.107 305
+2015-04-15 16:33:33.123 307
+2015-04-15 16:33:33.123 309
+
+(19396 row(s) affected)
+	</pre>	
+	<p>Results are returned when the <code>modifieddate</code> field is <b>NOT</b> greater than or equal to December 15, 2013, and less than or equal to December 31, 2013. This
+	implies that results should be less than December 15, 2013, or greater than December 31, 2013.</p>	
+	<br><br>
+	
+			<h6><b><code>IN</code></b></h6>
+		<p>The <code>IN</code> logic operator allows you to specify a list of possible values for a logical condition. If the checked value is in the supplied list, then the
+		logical condition evaluates to True.</p>
+	<pre><code>
+select modifieddate, businessentityid
+from [AdventureWorks].[Person].[Person]
+where modifieddate in 
+('10/1/2010', '10/1/2011', '10/1/2012')
+order by modifieddate
+	</code></pre>
+	<pre>
+modifieddate            businessentityid
+----------------------- ----------------
+2011-10-01 00:00:00.000 417
+2011-10-01 00:00:00.000 451
+2011-10-01 00:00:00.000 453
+2011-10-01 00:00:00.000 523
+2011-10-01 00:00:00.000 527
+2011-10-01 00:00:00.000 535
+2011-10-01 00:00:00.000 585
+2011-10-01 00:00:00.000 713
+2011-10-01 00:00:00.000 839
+2011-10-01 00:00:00.000 897
+2011-10-01 00:00:00.000 959
+2011-10-01 00:00:00.000 1279
+2011-10-01 00:00:00.000 1453
+2011-10-01 00:00:00.000 1455
+2011-10-01 00:00:00.000 1457
+2011-10-01 00:00:00.000 1477
+2011-10-01 00:00:00.000 1863
+2011-10-01 00:00:00.000 2009
+2011-10-01 00:00:00.000 4781
+2011-10-01 00:00:00.000 5743
+2011-10-01 00:00:00.000 8954
+2011-10-01 00:00:00.000 17865
+2011-10-01 00:00:00.000 18247
+2011-10-01 00:00:00.000 20657
+2012-10-01 00:00:00.000 18937
+2012-10-01 00:00:00.000 13540
+2012-10-01 00:00:00.000 14326
+2012-10-01 00:00:00.000 17172
+
+(28 row(s) affected)
+	</pre>	
+	<p>Results are returned when the <code>modifieddate</code> field equals any of the dates in the list, which are October 1 for the years 2010, 2011, and 2012.</p>	
+	<br><br>
+
+     		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+
+			<h6><b><code>LIKE</code></b></h6>
+		<p>The <code>LIKE</code> logic operator allows you to specify a pattern in order to evaluate a logical condition. This operator is useful
+		for certain sub-strings within a larger string value. This is equivalent to <i>wildcard</i> searches.</p>
+
+		<p>The <a href="https://docs.microsoft.com/en-us/sql/t-sql/language-elements/like-transact-sql?view=sql-server-2017">Microsoft Doc</a> describes how
+		the wildcard searches work. I will demonstrate the % and _ wildcard operators.</p>
+		
+	<pre><code>
+select firstname, count(*) 'count'
+from [AdventureWorks].[Person].[Person]
+<b>where firstname like '_ean'</b>
+group by firstname
+order by firstname
+	</code></pre>
+	<pre>
+firstname                                          count
+-------------------------------------------------- -----------
+Jean                                               8
+Sean                                               53
+
+(2 row(s) affected)
+	</pre>	
+	<p>Results are returned when the <code>firstname</code> field has a four-character value with 'ean' as the second to fourth characters.</p>	
+	
+	<pre><code>
+select firstname, count(*) 'count'
+from [AdventureWorks].[Person].[Person]
+where firstname like '%ean%'
+group by firstname
+order by firstname
+	</code></pre>
+	<pre>
+firstname                                          count
+-------------------------------------------------- -----------
+Deanna                                             48
+Denean                                             1
+Jean                                               8
+Jeanette                                           1
+Jeanie                                             1
+Sean                                               53
+Teanna                                             1
+
+(7 row(s) affected)
+	</pre>	
+	<p>Results are returned when the <code>firstname</code> field contains 'ean'.</p>	
+	<br><br>
+
+     		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>
+  
+	<div class="docs-section" align="center">
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
+	<a href="../SQL/index.html"><h5>Back to SQL Main Page</h5></a>
+	</div>
+
+</div>
+</body>
+
+</html> 
