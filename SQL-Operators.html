@@ -53,8 +53,9 @@
 
 	</p>
 </div>
+<br><
 
-<div align="center"><a href = "https://docs.microsoft.com/en-us/sql/t-sql/language-elements/operators-transact-sql?view=sql-server-2017"><h6>Operators Microsoft Doc</h6></a></div>
+<div align="center"><a href = "https://docs.microsoft.com/en-us/sql/t-sql/language-elements/operators-transact-sql?view=sql-server-2017">Microsoft Doc for all T-SQL Operators</a></div>
 
 <!--Math Operators-->
 <div class="docs-section" id="math-ops">
@@ -234,34 +235,6 @@ modifieddate            businessentityid
 	<p>Results are returned when the <code>modifieddate</code> field is greater than or equal to December 15, 2013, and less than or equal to December 31, 2013.</p>	
 	<br><br>
 	
-		<h6><b><code>BETWEEN</code></b></h6>
-		<p>The <code>BETWEEN</code> logic operator allows you to evaluate whether a value falls within an interval, inclusive.</p>
-	<pre><code>
-select modifieddate, businessentityid
-from [AdventureWorks].[Person].[Person]
-where modifieddate between '12/15/2013' and '12/31/2013'
-order by modifieddate
-	</code></pre>
-	<pre>
-modifieddate            businessentityid
------------------------ ----------------
-2013-12-15 00:00:00.000 2554
-2013-12-15 00:00:00.000 3680
-2013-12-15 00:00:00.000 3914
-...
-2013-12-23 00:00:00.000 2933
-2013-12-23 00:00:00.000 2455
-2013-12-23 00:00:00.000 1728
-...
-2013-12-31 00:00:00.000 18444
-2013-12-31 00:00:00.000 19638
-2013-12-31 00:00:00.000 19643
-
-(576 row(s) affected)
-	</pre>	
-	<p>Results are returned when the <code>modifieddate</code> field is greater than or equal to December 15, 2013, and less than or equal to December 31, 2013.</p>	
-	<br><br>
-	
 			<h6><b><code>NOT</code></b></h6>
 		<p>The <code>NOT</code> logic operator allows you to negate a logical condition. If evaluation of the condition would return True, the addition of the <code>NOT</code>
 		operator would return False. The converse also occurs.</p>
@@ -342,9 +315,6 @@ modifieddate            businessentityid
 	<p>Results are returned when the <code>modifieddate</code> field equals any of the dates in the list, which are October 1 for the years 2010, 2011, and 2012.</p>	
 	<br><br>
 
-     		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
-</div>
-
 			<h6><b><code>LIKE</code></b></h6>
 		<p>The <code>LIKE</code> logic operator allows you to specify a pattern in order to evaluate a logical condition. This operator is useful
 		for certain sub-strings within a larger string value. This is equivalent to <i>wildcard</i> searches.</p>
@@ -367,12 +337,13 @@ Sean                                               53
 
 (2 row(s) affected)
 	</pre>	
-	<p>Results are returned when the <code>firstname</code> field has a four-character value with 'ean' as the second to fourth characters.</p>	
+	<p>This query uses the _ wildcard search. 
+	Results are returned when the <code>firstname</code> field has a four-character value with 'ean' as the second to fourth characters.</p>	
 	
 	<pre><code>
 select firstname, count(*) 'count'
 from [AdventureWorks].[Person].[Person]
-where firstname like '%ean%'
+<b>where firstname like '%ean%'</b>
 group by firstname
 order by firstname
 	</code></pre>
@@ -389,7 +360,7 @@ Teanna                                             1
 
 (7 row(s) affected)
 	</pre>	
-	<p>Results are returned when the <code>firstname</code> field contains 'ean'.</p>	
+	<p>This query uses the % wildcard search. Results are returned when the <code>firstname</code> field contains 'ean'.</p>	
 	<br><br>
 
      		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
