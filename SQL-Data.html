@@ -546,15 +546,99 @@ Result 1a   Result 1b   Result 1c                               Result 2a   Resu
 	<li>Result 2e demonstrates a work-around to return a fractional month value. For applications that require an even more precise measure than this,
 	an average days per month may be more appropriate.</li>
 	<li>Result 3 returns the number of days between January 1, 2015, and January 31, 2019.</li>
-	<li>Result 4 returns the number of seconds between January 1, 2015, 12:00AM and January 31, 2019, 12:00AM.</li>/
+	<li>Result 4 returns the number of seconds between January 1, 2015, 12:00AM and January 31, 2019, 12:00AM.</li>
 	</ol>
-	
 	<br><br>
-	
 	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
+<!--NULLs-->	
+<div class="docs-section" id="nulls">
+  <h5 class="title">5. NULLs</h5>
+
+	<p>A lot of SQL users find NULL values somewhat baffling at first. This is primarily because the SQL language relies on a <i>three-part</i>
+	logic rather than on a simple True/False binary. A logical expression can be either True, False, or Unknown. An expression that evaluates as
+	Unknown will return a NULL value. In general, performing a logical expression on a NULL value will return a NULL value.</p>
+	
+	<p>Let's begin with the <code>[AdventureWorks].[Person].[Person]</code> table. The table has 19,972 records. Several fields contain NULL values.</p>
+	
+	<pre><code>
+select count(*) 'Count'
+from [AdventureWorks].[Person].[Person]
+where (title = 'Mr.' or title <> 'Mr.')
+	</code></pre>
+	<pre>
+Count
+-----------
+1009
+
+(1 row(s) affected)
+	</pre>
+	
+	<p>The <code>WHERE</code> clause would seem to suggest all records should be returned. However, only 1,009 records are counted? Why? According to SQL,
+	a NULL value is UNKNOWN. Therefore, when the field <code>title</code> is NULL this means that the value <i>may be</i> 'Mr.' or it may not. Therefore, as a 
+	NULL value, it neither is equivalent to 'Mr.' nor is it inequivalent. This is why logic in SQL has three values, demonstrated in the query below. An expression
+	can be True or False or Unknown.</p>
+
+	<pre><code>
+select count(*) 'Count'
+from [AdventureWorks].[Person].[Person]
+where (title = 'Mr.' or title <> 'Mr.' or title is null)
+	</code></pre>	
+	<pre>	
+Count
+-----------
+19972
+
+(1 row(s) affected)
+	</pre>	
+	
+	<p>It is good practice to understand whether your table has NULL values for given fields. From the query below, you may assume that there are
+	no NULL values for the <code>title</code> field because they are not returned in the results:</p>
+
+	<pre><code>
+select title, count(*) 'count'
+from [AdventureWorks].[Person].[Person]
+where title not in ('Mr.', 'Mrs.', 'Ms.')
+group by title
+	</code></pre>	
+	<pre>	
+title    count
+-------- -----------
+Ms       1
+Sr.      11
+Sra.     3
+
+(3 row(s) affected)
+	</pre>		
+
+	<p>It makes sense to think that a NULL value would be returned because it is not equal to 'Mr.', 'Mrs.', or 'Ms.'. However, whether this is the case
+	is actually unknown according to SQL--any given NULL value <i>may be</i> equal to one of these, or it may not. Thus, the NULL value must be handled as 
+	a unique logical result:</p>
+	
+	<pre><code>
+select title, count(*) 'count'
+from [AdventureWorks].[Person].[Person]
+where title not in ('Mr.', 'Mrs.', 'Ms.')
+<b>or title is null</b>
+group by title
+	</code></pre>
+	<pre>
+title    count
+-------- -----------
+Sr.      11
+NULL     18963
+Sra.     3
+Ms       1
+
+(4 row(s) affected)
+	</pre>
+	
+	
+		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
+</div>  
+  
 	<div class="docs-section" align="center">
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
 	<a href="../SQL/index.html"><h5>Back to SQL Main Page</h5></a>
