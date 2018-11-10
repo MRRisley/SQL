@@ -158,7 +158,7 @@
 	<pre><code>
 select businessentityid, persontype, title
 from [AdventureWorks].[Person].[Person]
-where persontype = 'EM' and title = 'Mr.'
+where persontype = 'EM' <b>and</b> title = 'Mr.'
 	</code></pre>
 	<pre>
 businessentityid persontype title
@@ -178,7 +178,7 @@ businessentityid persontype title
 	<pre><code>
 select businessentityid, persontype, title
 from [AdventureWorks].[Person].[Person]
-where persontype = 'EM' and title = 'Mr.'
+where persontype = 'EM' <b>or</b> title = 'Mr.'
 	</code></pre>
 	<pre>
 businessentityid persontype title
