@@ -52,6 +52,9 @@
 	<!--<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#intro_a">a. Types of Programming</a>-->
 	
 	<br><a href = "#select">2. The <code>SELECT</code> statement</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#select-star">a. <code>SELECT *</code> </a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#top">b. <code>TOP</code></a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#select-distinct">c. <code>SELECT DISTINCT</code></a>
 	
 	<br><a href = "#from">3. The <code>FROM</code> clause</a>
 	
@@ -198,7 +201,8 @@ adventureworks.humanresources.department
 	
 	
 	<br><br>
-	<p><b><code>SELECT *</code></b></p>
+	  
+	  <h5 class="title" id="select-star">&nbsp;&nbsp;&nbsp;&nbsp;a. <code>SELECT *</code></h5>
 	<p>To return the complete contents of a table, you can simply use the <code>SELECT *</code> statement on a table.
 	The query below also returns the table shown above because all fields were selected in the original query.</p>
 	
@@ -217,6 +221,8 @@ from adventureworks.humanresources.department
 	button. This is the red square next to the execute and debug buttons (it will only show red when a query is in the process of executing):</p>
 	
 		<pre><div align="center"><img src="images/stop-example.JPG" alt="The Stop Button"></div></pre>
+	
+		  <h5 class="title" id="top">&nbsp;&nbsp;&nbsp;&nbsp;b. <code>TOP</code></h5>
 	
 	<p>There are two options I tend to prefer if I don't know the size of the table, or if there is risk that a <code>SELECT *</code> will
 	take time to complete:</p>
@@ -269,8 +275,7 @@ SELECT TOP 1000 [DepartmentID]
 
 	</ol>
 	
-	<br><br>
-	<p><b><code>SELECT DISTINCT</code></b></p>
+		  <h5 class="title" id="select-distinct">&nbsp;&nbsp;&nbsp;&nbsp;c. <code>SELECT DISTINCT</code></h5>
 	<p>To return only unique results, you use the <code>DISTINCT</code> keyword within the <code>SELECT</code> list. The <code>DISTINCT</code>
 	keyword is extremely useful when trying to understand all possible values for a field (usually a field with character data).</p>
 	
