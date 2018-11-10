@@ -357,7 +357,8 @@ Result
 		argument tells SQL how many characters from the first character to return as the substring.</p>
 	<pre><code>
 select
-substring('This is a string.', 5, 5) 'Result'
+left('This is a string.', 6) 'left',
+right('This is a string.', 6) 'right'
 	</code></pre>
 	<pre>
 left   right
