@@ -94,7 +94,7 @@
 
 <!--Comparison Operators-->
 <div class="docs-section" id="comp-ops">
-  <h5 class="title">1. Comparison Operators</h5>
+  <h5 class="title">2. Comparison Operators</h5>
    
    <p>Comparison operators allow you to compare values. These operators evaluate to True, False, or Unknown. All of these operators
    work with number and date data. String data can be evaluated with these operators as well, but equivalence is usually the only relevant
@@ -146,7 +146,7 @@
      		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
 
-<!--Comparison Operators-->
+<!--Logic Operators-->
 <div class="docs-section" id="logic-ops">
   <h5 class="title">3. Logic Operators</h5>
    
@@ -320,7 +320,9 @@ modifieddate            businessentityid
 
 		<p>The <a href="https://docs.microsoft.com/en-us/sql/t-sql/language-elements/like-transact-sql?view=sql-server-2017">Microsoft Doc</a> describes how
 		the wildcard searches work. I will demonstrate the % and _ wildcard operators.</p>
-		
+	
+	<p>The following query uses the _ wildcard search. 
+	Results are returned when the <code>firstname</code> field has a four-character value with 'ean' as the second to fourth characters.</p>	
 	<pre><code>
 select firstname, count(*) 'count'
 from [AdventureWorks].[Person].[Person]
@@ -336,9 +338,8 @@ Sean                                               53
 
 (2 row(s) affected)
 	</pre>	
-	<p>This query uses the _ wildcard search. 
-	Results are returned when the <code>firstname</code> field has a four-character value with 'ean' as the second to fourth characters.</p>	
-	
+
+	<p>The following query uses the % wildcard search. Results are returned when the <code>firstname</code> field contains 'ean'.</p>	
 	<pre><code>
 select firstname, count(*) 'count'
 from [AdventureWorks].[Person].[Person]
@@ -359,8 +360,6 @@ Teanna                                             1
 
 (7 row(s) affected)
 	</pre>	
-	<p>This query uses the % wildcard search. Results are returned when the <code>firstname</code> field contains 'ean'.</p>	
-	<br><br>
 
      		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
