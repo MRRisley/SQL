@@ -197,7 +197,7 @@ adventureworks.humanresources.department
 			 <div align="center"><a href = "#top"><h6>Top</h6></a></div>
 	
 	
-	<br>
+	<br><br>
 	<p><b><code>SELECT *</code></b></p>
 	<p>To return the complete contents of a table, you can simply use the <code>SELECT *</code> statement on a table.
 	The query below also returns the table shown above because all fields were selected in the original query.</p>
@@ -268,6 +268,59 @@ SELECT TOP 1000 [DepartmentID]
 	</code></pre>		
 
 	</ol>
+	
+	<br><br>
+	<p><b><code>SELECT DISTINCT</code></b></p>
+	<p>To return only unique results, you use the <code>DISTINCT</code> keyword within the <code>SELECT</code> list. The <code>DISTINCT</code>
+	keyword is extremely useful when trying to understand all possible values for a field (usually a field with character data).</p>
+	
+	<p>The <code>[AdventureWorks].[HumanResources].[Department]</code> table only has 16 records. However, imagine a similar table with 1000s of records.
+	How would we find the possible values for the field <code>GroupName</code>?</p>
+
+	<pre><code>
+select distinct groupname
+from [AdventureWorks].[HumanResources].[Department]
+	</code></pre>
+	<pre>
+groupname
+--------------------------------------------------
+Executive General and Administration
+Inventory Management
+Manufacturing
+Quality Assurance
+Research and Development
+Sales and Marketing
+
+(6 row(s) affected)
+	</pre>
+	
+	<p>There are 6 unique values in the <code>groupname</code> field.</p>
+	
+	<p><code>DISTINCT</code> can also be used across multiple fields and even all records. I find using the <code>DISTINCT</code> keyword useful
+	across two fields when attempting to understand all possible unique combinations.</p>
+	
+	<pre><code>
+select distinct city, stateprovinceid
+from [AdventureWorks].[Person].[Address]
+	</code></pre>
+	<pre>
+city                           stateprovinceid
+------------------------------ ---------------
+Orly                           180
+Tupelo                         39
+Michigan City                  25
+Bonn                           53
+Cheektowaga                    54
+...
+
+(613 row(s) affected)
+	</pre>	
+	
+	<p>The results tell us there are 613 unique city/state combinations in the table.</p>
+	
+	<p>Finally, duplicate records can be removed with the <code>SELECT DISTINCT *</code> statement. However, this is only recommended if you
+	understand the reason for duplicates and the reason they are not purged from the table in the first place.</p>
+	
 	
 	<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
