@@ -62,6 +62,9 @@
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;b. <a href = "#date-functions">Date functions</a>
 
 	<br>5. <a href = "#nulls">NULLs</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;a. <a href = "#null-overview">NULL values in T-SQL</a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;b. <a href = "#null-functions">NULL Functions</a>
+	
 <!--
 	
 	<br><a href = "#clauses">4. Clauses</a>
@@ -558,6 +561,8 @@ Result 1a   Result 1b   Result 1c                               Result 2a   Resu
 <div class="docs-section" id="nulls">
   <h5 class="title">5. NULLs</h5>
 
+   <h5 class="title" id="null-overview">&nbsp;&nbsp;&nbsp;&nbsp;a. NULL values in T-SQL</h5>
+   
 	<p>A lot of SQL users find NULL values somewhat baffling at first. This is primarily because the SQL language relies on a <i>three-part</i>
 	logic rather than on a simple True/False binary. A logical expression can be either True, False, or Unknown. An expression that evaluates as
 	Unknown will return a NULL value. In general, performing a logical expression on a NULL value will return a NULL value.</p>
@@ -635,7 +640,63 @@ Ms       1
 
 (4 row(s) affected)
 	</pre>
+
+	   <h5 class="title" id="null-functions">&nbsp;&nbsp;&nbsp;&nbsp;b. NULL functions</h5>
+	<h6><b><code>ISNULL</code></b></h6>
+	<blockquote>
+	<p><code>ISNULL()</code> returns an alternate value when the value is otherwise a NULL.</p>
 	
+	<pre><code>
+select 
+null 'Result 1',
+isnull(null, 0) 'Result 2'
+	</code></pre>
+	<pre>
+Result 1    Result 2
+----------- -----------
+NULL        0
+
+(1 row(s) affected)
+	</pre>
+	
+	<h6><b><code>NULLIF</code></b></h6>
+	<blockquote>
+	<p><code>NULLIF()</code> takes two value arguments. When those values are equivalent, it returns a NULL value. When not equivalent, it returns the first value.
+	This function is convenient if you want to return a NULL value in lieu of a particular value. I have found this <b>very useful</b> for avoiding 'divide by zero'
+	errors.</p>
+	
+	<p>In the code below, two fields, a and b, are populated with the values keyword. The query returns these fields and divides a and b. While the numbers are
+	fictional, a divide by zero error is not uncommon for such operations on real-life data. The convenience of <code>NULLIF</code> is that the error is circumvented.</p>
+	
+	<pre><code>
+select 
+a, b, <b>a/nullif(b, 0) 'a/b'</b> 
+from
+(values (100, 100), (400, 4), (4, 2), (3, 0)) as X(a, b)
+	</code></pre>
+	<pre>
+a           b           a/b
+----------- ----------- -----------
+100         100         1
+400         4           100
+4           2           2
+3           0           NULL
+
+(4 row(s) affected)
+	</pre>
+
+	<p>Without the <code>NULLIF</code>, the code will return an error.</p>
+	
+	<pre><code>
+select 
+a, b, <b>a/b 'a/b'</b> 
+from
+(values (100, 100), (400, 4), (4, 2), (3, 0)) as X(a, b)
+	</code></pre>
+	<pre>
+Msg 8134, Level 16, State 1, Line 4
+Divide by zero error encountered.
+	</pre>
 	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>  
