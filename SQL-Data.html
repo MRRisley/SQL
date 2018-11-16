@@ -499,7 +499,8 @@ Result 1                    Result 2                    Result 3                
 	<p>The following date functions are those that I've commonly encountered:</p>
 	
 	<h6><b><code>YEAR(<i>date</i>)</code> and <code>MONTH(<i>date</i>)</code> and <code>DAY(<i>date</i>)</code></b></h6>
-		<p>These functions return the four-digit year, the one/two-digit month of a date, and the one/two-digit day of a date.</p>
+	<blockquote>	
+	<p>These functions return the four-digit year, the one/two-digit month of a date, and the one/two-digit day of a date.</p>
 	<pre><code>
 select 
 year('1-12-2013') 'Year',
@@ -513,10 +514,11 @@ Year        Month       Day
 
 (1 row(s) affected)
 	</pre>
-	<br><br>
+	</blockquote>
 	
 	<h6><b><code>DATEDIFF(<i>time_dimension</i>, <i>date1</i>, <i>date2</i>)</code></b></h6>
-		<p>This function returns the number of years, months, days, etc. between two supplied dates. Importantly, this number is 
+	<blockquote>	
+	<p>This function returns the number of years, months, days, etc. between two supplied dates. Importantly, this number is 
 		an <b>integer</b>. Results are rounded <i>down</i> to the nearest integer.</p>
 	<pre><code>
 select 
@@ -552,7 +554,39 @@ Result 1a   Result 1b   Result 1c                               Result 2a   Resu
 	<li>Result 3 returns the number of days between January 1, 2015, and January 31, 2019.</li>
 	<li>Result 4 returns the number of seconds between January 1, 2015, 12:00AM and January 31, 2019, 12:00AM.</li>
 	</ol>
-	<br><br>
+	</blockquote>
+	
+	<h6><b><code>EOMONTH(<i>date</i>)</code></b></h6>
+	<blockquote>	
+	<p>This function returns the last day in a month for a given date. This is useful for grouping dates by month/year rather than using month and year functions
+	separately.</p>
+	
+	<pre><code>
+select 
+count(*) 'Count',
+eomonth(modifieddate) 'Month Modified'
+from [AdventureWorks].[Person].[Address]
+group by eomonth(modifieddate)
+order by eomonth(modifieddate)	
+	</code></pre>
+	
+	<pre>
+Count       Month Modified
+----------- --------------
+1           2006-06-30
+1           2007-01-31
+2           2007-11-30
+5           2007-12-31
+2           2008-01-31
+2           2008-02-29
+1           2008-03-31
+17          2008-11-30
+61          2008-12-31
+...
+
+(61 row(s) affected)
+	</pre>
+	</blockquote>
 	
 		<div align="center"><a href = "#top"><h6>Top</h6></a></div>
 </div>
@@ -642,7 +676,7 @@ Ms       1
 	</pre>
 
 	   <h5 class="title" id="null-functions">&nbsp;&nbsp;&nbsp;&nbsp;b. NULL functions</h5>
-	<h6><b><code>ISNULL</code></b></h6>
+	<h6><b><code>ISNULL(<i>value</i>, <i>value if null</i>)</code></b></h6>
 	<blockquote>
 	<p><code>ISNULL()</code> returns an alternate value when the value is otherwise a NULL.</p>
 	
@@ -660,7 +694,7 @@ NULL        0
 	</pre>
 	</blockquote>
 	
-	<h6><b><code>NULLIF</code></b></h6>
+	<h6><b><code>NULLIF(<i>value1</i>, <i>value2</i>)</code></b></h6>
 	<blockquote>
 	<p><code>NULLIF()</code> takes two value arguments. When those values are equivalent, it returns a NULL value. When not equivalent, it returns the first value.
 	This function is convenient if you want to return a NULL value in lieu of a particular value. I have found this <b>very useful</b> for avoiding 'divide by zero'
