@@ -6,14 +6,11 @@
 
 <!--HEAD-->
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	
 	<meta charset="UTF-8">
-	<title>MRRisley:=("T-SQL")</title>
-	<meta name="description" content="A guide to T-SQL">
-	<meta name="author" content="Matt Risley">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+	<title>Week 5</title>
+	<meta name="description" content="IS6030: Week 5">
+	<meta name="author" content="Matt Risley">
 	<link rel="stylesheet" href="../MRRisley/css/normalize.css">
 	<link rel="stylesheet" href="../MRRisley/css/skeleton.css">
 	<link rel="stylesheet" href="../MRRisley/css/custom.css">
@@ -26,97 +23,125 @@
 		</style>
 </head>
 
+
 <!--BODY-->
 <body>
 	
-  	<div class="container" id="top">
-	<h3 align="center">MRRisley:=("A Guide to Learning T-SQL")</h3>
-		<h6 align="center">Note: This guide is adapted from Itzik Ben-Gan's <i>T-SQL Fundamentals</i>, 3rd edition. It is meant to
-							be a companion to his work, offering alternative descriptions and examples.</h6>
+<div class="container" id="top">
+	<h3 align="center">IS6030: Week 5</h3>
 	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-		
-<!--Navigation-->
-<div class="docs-section">
-	<h5>Course Navigation</h5>
-	
-		<p>This guide is used to teach a graduate-level course at the University of Cincinnati and is for
-		education purposes only. The course week-by-week curriculum and syllabus is listed below:</p>
-	
-	<blockquote>
-	<h6><a href="../SQL/IS6030_Risley.pdf" target="_blank">Current Course Syllabus</a></h6>
+	<h5 align="center"><a href = "../SQL/index.html">SQL Home Page</a></h5>
 	<br>
-	<h6><a href="../SQL/Day-1.html" target="_blank">Week 1</a></h6>
-	<h6><a href="../SQL/Day-2.html" target="_blank">Week 2</a></h6>
-	<h6><a href="../SQL/Day-3.html" target="_blank">Week 3</a></h6>
-	<h6><a href="../SQL/Day-4.html" target="_blank">Week 4</a></h6>
-	<h6><a href="../SQL/Day-5.html" target="_blank">Week 5</a></h6>
-	</blockquote>
+	
+	<h5><b>Course Evaluation</b></h5>
+	<p>
+	<ol>
+	<li>University places a large amount of emphasis on student evaluations of courses.</li>
+	<li>I find evaluations useful to improve the course:</li>
+		<ul>
+		<li>By understanding what I do well, I can work to apply it elsewhere.</li>
+		<li>By understanding what I do not do well, I can work to do less of it.</li>
+		<li>By understanding what you find useful, I can work to provide more of it.</li>
+		<li>By understanding what you do not find useful, I can work to make it more useful (which may include getting rid of it).</li>
+		</ul>
+	<li>I will award a single percentage point increase for the grade <b>on the Final</b> for all students if completion rate exceeds 90%.</li>
+	</ol>
+	<b>Course evaluation <a href="https://evaluation.uc.edu" target="_blank">link</a>.</b>
+	</p>
+	
+	<br>
+	<h5><b>Housekeeping</b></h5>
+	<p>
+	<ol>
+	<li>Questions from Week 4</li>
+	<li>Answers to Homework 4 (on Blackboard)</li>
+	<li>Assessment on Week 4 Material</li>
+	<li>A list of all assignments and weights for grading can be found <a href="../SQL/Fall-2018-Assignments.html" target="_blank">here</a>.</li>
+	</ol>
+	</p>
+	
+	<br>
+	<h5><b>Midterm Solution</b></h5>
+
+	<br>
+	<h5><b>Duplicates in JOINs</b></h5>
+	<p>
+	<a href="../SQL/Duplicates-in-Joins-Lecture.sql" target="_blank">Click here</a> for SQL Script.
+	</p>
+	
+	<br>
+	<h5><b>Nested <code>SELECT</code></b></h5>
+	<p>
+	<a href="../SQL/Nested-Lecture.sql" target="_blank">Click here</a> for SQL Script.
+	</p>
+	
+	<br>
+	<h5><b>Creating tables</b></h5>
+	<p>
+	<a href="../SQL/Create-Tables-Lecture.sql" target="_blank">Click here</a> for SQL Script.
+	</p>
+	
+	<br>
+	<h5><b>In-Class Assignment 5</b></h5>
+	<p>
+	<a href="../SQL/In-Class-Assignment-5.sql" target="_blank">Click here</a> for SQL Script.
+	Once completed, submit via Blackboard. Due 12/08/2018 by 1:00PM.
+	</p>
+	
+	<br>
+	<h5><b>Importing Data into SQL</b></h5>
+	<p>
+	<ul>
+	<li>You need to determine whether office is 32-bit or 64-bit. <a href="../SQL/SQL-Import-32-vs-64.html" target="_blank">Click here</a> for YouTube video.</li>
+	<li><a href="../SQL/SQL-Import-Excel-Data.html" target="_blank">Click here</a> for YouTube video on importing an Excel Workbook.</li>
+	<li><a href="../SQL/SQL-Import-Flat-File-Data.html" target="_blank">Click here</a> for YouTube video on importing via a .CSV or tab-delimited .TXT file.</li>
+	</ul>
+	</p>
+	
+	<br>
+	<h5><b>SQL and R</b></h5>
+	<p>
+	<ul>
+	<li>This <b>WILL NOT</b> be on the Final.</li>
+	<li>To use R and SQL together, you need to install your SQL Server instance in the Windows "Data Sources (ODBC)" program. 
+	The YouTube video is <a href="../SQL/Set-Up-ODBC.html" target="_blank">here</a>.</li>
+	<li>If you need to download R, <a href="https://cran.cnr.berkeley.edu/" target="_blank">here</a> is one of the mirror sites to download it.</li>
+	<li><a href="../SQL/R-ODBC-Script.R", target="_blank">R Script</a></li>
+	</ul>
+	</p>
+	
+	<br>
+	<h5><b>SQL and Excel</b></h5>
+	<p>
+	<ul>
+	<li>This <b>WILL NOT</b> be on the Final.</li>
+	<li>The YouTube video is <a href="../SQL/ODBC-Excel.html" target="_blank">here</a>.</li>
+	</ul>
+	</p>
+	
+	<br>
+	<h5><b>SQL and Tableau</b></h5>
+	<p>
+	<ul>
+	<li>This <b>WILL NOT</b> be on the Final.</li>
+	<li><a href="https://onlinehelp.tableau.com/current/pro/desktop/en-us/examples_otherdatabases.htm" target="_blank">Tableau Doc</a></li>
+	</ul>
+	</p>
+	
+	<br>
+	<h5><b>Remaining Items:</b></h5>
+	<ul>
+	<li>We do not meet next week!!!</li>
+	<li>In-class Assignment 5</li>
+	<li>Final</li>
+	<li>Enjoy the winter break!</li>
+	</ul>
+	</p>
+	
+	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>	
+
 </div>
-		
-<div class="docs-section">		
-	<h5>SQL Site Navigation</h5>
-	
-	<p><b>A.  SQL Server Setup</b></p>
-	<blockquote><ol>
-	<li>Setting Up SQL Server <a href = "../SQL/SQL_Setup.html" target="_blank"><b>on Local PC</b></a></li>
-	<p>This section is a step-by-step guide to installing SQL Server, setting up a local server instance, and
-	installing the AdventureWorks databases. This option is appropriate if you own a Windows PC.</p>
-	<li>Connecting to SQL Server on <a href = "../SQL/SQL-Setup-Alt.html" target="_blank"><b>UC PC</b></a></li>
-	<p>This section is a step-by-step guide to setting up SQL Server on a UC computer. This option is appropriate if
-	you are at a UC lab or connect to a Virtual Lab. This option will also work on your own PC.</p>
-	<li>UC Virtual Desktop AdventureWorks Setup <a href = "../SQL/Recover-AdventureWorks.html" target="_blank"><b>Step-by-Step Video</b></a></li>
-	<p>This is a video to install the AdventureWorks Database on a UC virtual desktop. This is the fastest and easiest
-	way I know so far.</p>
-	</ol></blockquote>
-	
-	<p><b>B.  <a href = "../SQL/SQL-Intro.html" target="_blank">Intro to SQL</a></b></p>
-	<blockquote><p>This section is a very high-level overview of SQL. This content is covered during Week 1.</p></blockquote>
-	
-	<p><b>C.  <a href = "../SQL/SQL-Single-Table-Queries.html" target="_blank">The SQL Query</a></b></p>
-	<blockquote><p>This section introduces the fundamentals of the SQL query. This content is covered during Week 2.</p></blockquote>
 
-	<p><b>D.  <a href = "../SQL/SQL-Data.html" target="_blank">SQL Data Types</a></b></p>
-	<blockquote><p>This section introduces the various data types in T-SQL, including number, character, and date types. This section also
-	introduces functions that are useful for working with data. This content is covered during Week 3.</p></blockquote>
-
-	<p><b>E.  <a href = "../SQL/SQL-Operators.html" target="_blank">SQL Operators</a></b></p>
-	<blockquote><p>This section introduces operators in T-SQL, including mathematic, comparison, and logic operators. This content is covered during Week 3.</p></blockquote>	
-	
-	<p><b>F.  <a href="https://mrrisley.github.io/SQL/Case-Expressions-Lecture.sql" target="_blank"><code>CASE</code> Expressions</a></b></p>
-	<blockquote><p>This SQL file teaches the basics of the <code>CASE</code> expression. This content is covered during Week 4.</p></blockquote>
-
-	<p><b>G.  <a href="https://mrrisley.github.io/SQL/Union-Lecture.sql" target="_blank"><code>UNION</code></a></b></p>
-	<blockquote><p>This SQL file teaches the basics of the <code>UNION</code> in T-SQL, which joins rows from two or more queries for the same
-	fields. This content is covered during Week 4.</p></blockquote>	
-
-	<p><b>H.  <a href="https://mrrisley.github.io/SQL/Joins-Lecture.sql" target="_blank"><code>JOIN</code></a></b></p>
-	<blockquote><p>This SQL file teaches the basics of the <code>JOIN</code> in T-SQL, which joins fields from two or more tables for the same
-	primary key (such as an account number). This content is covered during Week 4.</p></blockquote>		
-	
-</div>
-
-<!--
-<div class="docs-section" id="overview">
-	<h5>SQL Overview</h5>
-	<p>For analytics in the private sector, SQL is almost a universal requirement for data retrieval, manipulation,
-		cleaning, and segmentation. Corporations tend to rely heavily on Relational Databases, for which the SQL language
-		was designed. If you're familiar with R or SAS or any other statistics-based programming language, SQL will probably 
-		seem like a brand new language. At its core, SQL (Structured Query Language) involves <b>queries</b> of
-		the objects within databases. A query tells the program what it requires from a database and how to structure the results. 
-		Importantly, however, there are several procedural extensions to SQL, with PL/SQL (Oracle) and T-SQL (Microsoft) being 
-		the most popular. These extensions bring procedural elements to SQL, such as logic and loops. SQL is almost exclusively 
-		used with a procedural extension, which allows the user to customize the output through data definitions, etc.
-		This guide relies on the T-SQL extension.</p>
-</div>		
--->	
-	
-
-	<div class="docs-section" align="center">
-	<div align="center"><a href="https://github.com/MRRisley/SQL"><img src="../MRRisley/images/github_mark.png" alt="Github Icon with Link"></a></div>
-	<a href="../MRRisley/index.html"><h5>Back to MRRisley Home</h5></a>
-	</div>
-
-</div>
 </body>
 
-</html>
+</html> 
